@@ -4,6 +4,8 @@ date: "2019-03-17"
 draft: false
 path: "/blog/example-title"
 ---
+Hello, this is the excerpt delimeter
+<!-- excerpt -->
 # H1
 
 ## H2

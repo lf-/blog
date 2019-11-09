@@ -36,7 +36,7 @@ const MarkdownContent = styled.div`
     right: -0.1px;
     bottom: 0;
     transition: top 0.1s ease-in-out;
-    background-color: rgba(255, 250, 150, 0.8);
+    background-color: rgba(150, 203, 254, 0.8);
   }
 
   a:hover::after {
@@ -67,9 +67,8 @@ export const pageQuery = graphql`
   query($path: String!) {
     markdownRemark(frontmatter: { path: { eq: $path } }) {
       html
-      excerpt(pruneLength: 160)
       frontmatter {
-        date(formatString: "DD MMMM, YYYY")
+        date(formatString: "MMMM D, YYYY")
         path
         title
       }
