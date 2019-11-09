@@ -27,11 +27,13 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
+        excerpt: true,
+        excerpt_separator: '<!-- excerpt -->',
         plugins: [`gatsby-remark-reading-time`, {
           resolve: `gatsby-remark-prismjs`,
           options: {
             aliases:{sh: "bash", js:"javascript"},
-            showLineNumbers: true,
+            showLineNumbers: false,
           }
         }],
       },
