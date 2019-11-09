@@ -21,13 +21,11 @@ const ArticleDate = styled.h5`
 const MarkerHeader = styled.h3`
   display: inline;
   border-radius: 1em 0 1em 0;
-  margin-bottom: 10px;
 `
 
 const ReadingTime = styled.h5`
   display: inline;
-  color: #606060;
-  margin-bottom: 10px;
+  color: var(--textSubColor);
 `
 
 const IndexPage = ({ data }) => {

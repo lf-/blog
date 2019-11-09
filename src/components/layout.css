@@ -1,5 +1,5 @@
 code {
-  background-color: hsla(0, 0%, 0%, 0.04);
+  background-color: var(--codeBg);
 }
 
 body {
@@ -7,7 +7,25 @@ body {
   font-family: "Nunito", "Avenir", "Helvetica", "sans-serif";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bgColor);
 }
+
+body.light {
+  --bgColor: #ffffff;
+  --navColor: #222222cc;
+  --codeBg: #0000001a;
+  --textColor: #000;
+  --textSubColor: #606060;
+}
+
+body.dark {
+  --bgColor: #222222;
+  --navColor: #ddddddcc;
+  --codeBg: #0000001a;
+  --textColor: #bbb;
+  --textSubColor: #606060;
+}
+
 article,
 aside,
 details,
@@ -200,7 +218,7 @@ html {
   box-sizing: inherit;
 }
 body {
-  color: hsla(0, 0%, 0%, 0.8);
+  color: var(--textColor);
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;

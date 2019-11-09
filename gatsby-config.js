@@ -6,6 +6,7 @@ module.exports = {
     author: `@niklasmtj`,
   },
   plugins: [
+    `gatsby-plugin-dark-mode`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -32,7 +33,7 @@ module.exports = {
         plugins: [`gatsby-remark-reading-time`, {
           resolve: `gatsby-remark-prismjs`,
           options: {
-            aliases:{sh: "bash", js:"javascript"},
+            aliases: { sh: "bash", js: "javascript" },
             showLineNumbers: false,
           }
         }],

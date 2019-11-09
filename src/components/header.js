@@ -2,6 +2,7 @@ import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import PropTypes from "prop-types"
 import React from "react"
+import { DarkToggle } from "./darktoggle.js"
 
 const Content = styled.div`
   max-width: 860px;
@@ -9,8 +10,8 @@ const Content = styled.div`
   font-size: 1.2rem;
 `
 
-const NavLink = styled(Link)`
-  color: black;
+const NavItem = styled.li`
+  color: var(--navColor);
   margin-left: 15px;
   text-decoration: none;
   display: inline-block;
@@ -24,7 +25,7 @@ const NavLink = styled(Link)`
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: var(--navColor);
     transform-origin: bottom right;
     transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
   }
@@ -35,37 +36,12 @@ const NavLink = styled(Link)`
   }
 `
 
-const GitHubLink = styled.a`
-  color: black;
-  margin-left: 15px;
+const NavLink = styled.a`
+  color: var(--navColor);
   text-decoration: none;
-  display: inline-block;
-  position: relative;
-
-  ::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    transform-origin: bottom right;
-    transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
-  }
-
-  :hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
 `
 
-const HomeLink = styled(NavLink)`
-  margin-left: 0;
-`
-
-const SiteHeader = styled.header`
+const SiteHeader = styled.nav`
   background: transparent;
   display: flex;
   align-content: center;
@@ -75,13 +51,14 @@ const SiteHeader = styled.header`
 const Header = ({ siteTitle }) => (
   <SiteHeader>
     <Content>
-      <p>
-        <HomeLink to="/">{siteTitle}</HomeLink>
-        <NavLink to="/blog">Blog</NavLink>
-        <GitHubLink href="https://github.com/niklasmtj/gatsby-starter-julia">
+      <ul>
+        <NavItem><NavLink as={Link} to="/">{siteTitle}</NavLink></NavItem>
+        <NavItem><NavLink as={Link} to="/blog">Blog</NavLink></NavItem>
+        <NavItem><NavLink href="https://github.com/niklasmtj/gatsby-starter-julia">
           GitHub
-        </GitHubLink>
-      </p>
+        </NavLink></NavItem>
+        <NavItem><DarkToggle></DarkToggle></NavItem>
+      </ul>
     </Content>
   </SiteHeader>
 )
