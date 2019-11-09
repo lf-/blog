@@ -6,13 +6,14 @@ import { DarkToggle } from "./darktoggle.js"
 
 const Content = styled.div`
   max-width: 860px;
-  padding: 1rem 1.0875rem;
+  padding: 1rem 1rem;
   font-size: 1.2rem;
 `
 
 const NavItem = styled.li`
   color: var(--navColor);
-  margin-left: 15px;
+  margin-left: 7.5px;
+  margin-right: 7.5px;
   text-decoration: none;
   display: inline-block;
   position: relative;

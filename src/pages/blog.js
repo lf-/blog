@@ -15,7 +15,6 @@ const Content = styled.div`
 const ArticleDate = styled.h5`
   display: inline;
   color: #606060;
-  margin-bottom: 10px;
 `
 
 const MarkerHeader = styled.h3`
