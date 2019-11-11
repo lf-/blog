@@ -54,8 +54,7 @@ const Header = ({ siteTitle }) => (
     <Content>
       <ul>
         <NavItem><NavLink as={Link} to="/">{siteTitle}</NavLink></NavItem>
-        <NavItem><NavLink as={Link} to="/blog">Blog</NavLink></NavItem>
-        <NavItem><NavLink href="https://github.com/niklasmtj/gatsby-starter-julia">
+        <NavItem><NavLink href="https://github.com/lf-">
           GitHub
         </NavLink></NavItem>
         <NavItem><DarkToggle></DarkToggle></NavItem>

@@ -20,10 +20,6 @@ const Content = styled.div`
   padding-top: 0;
 `
 
-const GatsbyLink = styled.a`
-  margin-left: 5px;
-`
-
 const Footer = styled.footer`
   display: flex;
   justify-content: center;
@@ -46,9 +42,7 @@ const Layout = ({ children }) => (
         <Content>
           <main>{children}</main>
           <Footer>
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            <GatsbyLink href="https://www.gatsbyjs.org">Gatsby</GatsbyLink>
+            © {new Date().getFullYear()} lf, CC-BY-SA 4.0
           </Footer>
         </Content>
       </>

@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Julia Doe`,
-    subtitle: `software developer`,
-    description: `A minimal blog starter built with Gatsbyjs. The needed Gatsby files are included.`,
-    author: `@niklasmtj`,
+    title: `lfcode.ca`,
+    subtitle: `i break computers`,
+    description: `this is a blog of infosec-adjacent and engineering stuff`,
+    author: `@lf-`,
   },
   plugins: [
     `gatsby-plugin-dark-mode`,
