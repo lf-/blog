@@ -43,7 +43,9 @@
     "build": "gatsby build",
     "browse": "chromium --app=http://localhost:8000",
     "develop": "gatsby develop",
+    "deploy": "gatsby build; ./deploy.sh",
     "format": "prettier --write src/**/*.{js,jsx}",
+    "new-post": "node new-post.js",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
