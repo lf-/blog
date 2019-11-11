@@ -6,6 +6,9 @@ import styled from "@emotion/styled"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
+import Img from "gatsby-image"
+import { ImageFeature } from "../components/common-styles"
+
 const Content = styled.div`
   margin: 0 auto;
   max-width: 860px;
@@ -33,24 +36,30 @@ const IndexPage = ({ data }) => {
       <SEO title="Blog" />
       <Content>
         <h1>Blog</h1>
-        {data.allMarkdownRemark.edges.map(({ node }) => (
-          <div key={node.id}>
-            <Link
-              to={node.frontmatter.path}
-              css={css`
+        {data.allMarkdownRemark.edges.map(({ node }) => {
+
+          const featuredImage = node.frontmatter.featuredImage
+          return (
+            <div key={node.id}>
+              <Link
+                to={node.frontmatter.path}
+                css={css`
                 text-decoration: none;
                 color: inherit;
               `}
-            >
-              <MarkerHeader>{node.frontmatter.title} </MarkerHeader>
-              <div>
-                <ArticleDate>{node.frontmatter.date}</ArticleDate>
-                <ReadingTime> - {node.fields.readingTime.text}</ReadingTime>
-              </div>
-              <p>{node.excerpt}</p>
-            </Link>
-          </div>
-        ))}
+              >
+                <MarkerHeader>{node.frontmatter.title} </MarkerHeader>
+                <div>
+                  <ArticleDate>{node.frontmatter.date}</ArticleDate>
+                  <ReadingTime> - {node.fields.readingTime.text}</ReadingTime>
+                </div>
+                {featuredImage &&
+                  <Img css={ImageFeature} fluid={featuredImage.childImageSharp.fluid} />}
+                <p>{node.excerpt}</p>
+              </Link>
+            </div>
+          )
+        })}
       </Content>
     </Layout>
   )
@@ -77,6 +86,13 @@ export const query = graphql`
             title
             date(formatString: "MMMM D, YYYY")
             path
+            featuredImage {
+              childImageSharp {
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
           fields {
             slug

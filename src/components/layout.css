@@ -106,7 +106,7 @@ sup {
   top: -0.5em;
 }
 img {
-  border-style: none;
+  border-radius: 15px;
 }
 svg:not(:root) {
   overflow: hidden;

@@ -4,6 +4,9 @@ import styled from "@emotion/styled"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
+import Img from "gatsby-image"
+import { ImageFeature } from "../components/common-styles"
+
 const Content = styled.div`
   margin: 0 auto;
   max-width: 860px;
@@ -46,6 +49,7 @@ const MarkdownContent = styled.div`
 
 export default ({ data }) => {
   const post = data.markdownRemark
+  const featuredImage = post.frontmatter.featuredImage
   return (
     <Layout>
       <SEO
@@ -59,6 +63,10 @@ export default ({ data }) => {
             {post.frontmatter.date} - {post.fields.readingTime.text}
           </HeaderDate>
         }
+        {featuredImage &&
+          <Img css={ImageFeature} fluid={featuredImage.childImageSharp.fluid} />
+        }
+
         <MarkdownContent dangerouslySetInnerHTML={{ __html: post.html }} />
       </Content>
     </Layout>
@@ -74,6 +82,13 @@ export const pageQuery = graphql`
         isPage
         path
         title
+        featuredImage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
       fields {
         readingTime {
