@@ -47,8 +47,9 @@ exports.createPages = ({ graphql, actions }) => {
     result.data.allMarkdownRemark.edges
       .filter(({ node }) => !node.frontmatter.draft)
       .forEach(({ node }) => {
+        const path = node.frontmatter.path || `/blog/${node.fields.slug.replace(/\//g, '')}`;
         createPage({
-          path: node.frontmatter.path,
+          path,
           component: blogPostTemplate,
           slug: node.fields.slug,
           context: {},

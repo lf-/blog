@@ -1,3 +1,5 @@
+const toml = require('toml')
+
 module.exports = {
   siteMetadata: {
     title: `lfcode.ca`,
@@ -30,6 +32,11 @@ module.exports = {
       options: {
         excerpt: true,
         excerpt_separator: '<!-- excerpt -->',
+        engines: {
+          'toml': toml.parse.bind(toml),
+        },
+        language: 'toml',
+        delimiters: '+++',
         plugins: [
           `gatsby-remark-reading-time`,
           `gatsby-remark-images`,

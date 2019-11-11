@@ -1,10 +1,10 @@
----
-title: "About me"
-date: "2019-11-10"
-isPage: true
-draft: false
-path: "/about"
----
++++
+title = "About me"
+date = "2019-11-10"
+isPage = true
+draft = false
+path = "/about"
++++
 Hi!
 
 I'm a student who does a lot of interdisciplinary tech stuff. Presently I'm studying at UBC Vancouver as a first year with a focus on robotics stuff.
