@@ -1,6 +1,6 @@
 ---
 title: "About me"
-date: ""
+date: "2019-11-10"
 isPage: true
 draft: false
 path: "/about"
