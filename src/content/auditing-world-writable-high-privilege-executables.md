@@ -11,7 +11,7 @@ title = "Auditing world-writable high-privilege executables on Windows"
 
 +++
 
-I was reading [Matt Nelson's post on a permissions issue causing privilege escalation](https://posts.specterops.io/cve-2019-13142-razer-surround-1-1-63-0-eop-f18c52b8be0c) and thought "I have too much software installed, I wonder if any of it is vulnerable". So on to PowerShell! I developed all of this by interactive exploration using `Get-Member`, `Format-List *`, and `Get-Command`.
+I was reading [Matt Nelson's post on a permissions issue causing privilege escalation](https://posts.specterops.io/cve-2019-13142-razer-surround-1-1-63-0-eop-f18c52b8be0c) and thought "I have too much software installed, I wonder if any of it is vulnerable". <!-- excerpt --> So on to PowerShell! I developed all of this by interactive exploration using `Get-Member`, `Format-List *`, and `Get-Command`.
 
 At the end of this exploration, I did indeed find a vulnerable service, _however,_ it was because the application was installed in a world-writable parent directory due to my own carelessness (a situation I fixed). This finding leaves the open question of whether it is the job of the service's installer to set secure permissions on its install directory or just follow the permissions of the parent directory.
 

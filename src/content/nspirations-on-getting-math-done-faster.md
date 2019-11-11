@@ -10,7 +10,7 @@ title = "Nspirations on getting math done faster"
 
 +++
 
-I enjoy math so much that my primary goal is to get it done as quickly as possible. In more practical terms, the better I can get stuff done on my Nspire, potentially the higher score I can get on the AP exams.
+I enjoy math so much that my primary goal is to get it done as quickly as possible. In more practical terms, the better I can get stuff done on my Nspire, potentially the higher score I can get on the AP exams \[later note: it was successful\]. <!-- excerpt -->
 
 The Nspire is not *un*documented, just that the documentation is very well hidden. It's also not sorted by how often you might use something.
 

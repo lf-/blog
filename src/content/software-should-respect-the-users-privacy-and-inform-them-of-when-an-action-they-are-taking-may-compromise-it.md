@@ -7,12 +7,11 @@ draft = false
 path = "/blog/software-should-respect-the-users-privacy-and-inform-them-of-when-an-action-they-are-taking-may-compromise-it"
 tags = ["software", "software-politics"]
 title = "Software that respects users' privacy must inform them if they are going to compromise it"
+featuredImage = "../images/fusionleak.png"
 
 +++
 
-![fusionleak](../images/fusionleak.png)
-
-Above is a STEP file from Autodesk Fusion 360. It contains personally identifiable information by default: it leaks their Autodesk username (in my case, my full name!) and a file path on the local computer, which could also contain the user's name as well as any other information they might have put in it. In this case, it identifies where a non-scrubbed version of this particular file is found.
+Above is a STEP file from Autodesk Fusion 360. It contains personally identifiable information by default: it leaks their Autodesk username (in my case, my full name!) and a file path on the local computer, which could also contain the user's name as well as any other information they might have put in it. In this case, it identifies where a non-scrubbed version of this particular file is found. <!-- excerpt -->
 
 Fusion 360 does not tell you that this information is there. It does not display it in the interface either.
 

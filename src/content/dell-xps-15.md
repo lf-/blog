@@ -10,7 +10,7 @@ title = "Dell XPS 15: \"I can't understand why some people _still_ think ACPI is
 
 +++
 
-I got my new machine in the mail, an XPS 15 bought on one of the numerous sales which pretty much happen every couple of days, and while most of the hardware is amazing compared to my previous machine (a beat-up X220), there are some significant hardware issues that need to be worked around. Besides, of course, the fact that the keyboard and lack of trackpoint is objectively inferior to the previous machine.
+I got my new machine in the mail, an XPS 15 bought on one of the numerous sales which pretty much happen every couple of days, and while most of the hardware is amazing compared to my previous machine (a beat-up X220), there are some significant hardware issues that need to be worked around. Besides, of course, the fact that the keyboard and lack of trackpoint is objectively inferior to the previous machine. <!-- excerpt -->
 
 The first thing that many people may do after booting up a new machine on any operating system is to make sure they got what they paid for, and check detected hardware. So, naturally, I run `lspci`... and it hangs. I could change virtual console, but it said something about a watchdog catching a stalled CPU core. Fun! Off to Google, which states that it's the NVidia driver, specifically related to Optimus (which, by the way, [this video](https://youtu.be/MShbP3OpASA?t=48m13s) remains an excellent description of). So I blacklist it, and lspci seems to work fine. Next, I install X and all the other applications I want to use, and being a sensible Arch user, I read the Arch wiki on the hardware, which states that the dedicated graphics card will use a lot of power if it isn't turned off.
 

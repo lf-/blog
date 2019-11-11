@@ -11,6 +11,7 @@ title = "Meshmixer: Turn Off Smooth Display"
 +++
 
 The default display for meshes in Meshmixer is just a bad idea, especially for people who use it as an STL viewer for technical models.
+<!-- excerpt -->
 
 The setting responsible for this silliness is called "Mesh Normal Mode", which as we all know, should be completely obvious to anyone and everyone. Set that to "Face Normals" and it will display without making the model look like an amorphous blob. Alternately, hold spacebar and select the sphere that has vertices as in the picture below.
 

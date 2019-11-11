@@ -10,7 +10,7 @@ title = "Hyper-V Manager throws obscure errors if the target computer calls itse
 
 +++
 
-I started testing Server 2019 as a Hyper-V host a few days ago, but getting the GUI manager to connect was a bit challenging. This article will be about as much documentation for me to set this machine up again as it will be instructive.
+I started testing Server 2019 as a Hyper-V host a few days ago, but getting the GUI manager to connect was a bit challenging. This article will be about as much documentation for me to set this machine up again as it will be instructive. <!-- excerpt -->
 
 This machine is non domain joined.
 
@@ -22,7 +22,7 @@ Next, enable CredSSP with `Enable-WSManCredSSP -Role Server` and ensure that the
 
 Then, hopefully, the Hyper-V manager will just connect.
 
-+++-----------
+--------------
 
 Now, for the problem I had, and as many details as feasible so the next person Googling for it will find this post.
 

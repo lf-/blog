@@ -8,14 +8,14 @@ image = "/blog/content/images/2019/03/macropad-in-hand-small.jpg"
 path = "/blog/i-designed-and-built-a-mechanical-macropad-numpad"
 tags = ["electronics", "firmware", "mechanical"]
 title = "I designed and built a mechanical macropad/numpad!"
+featuredImage = "../images/macropad-in-hand-small-1.jpg"
 
 +++
-
-![macropad-in-hand-small-1](../images/macropad-in-hand-small-1.jpg)
 
 More images are available at the [imgur gallery documenting this project](https://imgur.com/a/aq9rSBs).
 
 I built a macropad based on an Arduino Leonardo 2 years ago to rectify my Unicomp Model M keyboard lacking media buttons (volume, media, and others). Around June 2018, I further developed that macropad by adding a 3D printed case for it:
+<!-- excerpt -->
 
 ![old mediapad](../images/aeJcTos.jpg)
 

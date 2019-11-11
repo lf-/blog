@@ -11,7 +11,7 @@ featuredImage = "../images/robotics-header-1.jpg"
 
 +++
 
-Skills Canada hosts a robotics competition for the secondary level every year with a different task each time. Competitors build remote controlled robots ahead of time which they bring with them to the competition. There is also an autonomous portion of the competition where we build robots on the competition floor using a set of parts for a challenge which is revealed on competition day.
+Skills Canada hosts a robotics competition for the secondary level every year with a different task each time. Competitors build remote controlled robots ahead of time which they bring with them to the competition. There is also an autonomous portion of the competition where we build robots on the competition floor using a set of parts for a challenge which is revealed on competition day.<!-- excerpt -->
 
 Our team achieved first place at the national competition, but we are not continuing to worlds as it is not a worlds qualifying year (though a former team from my school is!).
 
