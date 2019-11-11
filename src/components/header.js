@@ -57,6 +57,9 @@ const Header = ({ siteTitle }) => (
         <NavItem><NavLink href="https://github.com/lf-">
           GitHub
         </NavLink></NavItem>
+        <NavItem>
+          <NavLink as={Link} to="/about">About</NavLink>
+        </NavItem>
         <NavItem><DarkToggle></DarkToggle></NavItem>
       </ul>
     </Content>

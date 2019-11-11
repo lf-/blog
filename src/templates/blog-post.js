@@ -31,7 +31,7 @@ const MarkdownContent = styled.div`
     content: "";
     position: absolute;
     z-index: -1;
-    top: 70%;
+    top: 80%;
     left: -0.1px;
     right: -0.1px;
     bottom: 0;
@@ -54,9 +54,11 @@ export default ({ data }) => {
       />
       <Content>
         <MarkedHeader>{post.frontmatter.title}</MarkedHeader>
-        <HeaderDate>
-          {post.frontmatter.date} - {post.fields.readingTime.text}
-        </HeaderDate>
+        {!post.frontmatter.isPage &&
+          <HeaderDate>
+            {post.frontmatter.date} - {post.fields.readingTime.text}
+          </HeaderDate>
+        }
         <MarkdownContent dangerouslySetInnerHTML={{ __html: post.html }} />
       </Content>
     </Layout>
@@ -69,6 +71,7 @@ export const pageQuery = graphql`
       html
       frontmatter {
         date(formatString: "MMMM D, YYYY")
+        isPage
         path
         title
       }

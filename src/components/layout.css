@@ -11,11 +11,12 @@ body {
 }
 
 body.light {
-  --bgColor: #ffffff;
+  --bgColor: #ddd;
   --navColor: #222222cc;
   --codeBg: #0000001a;
   --textColor: #000;
   --textSubColor: #606060;
+  --linkColor: #000;
 }
 
 body.dark {
@@ -24,6 +25,7 @@ body.dark {
   --codeBg: #0000001a;
   --textColor: #bbb;
   --textSubColor: #606060;
+  --linkColor: #bbb;
 }
 
 article,
@@ -59,7 +61,7 @@ template {
 }
 a {
   font-style: normal;
-  color: hsla(0, 0%, 0%, 0.8);
+  color: var(--linkColor);
   -webkit-text-decoration-skip: objects;
 }
 a:active,
