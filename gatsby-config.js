@@ -30,13 +30,17 @@ module.exports = {
       options: {
         excerpt: true,
         excerpt_separator: '<!-- excerpt -->',
-        plugins: [`gatsby-remark-reading-time`, {
-          resolve: `gatsby-remark-prismjs`,
-          options: {
-            aliases: { sh: "bash", js: "javascript" },
-            showLineNumbers: false,
-          }
-        }],
+        plugins: [
+          `gatsby-remark-reading-time`,
+          `gatsby-remark-images`,
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              aliases: { sh: "bash", js: "javascript" },
+              showLineNumbers: false,
+            }
+          },
+        ],
       },
     },
     {
