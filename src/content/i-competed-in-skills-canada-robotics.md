@@ -7,10 +7,9 @@ draft = false
 path = "/blog/i-competed-in-skills-canada-robotics"
 tags = ["3dprinting", "electronics", "school"]
 title = "I competed in Skills Canada Robotics"
+featuredImage = "../images/robotics-header-1.jpg"
 
 +++
-
-{{< figure src="/blog/content/images/2019/06/robotics-header-1.jpg" >}}
 
 Skills Canada hosts a robotics competition for the secondary level every year with a different task each time. Competitors build remote controlled robots ahead of time which they bring with them to the competition. There is also an autonomous portion of the competition where we build robots on the competition floor using a set of parts for a challenge which is revealed on competition day.
 
@@ -49,7 +48,7 @@ Hot glue was used to attach the aiming device, which was generally successful, t
 ## Autonomous competition
 The Skills competition had a segment where competitors were to build robots that drive themselves through a maze and drop off plastic spools in a couple of positions on the court.
 
-![autonomous-robot](/blog/content/images/2019/06/autonomous-robot.jpg)
+![autonomous-robot](../images/autonomous-robot.jpg)
 
 We built the simplest and smallest possible frame we could think of, using staggered motors to make it narrower.
 

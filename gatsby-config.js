@@ -39,7 +39,12 @@ module.exports = {
         delimiters: '+++',
         plugins: [
           `gatsby-remark-reading-time`,
-          `gatsby-remark-images`,
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              useWebp: true,
+            }
+          },
           {
             resolve: `gatsby-remark-prismjs`,
             options: {

@@ -11,13 +11,13 @@ title = "I designed and built a mechanical macropad/numpad!"
 
 +++
 
-![macropad-in-hand-small-1](/blog/content/images/2019/03/macropad-in-hand-small-1.jpg)
+![macropad-in-hand-small-1](../images/macropad-in-hand-small-1.jpg)
 
 More images are available at the [imgur gallery documenting this project](https://imgur.com/a/aq9rSBs).
 
 I built a macropad based on an Arduino Leonardo 2 years ago to rectify my Unicomp Model M keyboard lacking media buttons (volume, media, and others). Around June 2018, I further developed that macropad by adding a 3D printed case for it:
 
-![old mediapad](/blog/content/images/2019/03/aeJcTos.jpg)
+![old mediapad](../images/aeJcTos.jpg)
 
 It served me well, but it was always frustrating to have keys not always register when pressed, and I wanted to get a Tenkeyless keyboard in order to get more mouse space and place my keyboard more ergonomically.
 
@@ -41,7 +41,7 @@ There are a few comments to be made about that guide: it isn't updated to KiCad 
 
 The fact that it suggests using custom libraries for crystals and other common components is a practice I cannot recommend based on what I noticed the instant I went digging through the KiCad library while debugging my micro not communicating over the programming interface (more on this later). That is, that there are multiple different pinouts of crystal, and that is abundantly clear based on the descriptions that are there. In contrast, the custom libraries for keyboard parts only have one type of crystal, which hides this error.
 
-![kicad-crystals](/blog/content/images/2019/03/kicad-crystals.png)
+![kicad-crystals](../images/kicad-crystals.png)
 
 While designing the schematic, I found [application note AVR042](http://ww1.microchip.com/downloads/en/appnotes/atmel-2521-avr-hardware-design-considerations_applicationnote_avr042.pdf) very helpful for explaining how to design the circuit for the reset circuit, appropriate decoupling and more.
 
@@ -51,9 +51,9 @@ For instance, while reviewing my schematic, some engineers on /r/AskElectronics 
 
 I chose JLCPCB for getting my PCBs manufactured because they were at least a third of the cost of the other options I looked at, and promised very impressive turnaround times for that price. In all, I spent C$17 on circuit boards, including shipping such that they took 8 days from order to landing on my doorstep. The PCBs turned out quite nice to my untrained eye:
 
-![macropad-front-small](/blog/content/images/2019/03/macropad-front-small.jpg)
+![macropad-front-small](../images/macropad-front-small.jpg)
 
-![macropad-back-small](/blog/content/images/2019/03/macropad-back-small.jpg)
+![macropad-back-small](../images/macropad-back-small.jpg)
 
 All components on the board were hand soldered with only slightly less flux than would be used by Louis Rossmann. This was my first project using SMD parts, and I can state unequivocally that 0806 sized parts are more than possible to solder by hand, and 0.8mm TQFP packages are not too bad either. I purchased a T18-S7 well tip in order to drag solder more effectively, which was largely successful, though might work even better with nicer flux.
 

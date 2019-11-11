@@ -30,13 +30,13 @@ The error that appeared was:
 
 > "Hyper-V encountered an error trying to access an object on computer 'LF-HV02' because the object was not found. The object might have been deleted. Verify that the Virtual Machine Management service on the computer is running".
 
-![Object not found error](/blog/content/images/2018/08/XH8q54D.png)
+![Object not found error](../images/XH8q54D.png)
 
 I then investigated the event logs on the target system. `In the WMI-Activity/Operational` log, I found an error with event ID 5858, and result code `0x80041002`:
 
 ```Id = {8FA5E5DB-34E0-0001-31E6-A58FE034D401}; ClientMachine = WIN-QKHK3OGNV1V; User = WIN-QKHK3OGNV1V\Administrator; ClientProcessId = 2532; Component = Unknown; Operation = Start IWbemServices::GetObject - root\virtualization\v2 : Msvm_VirtualSystemManagementService.CreationClassName="Msvm_VirtualSystemManagementService",Name="vmms",SystemCreationClassName="Msvm_ComputerSystem",SystemName="LF-HV02"; ResultCode = 0x80041002; PossibleCause = Unknown```
 
-![event5858](/blog/content/images/2018/08/event5858.png)
+![event5858](../images/event5858.png)
 
 When poking around at the mentioned CIM object with `Get-CimInstance -ClassName 'Msvm_VirtualSystemManagementService' -Namespace 'root\virtualization\v2'`, I found that the system name was some randomized name starting with `WIN-`. So, I renamed it to what it was supposed to be called with `Rename-Computer`, rebooted, and that fixed the issue.
 

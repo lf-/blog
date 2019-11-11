@@ -28,7 +28,7 @@ If there's anything you should take away from this post though, it's the cursor 
 ## Graph environment
 The most interesting thing about the graph environment is what I call the right click, which brings up the context menu for whatever is under the cursor (Ctrl-Menu). From this, you can access recent commands and other stuff:
 
-![Annotation-2019-04-16-172723](/blog/content/images/2019/04/Annotation-2019-04-16-172723.png)
+![Annotation-2019-04-16-172723](../images/Annotation-2019-04-16-172723.png)
 
 To do stuff precisely, for example when you are finding an integral between 0 and 2, you select the integral command, then type 0 on the keyboard, press Enter, then press 2, then Enter.
 

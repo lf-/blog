@@ -16,13 +16,13 @@ The setting responsible for this silliness is called "Mesh Normal Mode", which a
 
 ### Setting in the "Hotbox"
 
-![meshmixer-setting-fix](/blog/content/images/2018/02/meshmixer-setting-fix.png)
+![meshmixer-setting-fix](../images/meshmixer-setting-fix.png)
 
 ### Default
 
-![meshmixer-defaults](/blog/content/images/2018/02/meshmixer-default.png)
+![meshmixer-defaults](../images/meshmixer-default.png)
 
 ### Face Normals
 
-![meshmixer-fixed](/blog/content/images/2018/02/meshmixer-fixed.png)
+![meshmixer-fixed](../images/meshmixer-fixed.png)
 

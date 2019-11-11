@@ -14,5 +14,5 @@ Due to some weirdness and presumably thumbnail rendering, if a folder is set to 
 
 Anyway, to fix it, in the properties of the folder in question, under customize, change `Optimize this folder for:` to General Items and it will work much better.
 
-![slowfolder](/blog/content/images/2018/02/slowfolder.png)
+![slowfolder](../images/slowfolder.png)
 
