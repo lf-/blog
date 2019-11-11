@@ -38,6 +38,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
+    "browse": "chromium --app=http://localhost:8000",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
