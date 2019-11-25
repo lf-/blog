@@ -4,10 +4,11 @@ import styled from "@emotion/styled"
 import { useFlexSearch } from "react-use-flexsearch"
 
 import Layout from "../components/layout"
-import { Content } from "../components/common-styles"
+import { Content, MarkdownContentCSS } from "../components/common-styles"
 import SEO from "../components/seo"
 
 const RecipesTopicBox = styled.div`
+  ${MarkdownContentCSS};
   padding: 10px;
 
   background: var(--boxColor);

@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 import Img from "gatsby-image"
-import { ImageFeature } from "../components/common-styles"
+import { ImageFeature, MarkdownContent } from "../components/common-styles"
 
 const Content = styled.div`
   margin: 0 auto;
@@ -21,30 +21,6 @@ const MarkedHeader = styled.h1`
 const HeaderDate = styled.h3`
   margin-top: 10px;
   color: var(--textSubColor);
-`
-
-// STYLE THE TAGS INSIDE THE MARKDOWN HERE
-const MarkdownContent = styled.div`
-  a {
-    text-decoration: none;
-    position: relative;
-  }
-
-  a::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 80%;
-    left: -0.1px;
-    right: -0.1px;
-    bottom: 0;
-    transition: top 0.1s ease-in-out;
-    background-color: rgba(150, 203, 254, 0.8);
-  }
-
-  a:hover::after {
-    top: 0;
-  }
 `
 
 export default ({ data }) => {

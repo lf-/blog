@@ -55,12 +55,15 @@ const Header = ({ siteTitle }) => (
       <ul>
         <NavItem><NavLink as={Link} to="/">{siteTitle}</NavLink></NavItem>
         <NavItem>
+          <NavLink as={Link} to="/recipes">Recipes</NavLink>
+        </NavItem>
+        <NavItem>
           <NavLink as={Link} to="/about">About</NavLink>
         </NavItem>
         <NavItem><NavLink href="https://github.com/lf-">
           GitHub
         </NavLink></NavItem>
-        <NavItem><DarkToggle></DarkToggle></NavItem>
+        <NavItem><DarkToggle /></NavItem>
       </ul>
     </Content>
   </SiteHeader>
