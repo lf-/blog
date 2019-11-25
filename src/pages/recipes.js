@@ -7,7 +7,7 @@ import Layout from "../components/layout"
 import { Content } from "../components/common-styles"
 import SEO from "../components/seo"
 
-const NotesTopicBox = styled.div`
+const RecipesTopicBox = styled.div`
   padding: 10px;
 
   background: var(--boxColor);
@@ -15,6 +15,8 @@ const NotesTopicBox = styled.div`
   
   margin-left: -10px;
   margin-right: -10px;
+
+  margin-bottom: 2.5em;
 `
 
 const FilterBox = styled.div`
@@ -29,26 +31,26 @@ const values = obj => {
   return results
 }
 
-const NotesPage = ({ data }) => {
+const RecipesPage = ({ data }) => {
   const [query, setQuery] = useState(null)
-  const localSearchData = data.localSearchNotes
+  const localSearchData = data.localSearchRecipes
   const searchStore = useMemo(() => JSON.parse(localSearchData.store), [localSearchData])
   let results = useFlexSearch(query, localSearchData.index, searchStore)
 
-  const makeTopicsBox = result => (<NotesTopicBox key={result.id} dangerouslySetInnerHTML={{ __html: result.html }}></NotesTopicBox>)
+  const makeTopicsBox = result => (<RecipesTopicBox key={result.id} dangerouslySetInnerHTML={{ __html: result.html }}></RecipesTopicBox>)
   console.log(results)
 
   return (
     <Layout>
-      <SEO title="Notes" />
+      <SEO title="Recipes" />
       <div css={Content}>
-        <h1>Notes</h1>
+        <h1>Recipes</h1>
         <FilterBox>
           <label>Filter </label>
-          <input type="text" id="notesSearchBox" onChange={(ev) => setQuery(ev.target.value)} />
+          <input type="text" id="recipesSearchBox" onChange={(ev) => setQuery(ev.target.value)} />
         </FilterBox>
         {
-          // show all the notes when we don't have a filter
+          // show all the recipes when we don't have a filter
           (query ? results : values(searchStore)).map(makeTopicsBox)
         }
       </div>
@@ -56,11 +58,11 @@ const NotesPage = ({ data }) => {
   );
 }
 
-export default NotesPage
+export default RecipesPage
 
 export const query = graphql`
-query Notes {
-  localSearchNotes {
+query Recipes {
+  localSearchRecipes {
     index
     store
   }

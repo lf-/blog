@@ -20,8 +20,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `markdown-notes`,
-        path: `${__dirname}/src/notes`,
+        name: `markdown-recipes`,
+        path: `${__dirname}/src/recipes`,
       },
     },
     {
@@ -65,11 +65,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-local-search`,
       options: {
-        name: `notes`,
+        name: `recipes`,
         engine: `flexsearch`,
         query: `
         {
-          allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/.*src\\/notes\\/.*\\\\.md/"}}) {
+          allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/.*src\\/recipes\\/.*\\\\.md/"}}) {
             nodes {
               id
               html
