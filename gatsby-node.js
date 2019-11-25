@@ -28,7 +28,7 @@ exports.createPages = ({ graphql, actions }) => {
   // then once again for graphql. Result: for a \ in the regex we need \\\\.
   return graphql(`
     {
-      allMarkdownRemark {
+      allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/.*src\\/content\\/.*\\\\.md/"}}) {
         edges {
           node {
             frontmatter {
