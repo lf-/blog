@@ -24,6 +24,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   const blogPostTemplate = path.resolve(`src/templates/blog-post.js`)
+  // Yes, this escaping is cursed. Every backslash needs to be escaped once for JS
+  // then once again for graphql. Result: for a \ in the regex we need \\\\.
   return graphql(`
     {
       allMarkdownRemark {

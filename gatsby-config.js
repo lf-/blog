@@ -20,6 +20,13 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `markdown-notes`,
+        path: `${__dirname}/src/notes`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `images`,
         path: `${__dirname}/src/images`,
       },
@@ -56,20 +63,31 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-netlify`,
+      resolve: `gatsby-plugin-local-search`,
       options: {
-        headers: {
-          "/*": [
-            "Strict-Transport-Security: max-age=63072000"
-          ]
-        }, // option to add more headers. `Link` headers are transformed by the below criteria
-        allPageHeaders: [], // option to add headers for all pages. `Link` headers are transformed by the below criteria
-        mergeSecurityHeaders: true, // boolean to turn off the default security headers
-        mergeLinkHeaders: true, // boolean to turn off the default gatsby js headers
-        mergeCachingHeaders: true, // boolean to turn off the default caching headers
-        transformHeaders: (headers, path) => headers, // optional transform for manipulating headers under each path (e.g.sorting), etc.
-        generateMatchPathRewrites: true, // boolean to turn off automatic creation of redirect rules for client only paths
-      },
+        name: `notes`,
+        engine: `flexsearch`,
+        query: `
+        {
+          allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/.*src\\/notes\\/.*\\\\.md/"}}) {
+            nodes {
+              id
+              html
+              rawMarkdownBody
+            }
+          }
+        }
+        `,
+        ref: `id`,
+        store: [`id`, `html`],
+        index: [`body`],
+        normalizer: ({ data }) =>
+          data.allMarkdownRemark.nodes.map(node => ({
+            id: node.id,
+            body: node.rawMarkdownBody,
+            html: node.html,
+          }))
+      }
     },
     {
       resolve: `gatsby-plugin-manifest`,
