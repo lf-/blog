@@ -12,6 +12,7 @@ body {
 
 body.light {
   --bgColor: #ddd;
+  --boxColor: #aaa;
   --navColor: #222222cc;
   --codeBg: #0000001a;
   --textColor: #000;
@@ -21,11 +22,25 @@ body.light {
 
 body.dark {
   --bgColor: #222222;
+  --boxColor: #444444;
   --navColor: #ddddddcc;
   --codeBg: #0000001a;
   --textColor: #bbb;
   --textSubColor: #606060;
   --linkColor: #bbb;
+}
+
+input[type="text"] {
+  background-color: var(--boxColor);
+  color: var(--textColor);
+  border-radius: 6px;
+  outline: none;
+  border: none;
+  transition: all 0.07s ease-in-out;
+}
+
+input[type="text"]:focus {
+  box-shadow: 0 0 5px rgb(0, 112, 204);
 }
 
 article,

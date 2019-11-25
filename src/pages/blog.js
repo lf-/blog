@@ -4,16 +4,12 @@ import { css } from "@emotion/core"
 import styled from "@emotion/styled"
 
 import Layout from "../components/layout"
+import { Content } from "../components/common-styles"
 import SEO from "../components/seo"
 
 import Img from "gatsby-image"
 import { ImageFeature } from "../components/common-styles"
 
-const Content = styled.div`
-  margin: 0 auto;
-  max-width: 860px;
-  padding: 1.45rem 1.0875rem;
-`
 
 const ArticleDate = styled.h5`
   display: inline;
@@ -34,7 +30,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Blog" />
-      <Content>
+      <div css={Content}>
         <h1>Blog</h1>
         {data.allMarkdownRemark.edges.map(({ node }) => {
 
@@ -60,7 +56,7 @@ const IndexPage = ({ data }) => {
             </div>
           )
         })}
-      </Content>
+      </div>
     </Layout>
   )
 }
