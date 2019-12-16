@@ -15,7 +15,7 @@ export const MarkdownContentCSS = css`
     position: relative;
   }
 
-  a::after {
+  a:not(.gatsby-resp-image-link)::after {
     content: "";
     position: absolute;
     /* I don't know why we need this z-index modification */
