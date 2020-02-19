@@ -13,7 +13,7 @@ I do mechanical design for ThunderBots, a RoboCup Small Size League team buildin
 
 Other than robotics, I have experience in [electronics](blog/i-designed-and-built-a-mechanical-macropad-numpad/), programming in most mainstream languages, and Linux.
 
-To contact me, email `lf` at this domain (`LFCODE` dot ca).
+To contact me, email `jade` at this domain (`LFCODE` dot ca).
 
- Jade 
+Jade  
 they/them
