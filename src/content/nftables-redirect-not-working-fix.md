@@ -18,7 +18,9 @@ That's irrelevant however, because it does the same thing as the `REDIRECT` targ
 
 I, however, was a bit too dense to go looking through there and didn't read the wiki too well about redirection. I figured "hey, just need to put redirect at the start of the chain hooked into nat prerouting to enable it, then add a rule specifically redirecting the port". Later, I wondered why it wasn't working. After some tcpdump, copious quantities of counters *everywhere*, and netcat instances, I figured that out.
 
-Note that you need to allow the packets with `dport 11113` in your filter. Your filter table will *never* see any packets on port 113 unless something has gone horribly wrong, as all of them will have `dport` changed to 11113 in the `nat` table. If, for some reason, you want to drop these, you probably can do it in a chain with `type mangle hook prerouting priority 0`, but I have no idea why you would want to do that.
+Note that you need to allow the packets with `dport 11113` in your filter. Your filter table will *never* see any packets on port 113 unless something has gone horribly wrong, as all of them will have `dport` changed to 11113 in the `nat` table.
+
+If you'd like to block inbound traffic on `11113` that was not sent there by the redirect, you can use a mark: on your rule in `prerouting`, add `ct mark set 1` before the `redirect to` clause. This will set a mark on the redirected connections. Then you can only accept such marked connections with a `ct mark == 1` condition in the `filter` table.
 
 Here's the functional config:
 
