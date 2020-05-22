@@ -1,6 +1,6 @@
 +++
 author = "lf"
-categories = ["electronics", "firmware", "mechanical"]
+categories = ["electronics", "firmware", "mechanical", "keyboards", "qmk"]
 date = 2019-03-07T07:15:38Z
 description = ""
 draft = false
