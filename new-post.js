@@ -8,7 +8,7 @@ const toml = require('toml')
 function ISO8601(epochtime) {
     const date = new Date(epochtime)
     // we need to add one to the month because JS is dumb and counts 0-11
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${(date.getDate()).toString().padStart(2, '0')}`
 }
 
 const template = `\
