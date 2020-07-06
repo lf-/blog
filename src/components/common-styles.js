@@ -20,16 +20,17 @@ export const MarkdownContentCSS = css`
     position: absolute;
     /* I don't know why we need this z-index modification */
     /* z-index: -1; */
-    top: 80%;
+    top: 85%;
     left: -0.1px;
     right: -0.1px;
     bottom: 0;
     transition: top 0.1s ease-in-out;
-    background-color: rgba(150, 203, 254, 0.8);
+    background-color: rgba(187, 57, 228, 0.30);
+    border-radius: 0.3em;
   }
 
   a:hover::after {
-    top: 0;
+    top: 15%;
   }
 `
 
