@@ -72,8 +72,8 @@ below:
         ];
       };
   in {
-    client = nixpkgs.haskell.packages."${ghcjs}".Pkg1;
-    server = nixpkgs.haskell.packages."${compiler}".Pkg2Server;
+    client = nixpkgs.haskell.packages."${ghcjs}".Client;
+    server = nixpkgs.haskell.packages."${compiler}".Server;
   }
 ```
 
@@ -92,7 +92,8 @@ in an overlay:
       packages = super.haskell.packages // {
         "${compiler}" = super.haskell.packages."${compiler}".override {
           overrides = newpkgs: oldpkgs: {
-            Pkg1 = oldpkgs.callPackage ./Pkg1/Pkg1.nix { };
+            Common1 = oldpkgs.callPackage ./Common1/Common1.nix { };
+            # ...
           };
         };
       };
