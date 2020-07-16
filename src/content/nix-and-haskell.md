@@ -12,18 +12,19 @@ port.
 
 As part of my job working on an [open source logic
 textbook](https://github.com/lf-/Carnap/tree/nix), I picked up a Haskell
-codebase that was rather hard to build. This was making it harder for new
-contributors to get started, so I wanted to come up with a better build
-process. Further, because of legal requirements for public institutions in BC,
-I need to be able to host this software in Canada, for which it would be useful
-to be able to have CI and containerization (where it is directly useful to have
-an easy to set up build environment).
+codebase that was rather hard to build. This was problematic for new
+contributors getting started, so I wanted to come up with a better process.
+Further, because of legal requirements for public institutions in BC, I need to
+be able to host this software in Canada, for which it would be useful to be
+able to have CI and containerization (where it is directly useful to have an
+easy to set up build environment).
 
-The case brought by Nix is that it ensures that regardless of who is building
-the software, you can ensure the environment where this is done is exactly the
-same. It also makes it fairly easy to produce that environment. Finally, it has
-a package *and binaries* for GHCJS, which is ordinarily quite hard to build
-and set up.
+The value proposition of Nix is that it ensures that regardless of who is
+building the software or where it is being built, it is possible to ensure the
+environment where this is done is exactly the same. It also makes it fairly
+easy for users to set up that environment. Finally, it has a package *and
+binaries* for GHCJS, which provides extraordinary time and effort savings by
+avoiding the process of setting up dependencies for and compiling GHCJS.
 
 A lot of the documentation around Nix is styled like programming documentation
 rather than like packaging documentation, which makes it harder to figure out
@@ -38,7 +39,7 @@ reading other Nix package source code is that the best way of understanding
 library calls is to read the nixpkgs source. This is for a couple of reasons:
 for one, the user facing documentation seems to be less complete than the
 documentation comments on functions, and often it is useful to read the library
-function source.
+function source alongside the documentation.
 
 Usually I keep a tab in my neovim open to the nixpkgs source and use either
 [nix-doc](https://github.com/lf-/nix-doc) or
