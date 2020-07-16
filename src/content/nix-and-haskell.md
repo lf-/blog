@@ -154,7 +154,10 @@ let # import nixpkgs with overlays...
   }
 ```
 
-Then, you can use `nix-shell` with this attribute: `nix-shell -A ghcShell`
+Then, you can use `nix-shell` with this attribute: `nix-shell -A ghcShell`.
+
+Build with Cabal as usual (`cabal new-build all`), assuming you've built the
+GHCJS parts already (see below).
 
 ## GHCJS
 
