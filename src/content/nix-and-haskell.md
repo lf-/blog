@@ -3,7 +3,7 @@ date = "2020-07-16"
 draft = false
 path = "/blog/nix-and-haskell"
 tags = ["nix", "haskell"]
-title = "Using Nix to build Haskell"
+title = "Using Nix to build multi-package, full stack Haskell apps"
 featuredImage = ""
 +++
 
@@ -11,27 +11,27 @@ This post has been updated on June 16 following the finalization of the Nix
 port.
 
 As part of my job working on an [open source logic
-textbook](https://github.com/lf-/Carnap/tree/nix), I work on a Haskell codebase
-that is rather hard to build. This makes it harder for new contributors to get
-started, so I want to come up with a better build process. Further, because of
-legal requirements for public institutions in BC, I need to be able to host
-this software in Canada, for which it would be useful to be able to do CI and
-containerization (where it is directly useful to have an easy to set up build
-environment).
+textbook](https://github.com/lf-/Carnap/tree/nix), I picked up a Haskell
+codebase that was rather hard to build. This was making it harder for new
+contributors to get started, so I wanted to come up with a better build
+process. Further, because of legal requirements for public institutions in BC,
+I need to be able to host this software in Canada, for which it would be useful
+to be able to have CI and containerization (where it is directly useful to have
+an easy to set up build environment).
 
 The case brought by Nix is that it ensures that regardless of who is building
 the software, you can ensure the environment where this is done is exactly the
 same. It also makes it fairly easy to produce that environment. Finally, it has
-a package *and binaries* for ghcjs, which is ordinarily quite hard to build and
-set up.
+a package *and binaries* for GHCJS, which is ordinarily quite hard to build
+and set up.
 
 A lot of the documentation around Nix is styled like programming documentation
 rather than like packaging documentation, which makes it harder to figure out
 where to start with packaging. For example, it is not really clear what exactly
-the "correct" way to package a multiple package Haskell project is: are you
+the "correct" way to structure a multiple package Haskell project is: are you
 supposed to use overlays, overrides or other methods? I chose to use overlays
-based on the documentation's suggestions that they are the most advanced (and
-thus modern?) way of putting stuff into nixpkgs.
+based on the nixpkgs documentation's suggestions that they are the most
+advanced (and thus modern?) way of putting stuff into nixpkgs.
 
 The most significant tip I can give for doing Nix development and especially
 reading other Nix package source code is that the best way of understanding
