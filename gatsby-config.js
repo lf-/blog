@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: `lfcode.ca`,
     subtitle: `i break computers`,
-    description: `this is a blog of infosec-adjacent and engineering stuff`,
+    description: `i write stuff about computers sometimes`,
     author: `@lf-`,
   },
   plugins: [
