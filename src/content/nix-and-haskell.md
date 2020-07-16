@@ -11,7 +11,7 @@ This post has been updated on June 16 following the finalization of the Nix
 port.
 
 As part of my job working on an [open source logic
-textbook](https://github.com/lf-/Carnap/tree/nix), I picked up a Haskell
+textbook](https://carnap.io), I picked up a Haskell
 codebase that was rather hard to build. This was problematic for new
 contributors getting started, so I wanted to come up with a better process.
 Further, because of legal requirements for public institutions in BC, I need to
@@ -46,8 +46,11 @@ Usually I keep a tab in my neovim open to the nixpkgs source and use either
 [ripgrep](https://github.com/BurntSushi/ripgrep) to search for the function I
 am interested in.
 
-Here's a Cliff's notes on how all the pieces of the Haskell infrastructure I
-used fit together:
+-----
+
+This post summarizes the design decisions that went into implementing Nix for
+this existing full stack app. If you'd like to read the source, it is
+[available on GitHub](https://github.com/lf-/Carnap/tree/nix).
 
 I have a top-level `default.nix` that imports nixpkgs with overlays for each
 conceptual part of the application (this could all be done in one but it is
