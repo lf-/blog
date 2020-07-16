@@ -186,6 +186,26 @@ is used with
 to replace these links with paths in the Nix store for the browser JavaScript.
 A dependency on the built JavaScript is also added so it gets pulled in.
 
+## Custom dependencies
+
+Larger projects have a higher likelihood of having dependencies on Hackage
+packages that are not in nixpkgs, or absolutely need to be a specific version.
+It's easy to integrate these into the nix project using `cabal2nix`:
+
+```
+$ cabal2nix cabal://your-package-0.1.0.0 | tee nix/your-package.nix
+```
+
+These can then be integrated into the project by using
+[`lib.callPackage`](https://github.com/NixOS/nixpkgs/blob/b63f684/lib/customisation.nix#L96-L121).
+
+While it is also possible to use
+[`callCabal2nix`](https://github.com/NixOS/nixpkgs/blob/f5b6ea1/pkgs/development/haskell-modules/make-package-set.nix#L200-L216),
+I choose not to for reasons of initial build performance and reproducibility:
+`cabal2nix` is not fast, and inadvertent updates could happen when updates are
+made on the Hackage side, whereas checking in `cabal2nix` output ensures that
+exactly the same package is used.
+
 ## Final thoughts
 
 This project was very stimulating and challenging, and I learned a lot about
