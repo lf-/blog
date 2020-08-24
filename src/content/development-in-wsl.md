@@ -4,7 +4,6 @@ draft = false
 path = "/blog/development-in-wsl"
 tags = []
 title = "My software development setup in WSL 2"
-featuredImage = ""
 +++
 
 I'm writing this post because I work every day in WSL 2 on my main computer and
