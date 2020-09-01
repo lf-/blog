@@ -2,7 +2,7 @@
 date = "2020-08-23"
 draft = false
 path = "/blog/gctf-2020-writeonly"
-tags = []
+tags = ["ctf", "security"]
 title = "Google CTF 2020: writeonly"
 +++
 

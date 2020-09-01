@@ -2,7 +2,7 @@
 date = "2020-08-31"
 draft = false
 path = "/blog/debugging-template-haskell"
-tags = []
+tags = ["haskell"]
 title = "Debugging Template Haskell"
 +++
 
