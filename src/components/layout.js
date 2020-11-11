@@ -42,7 +42,7 @@ const Layout = ({ children }) => (
         <Content>
           <main>{children}</main>
           <Footer>
-            © {new Date().getFullYear()} lf, CC-BY-SA 4.0
+            © {new Date().getFullYear()} Jade F, CC-BY-SA 4.0
           </Footer>
         </Content>
       </>
