@@ -3,6 +3,7 @@ const toml = require('toml')
 module.exports = {
   siteMetadata: {
     title: `lfcode.ca`,
+    siteUrl: `https://lfcode.ca`,
     subtitle: `i break computers`,
     description: `i write stuff about computers sometimes`,
     author: `@lf-`,
@@ -87,6 +88,66 @@ module.exports = {
             body: node.rawMarkdownBody,
             html: node.html,
           }))
+      }
+    },
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMarkdownRemark.edges.map(edge => {
+                return Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  date: edge.node.frontmatter.date,
+                  url: site.siteMetadata.siteUrl + (edge.node.frontmatter.path || `/blog/${node.fields.slug.replace(/\//g, '')}`),
+                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
+                  custom_elements: [{'content:encoded': edge.node.html}],
+                })
+              })
+            },
+            output: '/rss.xml',
+            title: 'lfcode.ca',
+            query: `
+            {
+              allMarkdownRemark(filter: {
+                    fileAbsolutePath: {regex: "/.*src\\/content\\/.*\\\\.md/"},
+                    frontmatter: {
+                      isPage: {ne: true},
+                      draft: {ne: true}
+                    }
+                  }, sort: {order: DESC, fields: frontmatter___date}) {
+                edges {
+                  node {
+                    frontmatter {
+                      date
+                      title
+                      path
+                    }
+                    fields {
+                      slug
+                    }
+                    html
+                    excerpt
+                  }
+                }
+              }
+            }
+            `,
+          }
+        ]
       }
     },
     {
