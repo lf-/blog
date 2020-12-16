@@ -11,8 +11,8 @@ body {
 }
 
 body.light {
-  --bgColor: #ddd;
-  --boxColor: #aaa;
+  --bgColor: hsl(260, 100%, 89%);
+  --boxColor: hsl(0, 0%, 73%);
   --navColor: #222222cc;
   --codeBg: #0000001a;
   --textColor: #000;
@@ -21,7 +21,7 @@ body.light {
 }
 
 body.dark {
-  --bgColor: #222222;
+  --bgColor: #140024;
   --boxColor: #444444;
   --navColor: #ddddddcc;
   --codeBg: #0000001a;

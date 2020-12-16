@@ -46,8 +46,8 @@ const RecipesPage = ({ data }) => {
       <SEO title="Recipes" />
       <div css={Content}>
         <h1>Recipes</h1>
-        <FilterBox>
-          <label>Filter </label>
+        <FilterBox role="search">
+          <label htmlFor="recipesSearchBox">Filter Recipes </label>
           <input type="text" id="recipesSearchBox" onChange={(ev) => setQuery(ev.target.value)} />
         </FilterBox>
         {
