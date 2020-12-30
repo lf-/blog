@@ -4,7 +4,6 @@ draft = false
 path = "/blog/custom-targets-in-rust"
 tags = ["rust", "embedded"]
 title = "Custom targets in Rust"
-featuredImage = ""
 +++
 
 I'm going to try a new style of blog post for this one, more of a lab notebook
