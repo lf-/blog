@@ -73,3 +73,15 @@ rustc +nightly -Zunstable-options --print target-spec-json --target riscv64imac-
 RUST_TARGET_PATH=$(realpath ..) rustc --target riscv64imac-unknown-mukern-elf -Z unstable-options --print target-spec-json
 ```
 
+## ISSUE: debugging `cargo check` issues in rust-analyzer
+
+Put this incantation in a shell startup file such that it ends up in your RA
+process's environment (🙃). I wish it was configurable in VSCode somewhere.
+
+```
+export RA_LOG='rust_analyzer=info,salsa=error,flycheck=debug'
+```
+
+The RA logs have useful config information, the `salsa` logs are extremely
+spammy, and `flycheck` is the `cargo check` module. [Its docs are
+here](https://rust-analyzer.github.io/rust-analyzer/flycheck/index.html).
