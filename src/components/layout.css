@@ -10,6 +10,12 @@ body {
   background-color: var(--bgColor);
 }
 
+details summary {
+    display: list-item;
+    cursor: pointer;
+    font-weight: 700;
+}
+
 body.light {
   --bgColor: hsl(260, 100%, 89%);
   --boxColor: hsl(0, 0%, 73%);
