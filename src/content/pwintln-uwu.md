@@ -4,7 +4,6 @@ draft = false
 path = "/blog/pwintln-uwu"
 tags = ["rust", "linux"]
 title = "pwintln uwu and other fun with elves and dynamic linkers"
-featuredImage = ""
 +++
 
 I recently was [brutally

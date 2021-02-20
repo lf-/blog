@@ -4,7 +4,6 @@ draft = false
 path = "/blog/i-have-rss-now"
 tags = ["site"]
 title = "I have an RSS feed now"
-featuredImage = ""
 +++
 
 Hello!

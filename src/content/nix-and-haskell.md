@@ -4,7 +4,6 @@ draft = false
 path = "/blog/nix-and-haskell"
 tags = ["nix", "haskell"]
 title = "Using Nix to build multi-package, full stack Haskell apps"
-featuredImage = ""
 +++
 
 This post has been updated on June 16 following the finalization of the Nix
