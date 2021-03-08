@@ -1,0 +1,101 @@
+$text: #ddd;
+$bg: #540362;
+$lower1: darken($text, 18);
+
+@import 'fonts';
+
+@mixin reset-list {
+    margin: 0;
+    padding: 0;
+}
+
+@mixin horizontal-list {
+    @include reset-list;
+
+    li {
+        display: inline-block;
+        margin: {
+            left: -2px;
+            right: 2em;
+        }
+    }
+}
+
+@mixin flex-center {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+@mixin chonky-link-underline {
+    a {
+        border-bottom: solid 2px;
+        padding-bottom: 0px;
+        border-radius: 1px;
+    }
+}
+
+@mixin a-normal {
+    a {
+        color: $text;
+        text-decoration: none;
+    }
+}
+
+pre {
+    padding: 1em;
+    margin: .5em 0;
+    border-radius: .3em;
+    overflow: auto;
+    background-color: darken($bg, 5.0);
+
+    code {
+        font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
+    }
+}
+
+body {
+    font-family: 'Source Sans 3', 'sans-serif';
+    background-color: $bg;
+    color: $text;
+    font-size: 1.1em;
+}
+
+nav {
+    @include flex-center;
+
+    ul {
+        @include horizontal-list();
+        @include chonky-link-underline();
+        @include a-normal();
+        font-weight: 700;
+    }
+}
+
+article {
+    @include a-normal();
+    h2 {
+        margin-block-end: -0.2em;
+    }
+
+    // the spans below individual page titles on the home page
+    .detail span {
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: $lower1;
+    }
+
+    .detail span:first-child::after {
+        content: " - ";
+    }
+}
+
+footer {
+    @include flex-center;
+}
+
+main {
+    display: block;
+    margin: 0 auto;
+    max-width: 860px;
+}
