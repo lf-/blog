@@ -157,15 +157,15 @@ the PID since it would have been returned from fork and it is logged by the
 suspicious `printf`. As it turned out, it was indeed on the stack, so I wrote
 some evil inline assembly to get the value pointed to by `rbp - 0x4`.
 
-The next step was to construct the path. I was unsure of the availability of C
-string and `itoa`-like functions in the environment, given that there is no
-standard library present, so I just wrote some. An interesting optimization of
-this nicked from [later rewriting the exploit in
-Rust](https://lfcode.ca/blog/writeonly-in-rust) is that my `itoa` goes
-backwards, writing into a with a buffer containing extra slashes that will
-otherwise be ignored by the OS.  This cut my executable size about in half by
-not having to reverse the string or perform string copies as one would have to
-do in a normal `itoa`.
+The next step was to construct the path. I was unsure of the availability of
+C string and `itoa`-like functions in the environment, given that there is no
+standard library present, so I just wrote some. An interesting optimization
+of this nicked from [later rewriting the exploit in
+Rust](/blog/writeonly-in-rust) is that my `itoa` goes backwards, writing into
+a with a buffer containing extra slashes that will otherwise be ignored by
+the OS. This cut my executable size about in half by not having to reverse
+the string or perform string copies as one would have to do in a normal
+`itoa`.
 
 
 ```c

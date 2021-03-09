@@ -22,7 +22,7 @@ place for Saskatchewan.
 Other than robotics, I am most interested in Rust and embedded systems,
 especially the security thereof.
 
-To contact me, email `jade` at this domain (`LFCODE` dot ca).
+To contact me, email `jade` at this domain (jade dot fyi).
 
 Jade  
 she/they

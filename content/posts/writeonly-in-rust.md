@@ -6,11 +6,11 @@ tags = ["ctf", "rust", "osdev"]
 title = "Writing shellcode in Rust"
 +++
 
-In my [Google CTF entry for `writeonly` this year](https://lfcode.ca/blog/gctf-2020-writeonly),
+In my [Google CTF entry for `writeonly` this year](/blog/gctf-2020-writeonly),
 I wrote my first stage shellcode in C, which was somewhat novel in and of
-itself, as it seemed like few people were willing to brave linker scripts to be
-able to write shellcode in C. My hubris does not stop at C, however, and the
-crab language seemed well suited for a port.
+itself, as it seemed like few people were willing to brave linker scripts to
+be able to write shellcode in C. My hubris does not stop at C, however, and
+the crab language seemed well suited for a port.
 
 [Source code here](https://github.com/lf-/ctf/tree/main/writeonly.rs)
 
