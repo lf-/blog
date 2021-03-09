@@ -11,9 +11,8 @@ title = "jade's website"
 description = "computers i guess"
 
 [markdown]
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
 highlight_code = true
+extra_syntaxes = ["syntax"]
 
 [extra]
 # Put all your custom variables here
