@@ -9,7 +9,7 @@ title = "I have an RSS feed now"
 Hello!
 
 The full content on this site is available by RSS at
-https://lfcode.ca/rss.xml. I can make no promises as to how fabulously RSS
+<https://jade.fyi/rss.xml>. I can make no promises as to how fabulously RSS
 readers will render the full post contents without some kind of styling, but
 they are included.
 
