@@ -3,14 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ config.description }}">
 
-    <title>
-        {{ config.title }}
-    </title>
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="{{ get_url(path='icon.png') | safe }}" />
 
-    <link type="text/css" rel="stylesheet" href="{{ get_url(path="css/normalize.css", cachebust=true) | safe }}">
-    <link type="text/css" rel="stylesheet" href="{{ get_url(path="/main.css", cachebust=true) | safe }}">
+    <meta name="theme-color" content="#540362" />
+    <!-- <link rel="icon" href="{{ get_url(path='icon.png') | safe }}"> -->
+    <link rel="alternate" href="/rss.xml">
+
+    {% block pagemeta %}
+    <!-- <meta name="description" content="{{ config.description }}"> -->
+    <meta property="og:description" content="{{ config.description }}" />
+
+    <title>{{ config.title }}</title>
+    <meta property="og:title" content="{{ config.title }}" />
+    <meta property="og:url" content="{{ current_url }}" />
+    {% endblock pagemeta %}
+
+    <link type="text/css" rel="stylesheet" href="{{ get_url(path='css/normalize.css', cachebust=true) | safe }}">
+    <link type="text/css" rel="stylesheet" href="{{ get_url(path='/main.css', cachebust=true) | safe }}">
 </head>
 <body>
     <header>

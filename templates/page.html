@@ -1,5 +1,20 @@
 {% extends "base.html" %}
 
+{% block pagemeta %}
+
+<title>{{ page.title }} - {{ config.title }}</title>
+<meta property="og:title" content="{{ page.title }}" />
+<meta property="og:url" content="{{ page.permalink }}" />
+
+{% if page.description %}
+<meta name="description">{{ page.description }}</meta>
+<meta property="og:description" content="{{ page.description }}" />
+{% else %}
+<meta property="og:description" content="{{ config.description }}" />
+{% endif %}
+
+{% endblock pagemeta %}
+
 {% block content %}
 <header class="page-header">
 <h1>{{ page.title }}</h1>

@@ -1,5 +1,6 @@
 $text: #ddd;
 $bg: #540362;
+$link: #f778e3;
 $lowerbg1: darken($bg, 5);
 $higherbg1: lighten($bg, 10);
 $lower1: darken($text, 18);
@@ -62,7 +63,7 @@ body {
 }
 
 a {
-    color: #f778e3;
+    color: $link;
     text-decoration: none;
 }
 
