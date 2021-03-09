@@ -1,24 +1,18 @@
 $text: #ddd;
 $bg: #540362;
+$lowerbg1: darken($bg, 5);
+$higherbg1: lighten($bg, 10);
 $lower1: darken($text, 18);
+$lower2: darken($text, 30);
 
 @import 'fonts';
 
 @mixin reset-list {
-    margin: 0;
-    padding: 0;
-}
-
-@mixin horizontal-list {
-    @include reset-list;
-
     li {
         display: inline-block;
-        margin: {
-            left: -2px;
-            right: 2em;
-        }
     }
+    margin: 0;
+    padding: 0;
 }
 
 @mixin flex-center {
@@ -27,16 +21,16 @@ $lower1: darken($text, 18);
     justify-content: center;
 }
 
-@mixin chonky-link-underline {
-    a {
-        border-bottom: solid 2px;
+@mixin chonky-link-underline($elType: "a", $thickness: 2px) {
+    #{$elType} {
+        border-bottom: solid $thickness;
         padding-bottom: 0px;
         border-radius: 1px;
     }
 }
 
-@mixin a-normal {
-    a {
+@mixin a-normal($class: "") {
+    a#{$class} {
         color: $text;
         text-decoration: none;
     }
@@ -47,7 +41,7 @@ pre {
     margin: .5em 0;
     border-radius: .3em;
     overflow: auto;
-    background-color: darken($bg, 5.0);
+    background-color: $lowerbg1;
 
     code {
         font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
@@ -58,31 +52,98 @@ body {
     font-family: 'Source Sans 3', 'sans-serif';
     background-color: $bg;
     color: $text;
-    font-size: 1.1em;
+    font-size: 1.1rem;
+    line-height: 1.35;
+
+    margin: {
+        left: 0.75rem;
+        right: 0.75rem;
+    }
 }
 
-nav {
+a {
+    color: #f778e3;
+    text-decoration: none;
+}
+
+// navigation between pages at the end of articles
+nav.article-nav {
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+
+    .disabled-link {
+        color: $lower2;
+        cursor: default;
+    }
+
+    .nav-label {
+        color: $lower1;
+        font-size: 1rem;
+        user-select: none;
+    }
+
+    .older {
+        text-align: right;
+    }
+
+    ul {
+        @include reset-list();
+        @include chonky-link-underline($thickness: 1px);
+        @include chonky-link-underline($elType: ".disabled-link", $thickness: 1px);
+        @include a-normal();
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.4rem;
+        font-weight: 400;
+    }
+}
+
+// navigation at the top of the page
+nav.main-nav {
     @include flex-center;
 
     ul {
-        @include horizontal-list();
+        @include reset-list();
         @include chonky-link-underline();
         @include a-normal();
+        font-size: 1.4rem;
         font-weight: 700;
+
+        li {
+            margin: {
+                left: -2px;
+                right: 2rem;
+                bottom: .25rem;
+            }
+        }
+    }
+
+    margin: {
+        bottom: 2rem;
+        top: 2rem;
     }
 }
 
-article {
-    @include a-normal();
-    h2 {
-        margin-block-end: -0.2em;
+header.page-header {
+    margin: {
+        bottom: 1em;
     }
+}
 
-    // the spans below individual page titles on the home page
+main {
+    // the details below individual page titles on the home page
     .detail span {
         font-weight: 600;
         font-size: 0.8rem;
         color: $lower1;
+    }
+
+    display: block;
+    margin: 0 auto;
+    max-width: 860px;
+    
+    .detail.page-detail span {
+        font-size: 1rem;
     }
 
     .detail span:first-child::after {
@@ -90,12 +151,56 @@ article {
     }
 }
 
+article.homepage-article {
+    @include a-normal($class: ".homepage-link");
+}
+
 footer {
     @include flex-center;
 }
 
-main {
-    display: block;
-    margin: 0 auto;
-    max-width: 860px;
+// stuff on pages
+
+:not(pre) > code {
+    // add background with rounded corners
+    background: $lowerbg1;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+
+    // wrap words instead of causing scrolling
+    word-wrap: break-word;
+}
+
+img {
+    // make the alt text extremely obnoxious and harder to miss if the image
+    // is missing
+    font-size: 3rem;
+    color: #0f0;
+}
+
+div.image {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    img {
+        border-radius: .3rem;
+    }
+}
+
+blockquote {
+    border-left: solid $higherbg1;
+    border-left-width: 0.5rem;
+    padding-left: 1rem;
+    margin-left: 1.5rem;
+}
+
+/* headings */
+
+h1 {
+    line-height: 1.10;
+}
+
+h1, h2 {
+    margin-block-end: 0.1rem;
 }

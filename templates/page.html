@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-header">
+<h1>{{ page.title }}</h1>
+
+{% if not page.extra.isPage %}
+<div class="detail page-detail">
+    <span>{{ page.date | date(format=config.extra.dtformat) }}</span>
+    <span>{{ page.reading_time }} minute read</span>
+</div>
+{% endif %}
+</header>
+
+{{ page.content | safe }}
+
+{% if config.extra.debug %}
+    <pre><code>{{ __tera_context | escape | safe }}</code></pre>
+{% endif %}
+
+{# back/forward buttons #}
+{% if not page.extra.isPage %}
+<nav class="article-nav">
+    <ul>
+        <li>
+            <div id="newer-post" class="nav-label">Newer post</div>
+        {% if page.later %}
+            <a href="{{ page.later.permalink }}"
+                aria-labelledby="newer-post">← {{ page.later.title }}</a>
+        {% else %}
+            <span class="disabled-link">←</span>
+        {% endif %}
+        </li>{#
+
+        #}<li class="older">
+            <div id="older-post" class="nav-label">Older post</div>
+        {% if page.earlier %}
+            <a href="{{ page.earlier.permalink }}"
+                aria-labelledby="older-post">{{ page.earlier.title }} →</a>
+        {% else %}
+            <span class="disabled-link">←</span>
+        {% endif %}
+        </li>
+    </ul>
+</nav>
+{% endif %}
+
+
+{% endblock content %}

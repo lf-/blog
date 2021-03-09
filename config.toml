@@ -1,11 +1,11 @@
-# The URL the site will be built for
-base_url = "https://lfcode.ca"
+base_url = "https://jade.fyi"
 
-# Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
 
-# Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
+
+feed_filename = "rss.xml"
+generate_feed = true
 
 title = "jade's website"
 description = "computers i guess"
@@ -19,3 +19,4 @@ highlight_code = true
 # Put all your custom variables here
 copyright = "(c) 2021 jade CC-BY-SA"
 dtformat = "%B %d, %Y"
+debug = false

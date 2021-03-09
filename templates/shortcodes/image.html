@@ -1,0 +1,20 @@
+{% set name_sanitized = name | replace(from=".", to="-") | replace(from="/", to="-") %}
+{% set image_id = "image" ~ name_sanitized %}
+{% set alt = alt | default(value=body) %}
+{% set height = height | default(value=600) %}
+<div class="image">
+    <a href="{{ get_url(path="images/" ~ name) }}">
+    <img src="{{ resize_image(path="../static/images/" ~ name, width=800, height=height, op="fit") }}"
+        alt="{{ alt }}"
+        title="{{ alt }}"
+    {% if label %}
+        aria-describedby="{{ image_id }}"
+    {% endif %}
+    >
+    </a>
+    {% if label %}
+    <span class="image-label" id="{{ image_id }}">
+        {{ label }}
+    </span>
+    {% endif %}
+</div>

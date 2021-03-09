@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ config.description }}">
+
+    <title>
+        {{ config.title }}
+    </title>
+
+    <link type="text/css" rel="stylesheet" href="{{ get_url(path="css/normalize.css", cachebust=true) | safe }}">
+    <link type="text/css" rel="stylesheet" href="{{ get_url(path="/main.css", cachebust=true) | safe }}">
+</head>
+<body>
+    <header>
+        {# linear row of page links #}
+        <nav class="main-nav">
+            <ul>
+                <li>
+                    <a href="/">{{ config.title }}</a>
+                </li>{#
+                #}<li>
+                    <a href="/about">About</a>
+                </li>{#
+                #}<li>
+                    <a href="https://github.com/lf-">GitHub</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main role="main">
+        {% block content %}
+        <h1 style="color: #f00">You should not see this.</h1>
+        {% endblock content %}
+    </main>
+
+    <footer>
+        <p>{{ config.extra.copyright }}</p>
+    </footer>
+</body>
+</html>

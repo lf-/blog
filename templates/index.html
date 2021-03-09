@@ -1,47 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    <title>
-        {{ config.title }}
-    </title>
+{% block content %}
+{% for page in section.pages %}
+    {% if page.extra.isPage %}
+    {% continue %}
+    {% endif %}
+    <article class="homepage-article">
+        <a class="homepage-link" href="{{ page.permalink }}"><h2>{{ page.title }}</h2></a>
+        <div class="detail">
+            <span>{{ page.date | date(format=config.extra.dtformat) }}</span>
+            <span>{{ page.reading_time }} minute read</span>
+        </div>
+    </article>
+{% endfor %}
 
-    <link type="text/css" rel="stylesheet" href="{{ get_url(path="/main.css", cachebust=true) | safe }}">
-</head>
-<body>
-    <header>
-        {# linear row of page links #}
-        <nav class="main-nav">
-            <ul role="navigation">
-                <li>
-                    <a href="/">{{ config.title }}</a>
-                </li>{#
-                #}<li>
-                    <a href="/about">About</a>
-                </li>{#
-                #}<li>
-                    <a href="https://github.com/lf-">GitHub</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <main role="main">
-        {% for page in section.pages %}
-        <article>
-            <a href="{{ page.permalink }}"><h2>{{ page.title }}</h2></a>
-            <div class="detail">
-                <span>{{ page.date | date(format=config.extra.dtformat) }}</span>
-                <span>{{ page.reading_time }} minute read</span>
-            </div>
-        </article>
-        {% endfor %}
-        <pre><code>{{ __tera_context | escape | safe }}</code></pre>
-    </main>
-
-    <footer>
-        <p>{{ config.extra.copyright }}</p>
-    </footer>
-</body>
-</html>
+{% if config.extra.debug %}
+    <pre><code>{{ __tera_context | escape | safe }}</code></pre>
+{% endif %}
+{% endblock content %}

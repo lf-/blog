@@ -1,1 +1,3 @@
 public/
+.deploy_config
+static/processed_images
