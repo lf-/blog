@@ -87,6 +87,11 @@ nav.article-nav {
         text-align: right;
     }
 
+    // force there to be some space between the nav directions
+    ul li {
+        max-width: 40vw;
+    }
+
     ul {
         @include reset-list();
         @include chonky-link-underline($thickness: 1px);
@@ -177,6 +182,9 @@ img {
     // is missing
     font-size: 3rem;
     color: #0f0;
+
+    // stop images from overflowing
+    width: 100%;
 }
 
 div.image {
