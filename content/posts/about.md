@@ -16,7 +16,7 @@ I have done mechanical design for ThunderBots, a RoboCup Small Size League team
 building soccer-playing robots. Prior to this, I was on a 4 person team
 participating in Skills Canada Robotics, and in my last year of high school, we
 had the opportunity to [go to Nationals in
-Halifax](blog/i-competed-in-skills-canada-robotics), where we achieved first
+Halifax](/blog/i-competed-in-skills-canada-robotics), where we achieved first
 place for Saskatchewan.
 
 Other than robotics, I am most interested in Rust and embedded systems,
