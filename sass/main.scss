@@ -49,11 +49,14 @@ pre {
     }
 }
 
+html {
+    font-size: 18px;
+}
+
 body {
     font-family: 'Source Sans 3', 'sans-serif';
     background-color: $bg;
     color: $text;
-    font-size: 1.1rem;
     line-height: 1.35;
 
     margin: {
@@ -177,6 +180,21 @@ footer {
     word-wrap: break-word;
 }
 
+code {
+    font-size: 0.9em;
+}
+
+summary {
+    margin-left: 2em;
+    font-weight: 800;
+    font-size: 1.1em;
+}
+
+details {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
 img {
     // make the alt text extremely obnoxious and harder to miss if the image
     // is missing
@@ -202,6 +220,25 @@ blockquote {
     border-left-width: 0.5rem;
     padding-left: 1rem;
     margin-left: 1.5rem;
+}
+
+hr {
+    margin: {
+        top: 3rem;
+        bottom: 3rem;
+    }
+}
+
+.homepage-article h2 {
+    margin: {
+        top: 2rem;
+    }
+}
+
+h2, :not(header) > h1 {
+    margin: {
+        top: 3rem;
+    }
 }
 
 /* headings */

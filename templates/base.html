@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" vocab="https://schema.org/">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
 
     <title>{{ config.title }}</title>
     <meta property="og:title" content="{{ config.title }}" />
-    <meta property="og:url" content="{{ current_url }}" />
+    <meta property="og:url" content="{{ current_url | safe }}" />
     {% endblock pagemeta %}
 
     <link type="text/css" rel="stylesheet" href="{{ get_url(path='css/normalize.css', cachebust=true) | safe }}">

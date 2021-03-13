@@ -4,7 +4,7 @@
 
 <title>{{ page.title }} - {{ config.title }}</title>
 <meta property="og:title" content="{{ page.title }}" />
-<meta property="og:url" content="{{ page.permalink }}" />
+<meta property="og:url" content="{{ page.permalink | safe }}" />
 
 {% if page.description %}
 <meta name="description">{{ page.description }}</meta>
@@ -16,12 +16,15 @@
 {% endblock pagemeta %}
 
 {% block content %}
+<div class="post" typeof="BlogPosting">
 <header class="page-header">
-<h1>{{ page.title }}</h1>
+<h1 property="headline">{{ page.title }}</h1>
 
 {% if not page.extra.isPage %}
 <div class="detail page-detail">
-    <span>{{ page.date | date(format=config.extra.dtformat) }}</span>
+    <span property="datePublished"
+        content="{{ page.date | date }}"
+        >{{ page.date | date(format=config.extra.dtformat) }}</span>
     <span>{{ page.reading_time }} minute read</span>
 </div>
 {% endif %}
@@ -29,7 +32,7 @@
 
 {{ page.content | safe }}
 
-{% if config.extra.debug %}
+{% if config.extra.debug and config.mode == "Serve" %}
     <pre><code>{{ __tera_context | escape | safe }}</code></pre>
 {% endif %}
 
@@ -40,7 +43,7 @@
         <li>
             <div id="newer-post" class="nav-label">Newer post</div>
         {% if page.later %}
-            <a href="{{ page.later.permalink }}"
+            <a href="{{ page.later.permalink | safe }}"
                 aria-labelledby="newer-post">← {{ page.later.title }}</a>
         {% else %}
             <span class="disabled-link">←</span>
@@ -50,7 +53,7 @@
         #}<li class="older">
             <div id="older-post" class="nav-label">Older post</div>
         {% if page.earlier %}
-            <a href="{{ page.earlier.permalink }}"
+            <a href="{{ page.earlier.permalink | safe }}"
                 aria-labelledby="older-post">{{ page.earlier.title }} →</a>
         {% else %}
             <span class="disabled-link">←</span>
@@ -60,5 +63,5 @@
 </nav>
 {% endif %}
 
-
+</div>
 {% endblock content %}

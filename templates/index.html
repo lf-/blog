@@ -5,16 +5,20 @@
     {% if page.extra.isPage %}
     {% continue %}
     {% endif %}
-    <article class="homepage-article">
-        <a class="homepage-link" href="{{ page.permalink }}"><h2>{{ page.title }}</h2></a>
+    <article class="homepage-article" typeof="BlogPosting" resource="{{ page.permalink | safe }}">
+        <a class="homepage-link" href="{{ page.permalink | safe }}">
+            <h2 property="headline">{{ page.title }}</h2>
+        </a>
         <div class="detail">
-            <span>{{ page.date | date(format=config.extra.dtformat) }}</span>
+            <span property="datePublished"
+                content="{{ page.date | date}}"
+                >{{ page.date | date(format=config.extra.dtformat) }}</span>
             <span>{{ page.reading_time }} minute read</span>
         </div>
     </article>
 {% endfor %}
 
-{% if config.extra.debug %}
+{% if config.extra.debug and config.mode == "Serve" %}
     <pre><code>{{ __tera_context | escape | safe }}</code></pre>
 {% endif %}
 {% endblock content %}
