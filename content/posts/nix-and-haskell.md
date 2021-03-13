@@ -6,17 +6,14 @@ tags = ["nix", "haskell"]
 title = "Using Nix to build multi-package, full stack Haskell apps"
 +++
 
-This post has been updated on June 16 following the finalization of the Nix
-port.
+**UPDATE**: March 13 2021 - rewrote a fair amount of the post
 
 As part of my job working on an [open source logic
 textbook](https://carnap.io), I picked up a Haskell
 codebase that was rather hard to build. This was problematic for new
 contributors getting started, so I wanted to come up with a better process.
-Further, because of legal requirements for public institutions in BC, I need to
-be able to host this software in Canada, for which it would be useful to be
-able to have CI and containerization (where it is directly useful to have an
-easy to set up build environment).
+Further, I was interested in this simplification allowing continuous
+integration, packaging, and other useful process improvements.
 
 The value proposition of Nix is that it ensures that regardless of who is
 building the software or where it is being built, it is possible to ensure the
@@ -40,31 +37,33 @@ for one, the user facing documentation seems to be less complete than the
 documentation comments on functions, and often it is useful to read the library
 function source alongside the documentation.
 
-Usually I keep a tab in my neovim open to the nixpkgs source and use either
-[nix-doc](https://github.com/lf-/nix-doc) or
-[ripgrep](https://github.com/BurntSushi/ripgrep) to search for the function I
-am interested in.
+I recommend having a terminal with a `nix repl` and the
+[nix-doc](https://github.com/lf-/nix-doc) plugin and an editor with a
+checkout of the `nixpkgs` source code open while working on Nix stuff.
 
------
+# Implementation
 
 This post summarizes the design decisions that went into implementing Nix for
 this existing full stack app. If you'd like to read the source, it is
-[available on GitHub](https://github.com/lf-/Carnap/tree/nix).
+[available on GitHub](https://github.com/Carnap/Carnap/).
+
+## `default.nix`
 
 I have a top-level `default.nix` that imports nixpkgs with overlays for each
 conceptual part of the application (this could all be done in one but it is
 useful to separate them for maintenance purposes). A simplified version is
 below:
 
+{% codesample(desc="`default.nix` outline") %}
+
 ```nix
 { compiler ? "ghc865",
   ghcjs ? "ghcjs"
 }:
-  let nixpkgs = import (builtins.fetchTarball {
-        name = "nixpkgs-20.03-2020-06-28";
-        url = "https://github.com/NixOS/nixpkgs/archive/f8248ab6d9e69ea9c07950d73d48807ec595e923.zip";
-        sha256 = "009i9j6mbq6i481088jllblgdnci105b2q4mscprdawg3knlyahk";
-      }) {
+  let # I highly recommend using `niv` for managing git versions of things
+      # It will generate this sources.nix file for you.
+      sources = import ./nix/sources.nix;
+      nixpkgs = sources.nixpkgs {
         config = {
           # Use this if you use 'broken' packages that are fixed in an overlay
           allowBroken = true;
@@ -80,23 +79,104 @@ below:
   }
 ```
 
+{% end %}
 
-In each Haskell package, use `cabal2nix .` to generate nix files for the
-package. These nix files can then be picked up with
-[`lib.callPackage`](https://github.com/NixOS/nixpkgs/blob/b63f684/lib/customisation.nix#L96-L121)
-in an overlay:
+## Overlays and `server.nix`
+
+A brief interlude on overlays: an overlay is a function taking two curried
+arguments, `self` and `super`, which are extremely poorly named. They should
+be called something like `final` and `current` respectively (but the
+convention has been made already). `final` is the package set after all
+the overlays have been applied, and `current` is the state after all the
+states *before* this overlay have been applied.
+
+Overlays return a new attribute set that will be used to update the parent
+package set. However there is a significant footgun that the workaround for
+results in annoying amounts of nesting on account of Nix's `//` attribute set
+update operator doing shallow updates: if you are overriding subsets such as
+the Haskell packages, you need to update each piece at each level. It will
+hopefully be clearer in the example below.
+There is a [workaround to avoid this nesting in our real Nix expressions](https://github.com/Carnap/Carnap/blob/aec8fab2619f54d2ad7b2c59b2d4d11d6eda09bc/nix/compose-haskell-overlays.nix)
+but I've chosen to write it out in full here for the sake of simplicity.
+
+I'll also demonstrate the several types of hacks you will probably have to do
+on a sufficiently large codebase to get dependencies' Haskell packages to
+build even when they are broken in `nixpkgs`.
+
+In each Haskell package, use `callCabal2nix` to add your own packages:
+
+{% codesample(desc="`server.nix` sample") %}
 
 ```nix
-{ ghcjs ? "ghcjs", compiler ? "ghc865" }:
+{ ghcjs ? "ghcjs", compiler ? "ghc865", sources }:
   self: super:
-  let overrideCabal = super.haskell.lib.overrideCabal;
+  let # import the library functions from super, not self
+    inherit (super.haskell.lib)
+      overrideCabal # lets you override various settings of a haskell
+                    # package. doJailbreak, dontCheck, etc are just wrappers
+                    # around individual properties of this
+      callCabal2nix # calls cabal2nix with some source and makes a nix package
+      doJailbreak   # disables cabal version bounds. it's a big hammer.
+      dontCheck     # disables tests
+      justStaticExecutables # disables a bunch of unnecessary output + build
+                            # steps for binaries
+      overrideSrc;
   in {
     haskell = super.haskell // {
       packages = super.haskell.packages // {
         "${compiler}" = super.haskell.packages."${compiler}".override {
           overrides = newpkgs: oldpkgs: {
-            Common1 = oldpkgs.callPackage ./Common1/Common1.nix { };
+            # your stuff
+            Common1 = oldpkgs.callCabal2nix "Common1" ./Common1 { };
+
+            # a note! if you don't use nix for your production builds, you can
+            # basically not worry about most of the stuff for Server as it
+            # *exclusively* applies to when you are doing something like
+            # `nix-build -A server`. If you aren't using Nix for building your
+            # app, you can just put `callCabal2nix "Server" ./Server {}` here.
+            Server = justStaticExecutables (overrideCabal
+              (oldpkgs.callCabal2nix "Server" ./Server { })
+              (old: let client = oldpkgs."${ghcjs}".packages.Client; in {
+                # copy the client into the package
+                preConfigure = ''
+                  cp ${client.out}/bin/Main.jsexe/main.js static/client/
+                '';
+
+                # disabling these saves a pile of build time as it doesn't
+                # build the app twice
+                enableLibraryProfiling = false;
+                enableExecutableProfiling = false;
+
+                isExecutable = true;
+              })
+            )
             # ...
+
+            # HACK: you have to downgrade some dependency
+            hoauth2 = oldpkgs.callHackage "hoauth2" "1.8.9" { };
+
+            # HACK: you need a dependency newer than the `all-cabal-hashes`
+            # used by your version of `nixpkgs`. Put in the version and name
+            # here, and just zero out part of the hash. It will fail to build
+            # and tell you the right hash.
+            yesod-auth-oauth2 = oldpkgs.callHackageDirect {
+                pkg = "yesod-auth-oauth2";
+                ver = "0.6.1.3";
+                sha256 = "1bikn9kfw6mrsais4z1nk07aa7i7hyrcs411kbbfgc7n74k6sd5b";
+              } { };
+
+            # HACK: some dependency has broken tests
+            tz = dontCheck oldpkgs.tz;
+
+            # HACK: some dependency has excessively tight version bounds (this
+            # is like `allow-newer` in `stack.yaml` but it applies to only one
+            # package)
+            yesod-persistent = doJailbreak oldpkgs.yesod-persistent;
+
+            # HACK: you have to replace the source of a dependency entirely
+            # (this also demonstrates how to use a subdirectory from a source,
+            # in this case "/persistent" under the yesod persistent repository)
+            persistent = overrideSrc oldpkgs.persistent { src = (sources.persistent + "/persistent"); };
           };
         };
       };
@@ -104,57 +184,60 @@ in an overlay:
   }
 ```
 
-## Shells
+{% end %}
 
-You could normally use
-[`nixpkgs.haskell.packages.${ghcVer}.shellFor`](https://github.com/NixOS/nixpkgs/blob/c565d7c/pkgs/development/haskell-modules/make-package-set.nix#L288)
-to construct a shell. However, this is not ideal for multiple package projects
-since it will invariably make Nix build some of your projects because they are
-"dependencies".
+## Shells and development tools
 
-There does not appear to be any built in resolution for this. However,
-[reflex-platform](https://github.com/reflex-frp/reflex-platform), has
-integrated a module called
-[`workOnMulti`](https://github.com/reflex-frp/reflex-platform/blob/20ed151/nix-utils/work-on-multi/default.nix).
-I thus took the opportunity to extricate it from its dependencies on the rest
-of reflex-platform to be able to use it independently. This extracted version
-is [available here](https://github.com/lf-/Carnap/blob/cde2671/nix/work-on-multi.nix).
+You can construct shells with arbitrary developer tools from `nixpkgs`. I
+cannot overstate how awesome this feature is: a lot of Haskell developer
+tools are supremely frustrating to build oneself, you know everyone has the
+same version, and Nix means everyone can get them.
 
-It can be used thus:
+Nix will build/retrieve the tools listed in `buildInputs` and put them in
+your shell's PATH, and it will *retrieve the dependencies* for the packages
+returned by the function passed as `packages` and make those available, but
+it will not build the packages given. This lets you use cabal to manage
+builds while programming, and have all your dependencies provided so cabal
+*only* builds your software.
+
+Put the following in a `default.nix` (here's the [production version for reference](https://github.com/Carnap/Carnap/blob/aec8fab2619f54d2ad7b2c59b2d4d11d6eda09bc/default.nix)):
+
+{% codesample(desc="`default.nix` sample, continued") %}
 
 ```nix
-let # import nixpkgs with overlays...
-  workOnMulti = import ./nix/work-on-multi.nix {
-    inherit nixpkgs;
-    # put whatever tools you want in the shell environments here
-    generalDevTools = _: {
-      inherit (nixpkgs) cabal2nix;
-      inherit (nixpkgs.haskell.packages."${ghcVer}")
-        Cabal
-        cabal-install
-        ghcid
-        hasktags;
-    };
+let
+  # merge this section so that nixpkgs import is at the same level of the let
+  # block
+  devtools = { isGhcjs }: with nixpkgs.haskell.packages."${compiler}"; ([
+      Cabal
+      cabal-install
+      ghcid
+      hasktags
+      yesod-bin
+      # hls is disabled for ghcjs shells because it probably will not work on
+      # pure-ghcjs components.
+  ] ++ (lib.optional (!isGhcjs) haskell-language-server)
+  ) ++ (with nixpkgs; [
+      cabal2nix
+      niv
+    ]);
+in {
+  # merge this section into the attribute set with `client` and `server`.
+  ghcShell = nixpkgs.haskell.packages."${compiler}".shellFor {
+    packages = p: [ p.Common1 p.Server1 ];
+    withHoogle = true;
+    buildInputs = devtools { isGhcjs = false; };
   };
-  in {
-    ghcShell = workOnMulti {
-      envPackages = [
-        "Common1"
-        "Common2"
-        "Server"
-      ];
-      env = with nixpkgs.haskell.packages."${ghcVer}"; {
-        # enable hoogle in the environment
-        ghc = ghc.override {
-          override = self: super: {
-            withPackages = super.ghc.withHoogle;
-          };
-        };
-        inherit Common1 Common2 Server mkDerivation;
-      };
-    };
-  }
+
+  ghcjsShell = nixpkgs-stable.haskell.packages."${ghcjs}".shellFor {
+    packages = p: [ p.Common1 p.Client1 ];
+    withHoogle = true;
+    buildInputs = devtools { isGhcjs = true; };
+  };
+}
 ```
+
+{% end %}
 
 Then, you can use `nix-shell` with this attribute: `nix-shell -A ghcShell`.
 
@@ -162,6 +245,12 @@ Build with Cabal as usual (`cabal new-build all`), assuming you've built the
 GHCJS parts already (see below).
 
 ## GHCJS
+
+Create an overlay the same way as with the server side components, but using
+`nixpkgs.haskell.packages."${ghcjs}"` instead of `${compiler}`, and including
+the client and common packages.
+
+On GHCJS specifically, there is a hack that is very useful to apply:
 
 GHCJS breaks many unit tests such that they freeze the Nix build process. You
 can override `mkDerivation` to disable most packages' unit tests. For some,
@@ -171,7 +260,8 @@ which causes the `mkDerivation` override to be ignored.
 can be used to deal with these cases.
 
 ```nix
-# inside the config.packageOverrides.haskell.packages.${compiler}.override call
+# inside the overlay for the client (at the same level as the package
+# definitions)
 mkDerivation = args: super.mkDerivation (args // {
   doCheck = false;
   enableLibraryProfiling = false;
@@ -185,31 +275,11 @@ is used. Namely, `nix-build -o client-out -A client` is used to build the
 client and put a symbolic link in a known place, then manually created symbolic links are
 placed in the static folder pointing back into this client output link.
 
-For package builds, a [`preConfigure` script](https://github.com/lf-/Carnap/blob/cde2671/server.nix#L30-L36)
+For package builds, a [`preConfigure` script](https://github.com/Carnap/Carnap/blob/cde2671/server.nix#L30-L36)
 is used with
 [`haskell.lib.overrideCabal`](https://github.com/NixOS/nixpkgs/blob/32c8e79/pkgs/development/haskell-modules/lib.nix#L11-L41)
 to replace these links with paths in the Nix store for the browser JavaScript.
 A dependency on the built JavaScript is also added so it gets pulled in.
-
-## Custom dependencies
-
-Larger projects have a higher likelihood of having dependencies on Hackage
-packages that are not in nixpkgs, or absolutely need to be a specific version.
-It's easy to integrate these into the nix project using `cabal2nix`:
-
-```
-$ cabal2nix cabal://your-package-0.1.0.0 | tee nix/your-package.nix
-```
-
-These can then be integrated into the project by using
-[`lib.callPackage`](https://github.com/NixOS/nixpkgs/blob/b63f684/lib/customisation.nix#L96-L121).
-
-While it is also possible to use
-[`callCabal2nix`](https://github.com/NixOS/nixpkgs/blob/f5b6ea1/pkgs/development/haskell-modules/make-package-set.nix#L200-L216),
-I choose not to for reasons of initial build performance and reproducibility:
-`cabal2nix` is not fast, and inadvertent updates could happen when updates are
-made on the Hackage side, whereas checking in `cabal2nix` output ensures that
-exactly the same package is used.
 
 ## Final thoughts
 
