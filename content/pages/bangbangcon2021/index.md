@@ -1,6 +1,5 @@
 +++
 title = "!!Con 2021!!"
-date = 2021-05-15
 path = "/bangbangcon2021"
 [extra]
 isPage = true
