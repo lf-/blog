@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="566pt"
+   height="597pt"
+   viewBox="0.00 0.00 566.38 596.92"
+   version="1.1"
+   id="svg222"
+   sodipodi:docname="flow.svg"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15, custom)">
+  <metadata
+     id="metadata228">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs226" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1409"
+     id="namedview224"
+     showgrid="false"
+     inkscape:zoom="1.2703049"
+     inkscape:cx="215.48709"
+     inkscape:cy="344.53564"
+     inkscape:window-x="0"
+     inkscape:window-y="240"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="edge3" />
+  <g
+     id="graph0"
+     class="graph"
+     transform="scale(1 1) rotate(0) translate(4 592.92)">
+    <title
+       id="title2">A</title>
+    <polygon
+       fill="white"
+       stroke="transparent"
+       points="-4,4 -4,-592.92 562.38,-592.92 562.38,4 -4,4"
+       id="polygon4" />
+    <!-- auxv -->
+    <g
+       id="node1"
+       class="node">
+      <title
+         id="title6">auxv</title>
+      <ellipse
+         fill="none"
+         stroke="black"
+         cx="165.85"
+         cy="-570.92"
+         rx="87.99"
+         ry="18"
+         id="ellipse8" />
+      <text
+         text-anchor="middle"
+         x="165.85"
+         y="-567.22"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text10">getauxval(AT_PHDR)</text>
+    </g>
+    <!-- phdr -->
+    <g
+       id="node3"
+       class="node">
+      <title
+         id="title13">phdr</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M137.85,-446.42C137.85,-446.42 193.85,-446.42 193.85,-446.42 199.85,-446.42 205.85,-452.42 205.85,-458.42 205.85,-458.42 205.85,-503.42 205.85,-503.42 205.85,-509.42 199.85,-515.42 193.85,-515.42 193.85,-515.42 137.85,-515.42 137.85,-515.42 131.85,-515.42 125.85,-509.42 125.85,-503.42 125.85,-503.42 125.85,-458.42 125.85,-458.42 125.85,-452.42 131.85,-446.42 137.85,-446.42"
+         id="path15" />
+      <text
+         text-anchor="middle"
+         x="165.85"
+         y="-500.22"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text17">Elf64_Phdr</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="125.85,-492.42 205.85,-492.42 "
+         id="polyline19" />
+      <text
+         text-anchor="middle"
+         x="165.85"
+         y="-477.22"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text21">p_type</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="125.85,-469.42 205.85,-469.42 "
+         id="polyline23" />
+      <text
+         text-anchor="middle"
+         x="165.85"
+         y="-454.22"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text25">p_vaddr</text>
+    </g>
+    <!-- auxv&#45;&gt;phdr -->
+    <g
+       id="edge1"
+       class="edge">
+      <title
+         id="title28">auxv-&gt;phdr:name</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M165.85,-552.9C165.85,-545.09 165.85,-535.48 165.85,-526.03"
+         id="path30" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="169.35,-525.92 165.85,-515.92 162.35,-525.92 169.35,-525.92"
+         id="polygon32" />
+    </g>
+    <!-- pbase -->
+    <g
+       id="node2"
+       class="node">
+      <title
+         id="title35">pbase</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M256.35,-360.42C256.35,-360.42 375.35,-360.42 375.35,-360.42 381.35,-360.42 387.35,-366.42 387.35,-372.42 387.35,-372.42 387.35,-384.42 387.35,-384.42 387.35,-390.42 381.35,-396.42 375.35,-396.42 375.35,-396.42 256.35,-396.42 256.35,-396.42 250.35,-396.42 244.35,-390.42 244.35,-384.42 244.35,-384.42 244.35,-372.42 244.35,-372.42 244.35,-366.42 250.35,-360.42 256.35,-360.42"
+         id="path37" />
+      <text
+         text-anchor="middle"
+         x="315.85"
+         y="-374.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text39">program base address</text>
+    </g>
+    <!-- sym -->
+    <g
+       id="node8"
+       class="node">
+      <title
+         id="title42">sym</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M313.35,-7.42C313.35,-7.42 488.35,-7.42 488.35,-7.42 494.35,-7.42 500.35,-13.42 500.35,-19.42 500.35,-19.42 500.35,-31.42 500.35,-31.42 500.35,-37.42 494.35,-43.42 488.35,-43.42 488.35,-43.42 313.35,-43.42 313.35,-43.42 307.35,-43.42 301.35,-37.42 301.35,-31.42 301.35,-31.42 301.35,-19.42 301.35,-19.42 301.35,-13.42 307.35,-7.42 313.35,-7.42"
+         id="path44" />
+      <text
+         text-anchor="middle"
+         x="351.35"
+         y="-21.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text46">target symbol!</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="401.35,-7.42 401.35,-43.42 "
+         id="polyline48" />
+      <text
+         text-anchor="middle"
+         x="425.85"
+         y="-21.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text50">name</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="450.35,-7.42 450.35,-43.42 "
+         id="polyline52" />
+      <text
+         text-anchor="middle"
+         x="475.35"
+         y="-21.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text54">offset</text>
+    </g>
+    <!-- pbase&#45;&gt;sym -->
+    <g
+       id="edge13"
+       class="edge">
+      <title
+         id="title57">pbase-&gt;sym:symoffs</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M387.54,-373.42C451.08,-365.54 533.85,-342.66 533.85,-276.92 533.85,-276.92 533.85,-276.92 533.85,-98.42 533.85,-66.73 536.6,-33.32 511.82,-26.63"
+         id="path59" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="512.2,-23.15 501.85,-25.42 511.36,-30.1 512.2,-23.15"
+         id="polygon61" />
+      <text
+         text-anchor="middle"
+         x="539.88"
+         y="-16.4"
+         font-family="Source Sans Pro"
+         font-size="12.00"
+         id="text63">add for</text>
+      <text
+         text-anchor="middle"
+         x="539.88"
+         y="-3.4"
+         font-family="Source Sans Pro"
+         font-size="12.00"
+         id="text65">a ptr!</text>
+    </g>
+    <!-- phdr&#45;&gt;pbase -->
+    <g
+       id="edge2"
+       class="edge">
+      <title
+         id="title68">phdr:ty-&gt;pbase:n</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M206.85,-480.92C264.55,-480.92 310.39,-460.6 315.4,-406.95"
+         id="path70" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="318.9,-407.07 315.85,-396.92 311.91,-406.75 318.9,-407.07"
+         id="polygon72" />
+      <text
+         text-anchor="middle"
+         x="364.65"
+         y="-404.72"
+         font-family="Source Sans Pro"
+         font-size="12.00"
+         id="text74">p_type=PT_PHDR</text>
+    </g>
+    <!-- phdr&#45;&gt;pbase -->
+    <g
+       id="edge3"
+       class="edge">
+      <title
+         id="title77">phdr:se-&gt;pbase:w</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M205.85,-445.92C208.21,-443.57 226.68,-404.09 236.79,-386.62"
+         id="path79" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="239.72,-388.54 242.85,-378.42 234.1,-384.38 239.72,-388.54"
+         id="polygon81" />
+      <text
+         text-anchor="middle"
+         x="283.50357"
+         y="-350.37"
+         font-family="'Source Sans Pro'"
+         font-size="12px"
+         id="text83">phdr addr - p_vaddr</text>
+    </g>
+    <!-- dyn -->
+    <g
+       id="node4"
+       class="node">
+      <title
+         id="title86">dyn</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M63.85,-360.42C63.85,-360.42 209.85,-360.42 209.85,-360.42 215.85,-360.42 221.85,-366.42 221.85,-372.42 221.85,-372.42 221.85,-384.42 221.85,-384.42 221.85,-390.42 215.85,-396.42 209.85,-396.42 209.85,-396.42 63.85,-396.42 63.85,-396.42 57.85,-396.42 51.85,-390.42 51.85,-384.42 51.85,-384.42 51.85,-372.42 51.85,-372.42 51.85,-366.42 57.85,-360.42 63.85,-360.42"
+         id="path88" />
+      <text
+         text-anchor="middle"
+         x="88.85"
+         y="-374.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text90">Elf64_Dyn</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="125.85,-360.42 125.85,-396.42 "
+         id="polyline92" />
+      <text
+         text-anchor="middle"
+         x="150.35"
+         y="-374.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text94">d_tag</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="174.85,-360.42 174.85,-396.42 "
+         id="polyline96" />
+      <text
+         text-anchor="middle"
+         x="198.35"
+         y="-374.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text98">d_val</text>
+    </g>
+    <!-- phdr&#45;&gt;dyn -->
+    <g
+       id="edge4"
+       class="edge">
+      <title
+         id="title101">phdr:ty-&gt;dyn:name</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M124.85,-480.92C93.49,-480.92 113.65,-443.09 99.85,-414.92 97.79,-410.71 95.04,-408.55 92.81,-406.28"
+         id="path103" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="95.97,-404.77 88.85,-396.92 89.52,-407.49 95.97,-404.77"
+         id="polygon105" />
+      <text
+         text-anchor="middle"
+         x="157.35"
+         y="-418.32"
+         font-family="Source Sans Pro"
+         font-size="12.00"
+         id="text107">p_type=PT_DYNAMIC</text>
+    </g>
+    <!-- phdr&#45;&gt;dyn -->
+    <g
+       id="edge5"
+       class="edge">
+      <title
+         id="title110">phdr:sw-&gt;dyn:name</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M125.85,-445.92C116.68,-436.74 110.87,-438.13 102.85,-427.92 96,-419.19 91.66,-414.72 89.84,-406.97"
+         id="path112" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="93.32,-406.53 88.85,-396.92 86.35,-407.21 93.32,-406.53"
+         id="polygon114" />
+    </g>
+    <!-- strtab -->
+    <g
+       id="node5"
+       class="node">
+      <title
+         id="title117">strtab</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M86.85,-81.42C86.85,-81.42 260.85,-81.42 260.85,-81.42 266.85,-81.42 272.85,-87.42 272.85,-93.42 272.85,-93.42 272.85,-105.42 272.85,-105.42 272.85,-111.42 266.85,-117.42 260.85,-117.42 260.85,-117.42 86.85,-117.42 86.85,-117.42 80.85,-117.42 74.85,-111.42 74.85,-105.42 74.85,-105.42 74.85,-93.42 74.85,-93.42 74.85,-87.42 80.85,-81.42 86.85,-81.42"
+         id="path119" />
+      <text
+         text-anchor="middle"
+         x="115.35"
+         y="-95.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text121">string table</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="155.85,-81.42 155.85,-117.42 "
+         id="polyline123" />
+      <text
+         text-anchor="middle"
+         x="214.35"
+         y="-95.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text125">write\0writev\0...</text>
+    </g>
+    <!-- dyn&#45;&gt;strtab -->
+    <g
+       id="edge7"
+       class="edge">
+      <title
+         id="title128">dyn:dt-&gt;strtab:name</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M150.85,-359.92C150.85,-345.13 133.89,-351.78 122.85,-341.92 71.97,-296.46 48.74,-287.2 25.85,-222.92 7.09,-170.21 -36.47,-103.72 63.71,-99.62"
+         id="path130" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="63.93,-103.12 73.85,-99.42 63.79,-96.12 63.93,-103.12"
+         id="polygon132" />
+      <text
+         text-anchor="middle"
+         x="72.85"
+         y="-213.32"
+         font-family="Source Sans Pro"
+         font-size="12.00"
+         id="text134">d_tag=DT_STRTAB</text>
+    </g>
+    <!-- rela -->
+    <g
+       id="node6"
+       class="node">
+      <title
+         id="title137">rela</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M229.85,-241.42C229.85,-241.42 493.85,-241.42 493.85,-241.42 499.85,-241.42 505.85,-247.42 505.85,-253.42 505.85,-253.42 505.85,-298.42 505.85,-298.42 505.85,-304.42 499.85,-310.42 493.85,-310.42 493.85,-310.42 229.85,-310.42 229.85,-310.42 223.85,-310.42 217.85,-304.42 217.85,-298.42 217.85,-298.42 217.85,-253.42 217.85,-253.42 217.85,-247.42 223.85,-241.42 229.85,-241.42"
+         id="path139" />
+      <text
+         text-anchor="middle"
+         x="256.35"
+         y="-272.22"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text141">Elf64_Rela</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="294.85,-241.42 294.85,-310.42 "
+         id="polyline143" />
+      <text
+         text-anchor="middle"
+         x="369.85"
+         y="-295.22"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text145">r_info</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="294.85,-287.42 444.85,-287.42 "
+         id="polyline147" />
+      <text
+         text-anchor="middle"
+         x="369.85"
+         y="-272.22"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text149">symbol table offset(32)</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="294.85,-264.42 444.85,-264.42 "
+         id="polyline151" />
+      <text
+         text-anchor="middle"
+         x="369.85"
+         y="-249.22"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text153">type(32)</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="444.85,-241.42 444.85,-310.42 "
+         id="polyline155" />
+      <text
+         text-anchor="middle"
+         x="475.35"
+         y="-272.22"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text157">r_offset</text>
+    </g>
+    <!-- dyn&#45;&gt;rela -->
+    <g
+       id="edge6"
+       class="edge">
+      <title
+         id="title160">dyn:dt-&gt;rela:name</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M150.85,-359.92C150.85,-327.84 186,-337.57 203.85,-310.92 210.2,-301.44 206.12,-288.45 208.35,-281.26"
+         id="path162" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="210.25,-284.2 216.85,-275.92 206.52,-278.27 210.25,-284.2"
+         id="polygon164" />
+      <text
+         text-anchor="middle"
+         x="240.11464"
+         y="-321.56735"
+         font-family="'Source Sans Pro'"
+         font-size="12px"
+         id="text166">d_tag=DT_RELA</text>
+    </g>
+    <!-- symtab -->
+    <g
+       id="node7"
+       class="node">
+      <title
+         id="title169">symtab</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M116.85,-155.42C116.85,-155.42 234.85,-155.42 234.85,-155.42 240.85,-155.42 246.85,-161.42 246.85,-167.42 246.85,-167.42 246.85,-179.42 246.85,-179.42 246.85,-185.42 240.85,-191.42 234.85,-191.42 234.85,-191.42 116.85,-191.42 116.85,-191.42 110.85,-191.42 104.85,-185.42 104.85,-179.42 104.85,-179.42 104.85,-167.42 104.85,-167.42 104.85,-161.42 110.85,-155.42 116.85,-155.42"
+         id="path171" />
+      <text
+         text-anchor="middle"
+         x="143.35"
+         y="-169.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text173">Elf64_Sym</text>
+      <polyline
+         fill="none"
+         stroke="black"
+         points="181.85,-155.42 181.85,-191.42 "
+         id="polyline175" />
+      <text
+         text-anchor="middle"
+         x="214.35"
+         y="-169.72"
+         font-family="Source Sans Pro"
+         font-size="14.00"
+         id="text177">st_name</text>
+    </g>
+    <!-- dyn&#45;&gt;symtab -->
+    <g
+       id="edge8"
+       class="edge">
+      <title
+         id="title180">dyn:dt-&gt;symtab:n</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M150.85,-359.92C150.85,-332.63 122.53,-336.79 113.85,-310.92 103.97,-281.42 105.64,-270.93 113.85,-240.92 119.49,-220.33 136.26,-217.62 141.36,-202.07"
+         id="path182" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="144.87,-202.32 142.85,-191.92 137.94,-201.31 144.87,-202.32"
+         id="polygon184" />
+      <text
+         text-anchor="middle"
+         x="158.45505"
+         y="-258.75879"
+         font-family="'Source Sans Pro'"
+         font-size="12px"
+         id="text186">d_tag=DT_SYMTAB</text>
+    </g>
+    <!-- strtab&#45;&gt;sym -->
+    <g
+       id="edge10"
+       class="edge">
+      <title
+         id="title189">strtab:val-&gt;sym:symname</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M273.85,-99.42C306.44,-99.42 404.8,-83.37 422.96,-53.6"
+         id="path191" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="426.34,-54.5 425.85,-43.92 419.63,-52.5 426.34,-54.5"
+         id="polygon193" />
+      <text
+         text-anchor="middle"
+         x="372.34"
+         y="-53.5"
+         font-family="Source Sans Pro"
+         font-size="12.00"
+         id="text195">compare with</text>
+    </g>
+    <!-- rela&#45;&gt;symtab -->
+    <g
+       id="edge9"
+       class="edge">
+      <title
+         id="title198">rela:sw-&gt;symtab:ne</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M294.85,-263.92C255.38,-224.44 227.61,-232.71 189.6,-199.21"
+         id="path200" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="191.54,-196.22 181.85,-191.92 186.74,-201.32 191.54,-196.22"
+         id="polygon202" />
+      <text
+         text-anchor="middle"
+         x="184.8"
+         y="-213.65"
+         font-family="Source Sans Pro"
+         font-size="12.00"
+         id="text204">index</text>
+    </g>
+    <!-- rela&#45;&gt;sym -->
+    <g
+       id="edge12"
+       class="edge">
+      <title
+         id="title207">rela:roffs-&gt;sym:symoffs</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M475.85,-240.92C475.85,-156.96 475.85,-133.38 475.85,-54.37"
+         id="path209" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="479.35,-53.92 475.85,-43.92 472.35,-53.92 479.35,-53.92"
+         id="polygon211" />
+    </g>
+    <!-- symtab&#45;&gt;strtab -->
+    <g
+       id="edge11"
+       class="edge">
+      <title
+         id="title214">symtab:symname-&gt;strtab:val</title>
+      <path
+         fill="none"
+         stroke="black"
+         d="M214.85,-154.92C214.85,-142.46 214.85,-137.08 214.85,-128.05"
+         id="path216" />
+      <polygon
+         fill="black"
+         stroke="black"
+         points="218.35,-127.92 214.85,-117.92 211.35,-127.92 218.35,-127.92"
+         id="polygon218" />
+    </g>
+  </g>
+</svg>

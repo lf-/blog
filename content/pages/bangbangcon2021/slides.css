@@ -1,0 +1,121 @@
+@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+body {
+    font-family: "Droid Serif";
+}
+
+h1,
+h2,
+h3 {
+    font-family: "Yanone Kaffeesatz";
+    font-weight: normal;
+}
+
+.remark-slide-content {
+    font-size: 30px;
+}
+
+.remark-slide-number,
+.siteLink {
+    font-size: 20px;
+}
+
+.remark-code {
+    font-size: 30px;
+}
+
+h1#motivation, h1#fin {
+    /* this is terrible */
+    margin-bottom: 0;
+}
+
+h1#fin + p {
+    margin: 0;
+}
+
+.tweetbox {
+    margin: auto;
+    width: 80%;
+    height: 100%;
+}
+
+.firstslideCode {
+    /* twitter: @leftpaddotpy */
+    /* this is a crime but it achieves centering */
+    width: 22ch;
+}
+
+.siteLink {
+    position: absolute;
+    left: 20px;
+    bottom: 12px;
+}
+
+.siteLink a:visited {
+    color: #222;
+}
+
+.siteLink a {
+    color: #222;
+}
+
+.siteLink p {
+    display: inline;
+    margin: 0;
+}
+
+.fullscale {
+    width: 80%;
+}
+
+.remark-code,
+.remark-inline-code {
+    font-family: "Ubuntu Mono";
+}
+
+.video-fullscreen {
+    width: 100vw;
+    top: 0;
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+}
+
+.corroPeekTopRight {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.corroPeekTopLeft {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 12%;
+    height: auto;
+}
+
+.angeryCentering {
+    display: block;
+    margin: auto;
+}
+
+.centering {
+    margin: auto;
+}
+
+.centering img {
+    max-width: 100%;
+}
+
+.cursedcentering {
+    margin: auto;
+}
+
+.cursedcentering img {
+    max-height: 15em;
+    display: block;
+    margin: auto;
+}

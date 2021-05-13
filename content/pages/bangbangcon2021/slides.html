@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>pwintln!()</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="slides.css">
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <textarea id="source">
+
+layout: true
+
+.siteLink[
+<a href="https://jade.fyi/bangbangcon2021">jade.fyi/bangbangcon2021</a>
+]
+
+---
+class: middle
+
+.center[
+# `pwintln!()`: teaching an ELF to uwu]
+
+.centering.firstslideCode[
+```
+$ whoami
+Jade Fink
+twitter: @leftpaddotpy
+web: jade.fyi
+```]
+
+<img class="corroPeekTopRight" src="corropeek.svg" alt="corro the unsafe rustacean peeking into the slide!">
+
+---
+
+# motivation
+
+.tweetbox[
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">had an idea, turns out it&#39;s really hard to pull off though <a href="https://t.co/BZUtgPCCsP">pic.twitter.com/BZUtgPCCsP</a></p>&mdash; 💖 the6p4c 🦈 (@the6p4c) <a href="https://twitter.com/the6p4c/status/1329725624412381185?ref_src=twsrc%5Etfw">November 20, 2020</a></blockquote>
+
+<blockquote class="twitter-tweet" data-conversation="none"><p lang="en" dir="ltr">rust is too safe for these shenanigans and i&#39;m mad</p>&mdash; 💖 the6p4c 🦈 (@the6p4c) <a href="https://twitter.com/the6p4c/status/1329726578968780800?ref_src=twsrc%5Etfw">November 20, 2020</a></blockquote>
+]
+
+---
+
+class: center, middle
+
+<img src="unsafe Corro.svg" class="fullscale">
+
+---
+
+layout: true
+
+.siteLink[
+<a href="https://jade.fyi/bangbangcon2021">jade.fyi/bangbangcon2021</a>
+]
+<img class="corroPeekTopLeft" src="corropeek-flip.svg" alt="corro the unsafe rustacean peeking into the slide!"></div>
+
+---
+
+# binary exploits?
+
+i remember something about calls to external libraries such as libc being indirect calls...
+
+time to write a simple program and play with `gdb`!
+
+---
+
+video-fullscreen: demo1.mp4
+
+---
+
+# ok, but how would I find that address?
+
+---
+
+# what's an elf anyway?
+
+* linux, BSD use it as an executable format
+* there are various sections in it that the executable loader loads into memory
+* specifies permissions of the regions within it (read, write, execute)
+* it allows for dynamic linking: you can call functions from files outside your executable
+
+---
+
+# how do they do that dynamic linking thing anyway?
+
+* the dynamic loader gets to it before it's run
+* the libraries you use are loaded into memory with your program
+* the addresses of the functions your program uses get placed in requested
+  locations, "relocations"
+
+---
+
+# how can we read a relocation?
+
+`readelf(1)`
+
+---
+
+video-fullscreen: demo2.mp4
+
+---
+
+# pwintwn!
+
+.centering[<img src="pwintln.png" alt="the program from the demo, with a println!(&quot;hello !!con!! from println&quot;) in it. the output has an added line 'hewwo owo con owo from pwintwn'">]
+
+---
+
+# how would we do it "properly"?
+
+* it turns out you're not supposed to do this and run into several security
+  mitigations:
+    * layout randomization: hardcoding `0x555555554000` only
+      works in the debugger
+    * the relocations section we're overwriting is write protected ("RELRO")
+
+* error handling
+
+* thread safety
+
+* find the symbol ourselves
+
+---
+
+# where to start on finding the symbol ourselves
+
+.centering[<img alt="screenshot of readelf output that's been filtered for lines with 'Offset', 'Reloation' and 'write'. the first column is the offset, and the '.rela.dyn' string, the name of the section, is highlighted" src="readelf-headers.png">]
+
+---
+
+
+.cursedcentering[<img src="flow.svg" alt="a big graphviz diagram showing the flow from getauxval to finding a relocation, see the speaker notes of this slide for detailed info">]
+
+# a long time of  `man 5 elf`  and stack overflow later
+
+???
+shows the flow from getauxval(AT_PHDR), inspecting Elf64_Phdr records for type
+of PT_PHDR to get the offset between the auxval and the real program base, and
+for type PT_DYNAMIC to get the offset of the Elf64_Dyn table. The Dyn table
+then has its tags looked at to get the DT_RELA, DT_SYMTAB, and DT_STRTAB
+addresses. Elf64_Rela records are considered, their names used as indices in
+the symbol table, to look up a symbol record, which will have an index into the
+string table. Finally compare that string to what you're looking for.
+
+---
+
+layout: true
+
+.siteLink[
+<a href="https://jade.fyi/bangbangcon2021">jade.fyi/bangbangcon2021</a>
+]
+
+---
+
+# fin
+
+<img class="angeryCentering" src="corrolove.svg" alt="two corros leaning into each other incredibly cutely with hearts">
+
+.centering.firstslideCode[
+```
+$ whoami
+Jade Fink
+twitter: @leftpaddotpy
+web: jade.fyi
+```]
+
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+    <script src="custom.js"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+digraph A {
+	// rankdir=LR
+	node [shape=record, style=rounded, fontname = "Source Sans Pro"]
+	edge [fontname="Source Sans Pro", fontsize=12]
+
+	auxv [label = "getauxval(AT_PHDR)" shape=ellipse]
+	pbase [label = "program base address"]
+	phdr[label = "{<name> Elf64_Phdr | <ty> p_type | <va> p_vaddr}"]
+	auxv -> phdr:name
+	phdr:ty -> pbase:n [headlabel = "p_type=PT_PHDR", labeldistance=5, labelangle=-80]
+	phdr:va:se -> pbase:w [headlabel = "phdr addr - p_vaddr", labelangle=140, labeldistance=2.5]
+
+	dyn [label="<name> Elf64_Dyn | <dt> d_tag | <dv> d_val"]
+	strtab [label="<name> string table|<val> write\\0writev\\0..."]
+	rela [label="
+		<name> Elf64_Rela | {r_info | <u32> symbol table offset(32) | type(32)} | <roffs> r_offset
+	"]
+
+	symtab [label="
+		<name> Elf64_Sym | <symname> st_name
+	"]
+
+	sym [label = "target symbol! | <symname> name | <symoffs> offset"]
+
+	phdr:ty -> dyn:name [label="p_type=PT_DYNAMIC"]
+	phdr:va:sw -> dyn:name
+	dyn:dt -> rela:name [label="d_tag=DT_RELA"]
+	dyn:dt -> strtab:name [label="d_tag=DT_STRTAB"]
+	dyn:dt -> symtab:name:n [label="d_tag=DT_SYMTAB"]
+	rela:u32:sw->symtab:name:ne [headlabel="index", labeldistance=2.5, labelangle=40]
+	strtab:val -> sym:symname [headlabel = "compare with", labeldistance=5.5, labelangle=60]
+	symtab:symname -> strtab:val
+	rela:roffs->sym:symoffs
+	pbase->sym:symoffs [headlabel = "add for\na ptr!", labeldistance=4]
+}

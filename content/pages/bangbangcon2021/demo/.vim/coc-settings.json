@@ -1,0 +1,6 @@
+{
+  "suggest.floatEnable": false,
+  "signature.enable": false,
+  "suggest.enablePreview": false,
+  "suggest.autoTrigger": "none",
+}
