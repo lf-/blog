@@ -8,7 +8,7 @@ isPage = true
 This is the page for my talk "pwintln!(): teaching an ELF to uwu!!" at [!!Con
 2021](https://bangbangcon.com/).
 
-You can find the slides [here](./slides.html).
+You can find the slides [here](/bangbangcon2021/slides.html).
 
 The source code for the presentation, demo, etc is
 [here](https://github.com/lf-/blog/tree/main/content/pages/bangbangcon2021/).
