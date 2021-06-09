@@ -65,13 +65,53 @@ tpm2_ptool init
 # into a password manager or write it down or something.
 tpm2_ptool addtoken --pid 1 --label sshtok --sopin [SUPERVISOR PIN] \
     --userpin [USER PIN]
+```
 
+From here, there are two pathways: you can generate the key on the TPM and have
+it never leave (which is cool and good except when it gets wiped by being
+looked at funny/a BIOS update), *or*, you can generate it and then import it,
+retaining a backup offline.
+
+I did the former and then did a BIOS update and lost my key. It was extremely
+funny because it was very expected. If you want to do that, this is how:
+
+```
 # add a key on that token. the key label will show up next to the key when you
 # pull it out using ssh-keygen. see notes below for why it's rsa2048/ecc256
 # suggested despite others being supported.
 tpm2_ptool addkey --algorithm [rsa2048 or ecc256] --label sshtok \
     --key-label [KEY LABEL] --userpin [USER PIN]
+```
 
+If you want to generate a key and import it instead (note that obviously the
+actual key material *did* touch your system. threat model, etc):
+
+```
+# make a working dir
+umask 077 && mkdir /tmp/crypto && cd /tmp/crypto
+
+# generate an ssh key. put a passphrase on this.
+# you could also use ecdsa or something else assuming the tpm supports it.
+ssh-keygen -t rsa -b 2048 -f tpm_rsa
+
+# go back it up somewhere offline
+
+# now, decrypt the one here into a format the tpm tools understand
+# indeed, set the password to nothing
+ssh-keygen -f tpm_rsa -mPEM -ep
+
+# import it into the tpm
+tpm2_ptool import --label sshtok --key-label my-ssh-key --userpin [USER PIN] \
+    --privkey /tmp/crypto/tpm_rsa --algorithm rsa
+
+# important! destroy the cleartext key
+shred -zu tpm_rsa
+rm -rf /tmp/crypto
+```
+
+After doing either of these, you're in the same place and can proceed.
+
+```
 # pull out the public keys to stdout. idk put them somewhere i guess. you can
 # do this again later, it will give you the same output
 ssh-keygen -D /usr/lib/pkcs11/libtpm2_pkcs11.so
