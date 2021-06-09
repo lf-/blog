@@ -124,5 +124,5 @@ help, check out the [gitter for the tpm2-software tools][gitter], and perhaps
 the source code.
 
 [ssh.md]: https://github.com/tpm2-software/tpm2-pkcs11/blob/master/docs/SSH.md
-[bullying tweet]: https://github.com/tpm2-software/tpm2-pkcs11/blob/master/docs/SSH.md
+[bullying tweet]: https://twitter.com/a_hoverbear/status/1394475693413568514
 [gitter]: https://gitter.im/tpm2-software/community
