@@ -7,7 +7,7 @@ build_search_index = false
 feed_filename = "rss.xml"
 generate_feed = true
 
-title = "jade's website"
+title = "jade's www site"
 description = "computers i guess"
 
 [markdown]
