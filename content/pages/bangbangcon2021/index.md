@@ -5,6 +5,8 @@ path = "/bangbangcon2021"
 isPage = true
 +++
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rB_2fzmMwDA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 This is the page for my talk "pwintln!(): teaching an ELF to uwu!!" at [!!Con
 2021](https://bangbangcon.com/).
 
