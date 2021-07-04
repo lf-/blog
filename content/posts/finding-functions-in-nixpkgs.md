@@ -15,9 +15,23 @@ nixpkgs going from trivial to some effort.
 ## Simple
 
 These work on functions that have no wrappers around them, which account for
-most library functions in nixpkgs.
+most library functions in nixpkgs. The option for `ctags` is a little bit
+better because it will just show you the source code which you can subsequently
+trace through.
 
 ### Static
+
+#### ctags
+
+As of version 0.5.0 (released 2021-07-03), `nix-doc` supports emitting ctags
+files with `nix-doc tags .` from a nixpkgs checkout.
+
+This lets you `:tag` things in vim or other editor supporting ctags and
+instantly jump to them by name, as well as `CTRL-]` to jump to the symbol under
+the cursor. It's clever enough to distinguish functions from other values at a
+syntax level, but like every ctags tool that's about where it stops.
+
+#### Search tools
 
 Static analysis is, in my view, slightly slower, since you can't be sure you're
 getting the function you're seeing in the interactive environment in `nix repl`
