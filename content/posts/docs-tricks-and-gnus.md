@@ -36,11 +36,10 @@ I do the usual routine with `cargo doc` in a project, which will generate docs
 with links between libraries and the exact right versions of dependencies.
 However, there are some ways I've improved my experience:
 
-* I wrote [a shim script](https://github.com/lf-/dotfiles/blob/9c2ae57c98915ed3a3b089aae442702afad16660/bin/_cargo_doc_open)
+* I wrote [a shim script](https://github.com/lf-/dotfiles/blob/91c41202b42580a94fb3943e87f4b5785bdc9e65/bin/_cargo_doc_open)
   that symlinks docs pages into the web root then opens them in a browser. The
-  idea is that it can be set as `BROWSER` for `cargo` (there is a [PR
-  outstanding](https://github.com/rust-lang/cargo/pull/9473) for making browser
-  into a `cargo doc` config option).
+  idea is that it can be set as `BROWSER` for `cargo` using the `[doc].browser`
+  Cargo config setting I added, releasing in Rust 1.54 (to release July 29 2021).
 * Use the `--document-private-items` option and maybe even
   `RUSTDOCFLAGS='--document-hidden-items' cargo +nightly doc`
   in order to build documentation with the fun stuff visible, which is really
