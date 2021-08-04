@@ -3,7 +3,7 @@ date = "2021-05-18"
 draft = false
 path = "/blog/docs-tricks-and-gnus"
 tags = ["site"]
-title = "Docs tricks and GNUs"
+title = "My Workflow: Docs tricks and GNUs"
 +++
 
 ##### TL;DR: check out my GNU docs builds at <https://docs.jade.fyi/gnu>
