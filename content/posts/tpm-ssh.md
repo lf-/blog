@@ -16,12 +16,21 @@ it.
 
 This guide is partially [sourced from this docs page][ssh.md].
 
-Required packages (Arch Linux names):
+Required packages:
+
+### Arch Linux names
 
 * `tpm2-tools`
 * `tpm2-tss`
 * `tpm2-pkcs11`
 * `tpm2-abrmd`
+
+### Ubuntu names (21.04+)
+
+* `tpm2-tools`
+* `tpm2-abrmd`
+* `libtpm2-pkcs11-tools`
+* `libtpm2-pkcs11-1`
 
 ---
 
@@ -32,7 +41,11 @@ it. Not sure how it got that idea, but clearing it reset that flag.
 Boot back into your system and enable and start `tpm2-abrmd.service`. This
 provides a D-Bus interface that applications can talk to for access to the tpm.
 
-You also need to be in the `tss` group for the tpm stuff to initialize.
+You also need to be in the `tss` group for the tpm stuff to initialize:
+
+```
+sudo usermod -a -G tss $USER
+```
 
 ---
 
@@ -112,19 +125,26 @@ rm -rf /tmp/crypto
 After doing either of these, you're in the same place and can proceed.
 
 ```
+# Use this if you're on Arch Linux
+TPM2_PKCS11_SO=/usr/lib/pkcs11/libtpm2_pkcs11.so
+
+# Use this if you're on Ubuntu
+# note: $(gcc -dumpmachine) returns something like x86_64-linux-gnu
+TPM2_PKCS11_SO=/usr/lib/$(gcc -dumpmachine)/libtpm2_pkcs11.so.1
+
 # pull out the public keys to stdout. idk put them somewhere i guess. you can
 # do this again later, it will give you the same output
-ssh-keygen -D /usr/lib/pkcs11/libtpm2_pkcs11.so
+ssh-keygen -D $TPM2_PKCS11_SO
 
 # if you want, you can use ssh-agent to remember your PIN for this session
 pgrep -u $UID ssh-agent || eval `ssh-agent`
-ssh-add -s /usr/lib/pkcs11/libtpm2_pkcs11.so
+ssh-add -s $TPM2_PKCS11_SO
 
 # add your ssh key to some remote hosts' authorized_keys
 
 # add the pkcs11 module to ssh_config on your client
-cat <(echo 'PKCS11Provider /usr/lib/pkcs11/libtpm2_pkcs11.so') .ssh/config \
-    | tee .ssh/config
+cat <(echo "PKCS11Provider $TPM2_PKCS11_SO") ~/.ssh/config \
+    | tee ~/.ssh/config
 
 # try it!!!
 ssh yourhost
@@ -162,6 +182,10 @@ symbols.
 Error messages with the TPM stuff are not extremely googleable. If you want
 help, check out the [gitter for the tpm2-software tools][gitter], and perhaps
 the source code.
+
+---
+
+Thanks to [Rain](https://twitter.com/sunshowers6) for their feedback on this post.
 
 [ssh.md]: https://github.com/tpm2-software/tpm2-pkcs11/blob/master/docs/SSH.md
 [bullying tweet]: https://twitter.com/a_hoverbear/status/1394475693413568514
