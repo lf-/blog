@@ -47,6 +47,9 @@ You also need to be in the `tss` group for the tpm stuff to initialize:
 sudo usermod -a -G tss $USER
 ```
 
+Groups are only updated when you log in, so either logout and log back in
+again, or do `su - $USER` to create a new login shell
+
 ---
 
 Next, provision tss2/fapi (no I don't know what this is either. it complains on
