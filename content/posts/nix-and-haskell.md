@@ -6,10 +6,16 @@ tags = ["nix", "haskell"]
 title = "Using Nix to build multi-package, full stack Haskell apps"
 +++
 
+**UPDATE**: August 28, 2021 - There is now much improved [official
+documentation][docs] of a lot of this material. This post is not obsolete as it
+covers GHCJS.
+
+[docs]: https://haskell4nix.readthedocs.io/
+
 **UPDATE**: March 13 2021 - rewrote a fair amount of the post
 
 As part of my job working on an [open source logic
-textbook](https://carnap.io), I picked up a Haskell
+learning management system](https://carnap.io), I picked up a Haskell
 codebase that was rather hard to build. This was problematic for new
 contributors getting started, so I wanted to come up with a better process.
 Further, I was interested in this simplification allowing continuous
@@ -37,9 +43,11 @@ for one, the user facing documentation seems to be less complete than the
 documentation comments on functions, and often it is useful to read the library
 function source alongside the documentation.
 
-I recommend having a terminal with a `nix repl` and the
-[nix-doc](https://github.com/lf-/nix-doc) plugin and an editor with a
-checkout of the `nixpkgs` source code open while working on Nix stuff.
+I recommend keeping the nixpkgs source code open while working on Nix stuff,
+and using `nix-doc` and a `nix repl` to help find things. I've written [another
+post][nix finding post] on this workflow.
+
+[nix finding post]: ./finding-functions-in-nixpkgs.md
 
 # Implementation
 
