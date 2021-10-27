@@ -15,10 +15,10 @@ or repressed. [I also rewrote the website while contemplating this](/blog/rewrit
 At the time, though, I was not very confident in how I wanted to present
 myself in general. This has changed, which is why I am writing this post.
 
-My pronouns are she/her or they/them, and I prefer my name to be styled in
-lowercase.
+My pronouns are she/her or they/them, and I don't mind if it's lowercase (it's
+pretty!).
 
-jade ✨
+jade lovelace ✨
 
 ~
 
