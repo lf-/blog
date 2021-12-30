@@ -23,3 +23,9 @@ ffmpeg -i input.mp4 -vf drawtext="fontfile=/usr/share/fonts/adobe-source-sans-pr
 ```
 ffmpeg -protocol_whitelist file,http,https,tcp,tls,crypto -i 'https://host/playlist.m3u8' -c copy video.mp4
 ```
+
+## Add a black screen to some audio
+
+```
+ffmpeg -i string.mp3 -f lavfi -i color=black:s=640x480 -c:v libx264 -c:a aac -shortest output.mp4
+```
