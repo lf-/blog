@@ -1,0 +1,9 @@
+{%- import "macros/code.html" as code -%}
+
+{{ code::file(
+    path=path,
+    code_lang=code_lang | default(value=''),
+    colocated=colocated  | default(value=false),
+    hide=hide | default(value=false),
+    show_path_with_prefix=show_path_with_prefix | default(value=false)
+) }}

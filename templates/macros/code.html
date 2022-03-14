@@ -1,0 +1,36 @@
+{%- import "macros/colocated_asset.html" as colocated_asset -%}
+
+<!-- Load a file and dump it in a code block. -->
+{%- macro file(path, code_lang=false, colocated=false,
+               hide=false, show_path_with_prefix=false) -%}
+
+    {%- set newline = "
+" -%}
+    {%- set mypath = path -%}
+
+    {%- if show_path_with_prefix == false -%}
+        {%- set header = "" -%}
+    {%- else -%}
+        {%- set header = show_path_with_prefix ~ " " ~ path ~ newline -%}
+    {%- endif -%}
+    {%- if colocated == true -%}
+        {%- set path = colocated_asset::colocated_asset(path=path) | trim -%}
+    {%- endif -%}
+    {%- if code_lang == true -%}
+        {%- set code_lang = '' -%}
+    {%- endif -%}
+    {%- set data = load_data(path=path, format="plain") -%}
+    {%- set source = "```" ~ code_lang ~ newline ~ header ~ data ~ newline ~ "```" | safe -%}
+
+
+    {%- if hide == true -%}
+    <details>
+    <summary>
+    <code>{{ mypath }}</code>
+    </summary>
+    {%- endif -%}
+    {{ source | markdown(inline=true) | safe }}
+    {%- if hide == true -%}
+    </details>
+    {%- endif -%}
+{%- endmacro file -%}
