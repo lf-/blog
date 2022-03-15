@@ -31,4 +31,5 @@ zola build --drafts --base-url "$PREVIEW" --output-dir "$PREVIEW_TEMP"
 # trailing slash: copy contents of directory into destination
 rsync --verbose --human-readable --recursive \
     --links --times --new-compress --delete-delay \
+    --exclude-from=$HOME/.config/git/ignore \
     ${EXTRA_OPTS_PREVIEW:-} "$PREVIEW_TEMP/" "${PREVIEW_HOST}:${PREVIEW_DIR}"

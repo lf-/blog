@@ -14,4 +14,7 @@ fi
 
 source .deploy_config
 # trailing slash: copy contents of directory into destination
-rsync --verbose --human-readable --recursive --links --times --new-compress --delete-delay ${EXTRA_OPTS} public/ "${DEPLOY_HOST}:${DEPLOY_DIR}"
+rsync --verbose --human-readable --recursive \
+    --links --times --new-compress --delete-delay \
+    --exclude-from=$HOME/.config/git/ignore \
+    ${EXTRA_OPTS} public/ "${DEPLOY_HOST}:${DEPLOY_DIR}"
