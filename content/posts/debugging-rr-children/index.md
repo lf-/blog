@@ -47,7 +47,12 @@ We want to figure out where the crasher is crashing.
 
 ## Using rr to do it the easy way
 
-Let's use `rr` to do this more easily. First, record a run:
+For those unfamiliar, [`rr`](https://rr-project.org) is a time travel debugger
+for Linux: it records a run of a program and then can deterministically replay
+it (including in reverse!) as many times as you want. It's mostly replaced
+running things directly in `gdb` for me.
+
+Let's use it to find the fault in the child process. First, record a run:
 
 ```
 » rr record ./caller
@@ -67,7 +72,8 @@ PID     PPID    EXIT    CMD
 ```
 
 Next, use either `--onfork=<PID>` or `--onprocess=<PID>` to get a debugger on
-the problem process:
+the problem process. Since we believe it's failing after the process is both
+`fork`'d and `exec`'d into the new program, `--onprocess` is appropriate.
 
 ```
 » rr replay --onprocess=1432674
@@ -82,6 +88,7 @@ Reading symbols from /lib64/ld-linux-x86-64.so.2...
 BFD: warning: system-supplied DSO at 0x6fffd000 has a section extending past end of file
 0x00007f01f1ffb930 in _start () from /lib64/ld-linux-x86-64.so.2
 => 0x00007f01f1ffb930 <_start+0>:       48 89 e7        mov    %rsp,%rdi
+
 (rr) continue
 Continuing.
 [caller] spawned pid 1432674
@@ -90,14 +97,17 @@ Continuing.
 Program received signal SIGABRT, Aborted.
 0x00007f01f1e0734c in __pthread_kill_implementation () from /usr/lib/libc.so.6
 => 0x00007f01f1e0734c <__pthread_kill_implementation+284>:      89 c5   mov    %eax,%ebp
+
 (rr) backtrace
 #0  0x00007f01f1e0734c in __pthread_kill_implementation () from /usr/lib/libc.so.6
 #1  0x00007f01f1dba4b8 in raise () from /usr/lib/libc.so.6
 #2  0x00007f01f1da4534 in abort () from /usr/lib/libc.so.6
 #3  0x000055757da48161 in main () at crasher.c:6
+
 (rr) frame 3
 #3  0x000055757da48161 in main () at crasher.c:6
 6           abort();
+
 (rr) list
 1       #include <stdio.h>
 2       #include <stdlib.h>
@@ -106,6 +116,7 @@ Program received signal SIGABRT, Aborted.
 5           printf("[crasher] about to crash\n");
 6           abort();
 7       }
+
 (rr)
 ```
 
@@ -114,7 +125,7 @@ startup-quietly on` into `~/.config/gdb/gdbearlyinit` to get that.
 
 ## Annotating output with event numbers
 
-Another neat feature I found in rr is the ability to annotate output with the
+Another neat feature I found in `rr` is the ability to annotate output with the
 PIDs and event numbers with `--mark-stdio`, which can be useful if you have a
 program that is doing a bunch of things before the event of interest.
 
@@ -147,6 +158,7 @@ Reading symbols from /lib64/ld-linux-x86-64.so.2...
 BFD: warning: system-supplied DSO at 0x6fffd000 has a section extending past end of file
 0x0000000070000002 in syscall_traced ()
 => 0x0000000070000002:  c3      ret
+
 (rr) bt
 #0  0x0000000070000002 in syscall_traced ()
 #1  0x00007f01f1fd0430 in _raw_syscall ()
@@ -155,9 +167,11 @@ BFD: warning: system-supplied DSO at 0x6fffd000 has a section extending past end
 #13 0x00007f01f1dfe543 in __GI__IO_file_overflow () from /usr/lib/libc.so.6
 #14 0x00007f01f1df36fa in puts () from /usr/lib/libc.so.6
 #15 0x000055757da4815c in main () at crasher.c:5
+
 (rr) frame 15
 #15 0x000055757da4815c in main () at crasher.c:5
 5           printf("[crasher] about to crash\n");
+
 (rr) list
 1       #include <stdio.h>
 2       #include <stdlib.h>
