@@ -86,6 +86,9 @@ stored at `~/.config/git/config`):
     smtpserveroption = -a
     smtpserveroption = myaccountname
     confirm = always
+
+    # don't send yourself emails
+    suppresscc = self
 {% end %}
 
 Finally, you can send an email:
