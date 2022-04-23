@@ -1,0 +1,32 @@
+{%- import "macros/colocated_asset.html" as colocated_asset -%}
+
+{%- macro image(name, alt, colocated, height) -%}
+{%- set name_sanitized = name | replace(from=".", to="-") | replace(from="/", to="-") -%}
+{%- set image_id = "image" ~ name_sanitized -%}
+
+{%- if colocated == true -%}
+{%- set image_path = colocated_asset::colocated_asset(path=name) -%}
+{%- set image_url = name -%}
+{%- else -%}
+{%- set image_path = "/static/images/" ~ name -%}
+{%- set image_url = get_url(path=image_path) -%}
+{%- endif -%}
+
+{%- set image = resize_image(path=image_path, width=800, height=height, op="fit") -%}
+<div class="image">
+    <a href="{{ image_url }}">
+    <img src="{{ image.url }}"
+        alt="{{ alt }}"
+        title="{{ alt }}"
+    {% if label %}
+        aria-describedby="{{ image_id }}"
+    {% endif %}
+    >
+    </a>
+    {% if label %}
+    <span class="image-label" id="{{ image_id }}">
+        {{ label }}
+    </span>
+    {% endif %}
+</div>
+{%- endmacro image -%}

@@ -7,7 +7,7 @@
     {% endif %}
     <article class="homepage-article" typeof="BlogPosting" resource="{{ page.permalink | safe }}">
         <a class="homepage-link" href="{{ page.permalink | safe }}">
-            <h2 property="headline">{{ page.title }}</h2>
+            <h2 property="headline">{{ page.title | markdown(inline=true) | safe }}</h2>
         </a>
         <div class="detail">
             <span property="datePublished"
