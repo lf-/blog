@@ -29,6 +29,26 @@ implementation being broken.
 I ended up needing to use a separate *Mail Transfer Agent* (SMTP-speak for
 "SMTP client") and plumb it into git. For this, I used `msmtp`.
 
+First, store your SMTP email password in the system keyring:
+
+```
+# on KDE
+$ kwallet-query -w user@example.com kdewallet -f mail
+
+# on GNOME/other things supporting freedesktop secrets
+$ secret-tool store --label=msmtp host smtp.migadu.com service smtp user myuser@example.com
+
+# on macOS
+$ security add-internet-password -s smtp.migadu.com -r smtp -a myuser@example.com -w
+```
+
+I use KDE, so this setup uses the KDE wallet to store the password. If you use
+macOS, GNOME or the future version of KDE that supports the freedesktop secrets
+system, **remove the `passwordeval` line from the sample config here** as
+`msmtp` can get the password from your keyring by itself.
+
+Then write a `msmtp` configuration file:
+
 {% codesample(desc="`~/.msmtprc`") %}
 # Used to identify which account you are using in the msmtp command line
 account myaccountname
@@ -51,8 +71,8 @@ from listsubscriber@example.com
 
 # Use kwallet-query to get the password because kwallet does not support the
 # freedesktop secrets protocol
-# "mail" is the folder on the left hand side of the "Wallet Manager"
-# and user@example.com is the name of the item
+# NOTE!! If you are on macOS or GNOME or the future version of KDE that
+# supports freedesktop secrets, delete the following line!
 passwordeval kwallet-query -r user@example.com kdewallet -f mail
 {% end %}
 
