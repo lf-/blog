@@ -6,24 +6,29 @@ tags = ["git", "tools"]
 title = "Oh no, `git send-email`"
 +++
 
-Say you have to contribute to some boomer project that doesn't believe in
-GitHub or GitLab or Gitea or <...> which would allow for just pushing some
-changes and filing a pull request. Instead, they want an *email*. Gross.
+Say you have to contribute to some project run by Unix bros who want the 90s
+back, so they don't use GitHub or its many self-hosted alternatives to accept
+pull requests, and you need to email them a patch. I would find it entirely
+understandable to want to get a quill pen and write a letter on paper for fun
+instead of dealing with mailing lists and emailing a patch.
+
+Unfortunately, sometimes one needs to engage in the much less pleasant form of
+anachronism of contributing to this kind of software anyway, as mailing lists
+with patches are still very common in the land of older system software under
+the C. The patch-emailing features of git are some of its most infamous for poor
+usability, which is saying something, because git as a whole is known for being
+hard to use.
 
 For those who are unfamiliar with the email-patch infrastructure, git is
 *extremely* picky about emails being the exact format it likes and not getting
 modified at all by the client. This means that in practice, you need to send
 your patch emails using `git send-email` as your email client.
 
-The patch-emailing features of git are some of its most infamous for poor
-usability, which is saying something, because git as a whole is known for being
-hard to use.
-
-Theoretically, <https://git-send-email.io/> (by someone who made their own git
-source hosting service that strangely uses emails to submit patches) will tell
-you how to set it up. Well, except if `git send-email` has other ideas: it
-would not send through my email provider for reasons that must have been a bug:
-I seem to recall it was something to do with either a TLS or SMTP
+Theoretically, <https://git-send-email.io/> (by someone who made their own new
+git source hosting service that mysteriously uses emails to submit patches)
+will tell you how to set it up. Well, except if `git send-email` has other
+ideas: it would not send through my email provider for reasons that must have
+been a bug: I seem to recall it was something to do with either a TLS or SMTP
 implementation being broken.
 
 I ended up needing to use a separate *Mail Transfer Agent* (SMTP-speak for
@@ -50,6 +55,7 @@ system, **remove the `passwordeval` line from the sample config here** as
 Then write a `msmtp` configuration file:
 
 {% codesample(desc="`~/.msmtprc`") %}
+```
 # Used to identify which account you are using in the msmtp command line
 account myaccountname
 
@@ -74,6 +80,7 @@ from listsubscriber@example.com
 # NOTE!! If you are on macOS or GNOME or the future version of KDE that
 # supports freedesktop secrets, delete the following line!
 passwordeval kwallet-query -r user@example.com kdewallet -f mail
+```
 {% end %}
 
 Then configure git (I keep this in `~/.gitconfig` as I don't really want to
@@ -81,6 +88,7 @@ check it in for spam reasons, whereas most of my git config is checked in and
 stored at `~/.config/git/config`):
 
 {% codesample(desc="`~/.gitconfig`") %}
+```
 [sendemail]
     sendmailcmd = /usr/bin/msmtp
     smtpserveroption = -a
@@ -89,6 +97,7 @@ stored at `~/.config/git/config`):
 
     # don't send yourself emails
     suppresscc = self
+```
 {% end %}
 
 Finally, you can send an email:
