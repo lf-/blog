@@ -1,0 +1,236 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="17in" width="11in" onload="makeDraggable(evt)">
+  <style>
+    .text {
+      font-family: "Source Han Sans";
+      font-size: 14pt;
+      font-weight: bolder;
+      letter-spacing: -1.5px;
+    }
+    .text.japanese {
+      font-size: 16pt;
+      letter-spacing: -0.8px;
+    }
+    .wallside {
+        transform: rotate(-45deg)translate(-13in, 1.2in);
+    }
+    .draggable, .draggable-group {
+      cursor: move;
+    }
+  </style>
+  <!--<image href="./wallsideref.jpg" x="0" y="0" transform="scale(0.4, 0.4)" /> -->
+  <clipPath id="viewRect">
+    <rect height="100%" width="100%" />
+  </clipPath>
+  <rect height="17in" width="11in" stroke="black" fill="none" />
+  
+
+
+<defs><g id="line-10">
+<use x="0" xlink:href="#en" />
+<use x="106" xlink:href="#en" />
+<use x="212" xlink:href="#en" />
+<use x="318" xlink:href="#en" />
+<use x="424" xlink:href="#en" />
+<use x="530" xlink:href="#en" />
+<use x="636" xlink:href="#en" />
+<use x="742" xlink:href="#en" />
+<use x="848" xlink:href="#en" />
+<use x="954" xlink:href="#en" />
+<use x="1060" xlink:href="#en" />
+<use x="1166" xlink:href="#en" />
+<use x="1272" xlink:href="#en" />
+<use x="1378" xlink:href="#en" />
+<use x="1484" xlink:href="#en" />
+<use x="1590" xlink:href="#en" />
+<use x="1696" xlink:href="#en" />
+<use x="1802" xlink:href="#en" />
+<use x="1908" xlink:href="#en" />
+<use x="2014" xlink:href="#en" />
+<use x="0" xlink:href="#fr" />
+<use x="106" xlink:href="#fr" />
+<use x="212" xlink:href="#fr" />
+<use x="318" xlink:href="#fr" />
+<use x="424" xlink:href="#fr" />
+<use x="530" xlink:href="#fr" />
+<use x="636" xlink:href="#fr" />
+<use x="742" xlink:href="#fr" />
+<use x="848" xlink:href="#fr" />
+<use x="954" xlink:href="#fr" />
+<use x="1060" xlink:href="#fr" />
+<use x="1166" xlink:href="#fr" />
+<use x="1272" xlink:href="#fr" />
+<use x="1378" xlink:href="#fr" />
+<use x="1484" xlink:href="#fr" />
+<use x="1590" xlink:href="#fr" />
+<use x="1696" xlink:href="#fr" />
+<use x="1802" xlink:href="#fr" />
+<use x="1908" xlink:href="#fr" />
+<use x="2014" xlink:href="#fr" />
+<use x="0" xlink:href="#es" />
+<use x="146" xlink:href="#es" />
+<use x="292" xlink:href="#es" />
+<use x="438" xlink:href="#es" />
+<use x="584" xlink:href="#es" />
+<use x="730" xlink:href="#es" />
+<use x="876" xlink:href="#es" />
+<use x="1022" xlink:href="#es" />
+<use x="1168" xlink:href="#es" />
+<use x="1314" xlink:href="#es" />
+<use x="1460" xlink:href="#es" />
+<use x="1606" xlink:href="#es" />
+<use x="1752" xlink:href="#es" />
+<use x="1898" xlink:href="#es" />
+<use x="2044" xlink:href="#es" />
+<use x="2190" xlink:href="#es" />
+<use x="2336" xlink:href="#es" />
+<use x="2482" xlink:href="#es" />
+<use x="2628" xlink:href="#es" />
+<use x="2774" xlink:href="#es" />
+<use x="0" xlink:href="#jp" />
+<use x="82" xlink:href="#jp" />
+<use x="164" xlink:href="#jp" />
+<use x="246" xlink:href="#jp" />
+<use x="328" xlink:href="#jp" />
+<use x="410" xlink:href="#jp" />
+<use x="492" xlink:href="#jp" />
+<use x="574" xlink:href="#jp" />
+<use x="656" xlink:href="#jp" />
+<use x="738" xlink:href="#jp" />
+<use x="820" xlink:href="#jp" />
+<use x="902" xlink:href="#jp" />
+<use x="984" xlink:href="#jp" />
+<use x="1066" xlink:href="#jp" />
+<use x="1148" xlink:href="#jp" />
+<use x="1230" xlink:href="#jp" />
+<use x="1312" xlink:href="#jp" />
+<use x="1394" xlink:href="#jp" />
+<use x="1476" xlink:href="#jp" />
+<use x="1558" xlink:href="#jp" />
+<use x="1640" xlink:href="#jp" />
+<use x="1722" xlink:href="#jp" />
+<use x="1804" xlink:href="#jp" />
+<use x="1886" xlink:href="#jp" />
+<use x="1968" xlink:href="#jp" />
+<use x="2050" xlink:href="#jp" />
+<use x="2132" xlink:href="#jp" />
+<use x="2214" xlink:href="#jp" />
+<use x="2296" xlink:href="#jp" />
+<use x="2378" xlink:href="#jp" />
+</g></defs>
+<g clip-path="url(#viewRect)"><g transform="rotate(-45) translate(-1248, 115)">
+<use xlink:href="#line-10" y="0" />
+<use xlink:href="#line-10" y="106" />
+<use xlink:href="#line-10" y="212" />
+<use xlink:href="#line-10" y="318" />
+<use xlink:href="#line-10" y="424" />
+<use xlink:href="#line-10" y="530" />
+<use xlink:href="#line-10" y="636" />
+<use xlink:href="#line-10" y="742" />
+<use xlink:href="#line-10" y="848" />
+<use xlink:href="#line-10" y="954" />
+<use xlink:href="#line-10" y="1060" />
+<use xlink:href="#line-10" y="1166" />
+<use xlink:href="#line-10" y="1272" />
+<use xlink:href="#line-10" y="1378" />
+<use xlink:href="#line-10" y="1484" />
+<use xlink:href="#line-10" y="1590" />
+<use xlink:href="#line-10" y="1696" />
+<use xlink:href="#line-10" y="1802" />
+<use xlink:href="#line-10" y="1908" />
+<use xlink:href="#line-10" y="2014" />
+</g></g>
+
+  <defs>
+    <text id="en" x="0" y="0" transform="translate(0, -80)" class="text">WALL side</text>
+    <text id="fr" x="0" y="0" transform="translate(-25, -56)" class="text">Côté MUR</text>
+    <text id="es" x="0" y="0" transform="translate(-28, 0)" class="text">lado de la PARED</text>
+    <text id="jp" x="0" y="0" transform="translate(-20, -27)" class="text japanese">かベ面</text>
+  </defs>
+
+  <g class="wallside">
+    <!--
+    <use href="#en" />
+    <use href="#en" x="106" class="draggable" />
+    <use href="#en" y="106" class="draggable" />
+    <use href="#fr" />
+    <use href="#fr" x="106" class="draggable" />
+    <use href="#es" />
+    <use href="#es" x="146" class="draggable" />
+    <use href="#jp" />
+    <use href="#jp" x="82" class="draggable" />
+    -->
+  </g>
+
+
+  <script type="text/javascript"><![CDATA[
+    function makeDraggable(evt) {
+        var svg = evt.target;
+
+        svg.addEventListener('mousedown', startDrag);
+        svg.addEventListener('mousemove', drag);
+        svg.addEventListener('mouseup', endDrag);
+        svg.addEventListener('mouseleave', endDrag);
+        svg.addEventListener('touchstart', startDrag);
+        svg.addEventListener('touchmove', drag);
+        svg.addEventListener('touchend', endDrag);
+        svg.addEventListener('touchleave', endDrag);
+        svg.addEventListener('touchcancel', endDrag);
+
+        function getMousePosition(evt) {
+          var CTM = svg.getScreenCTM();
+          if (evt.touches) { evt = evt.touches[0]; }
+          return {
+            x: (evt.clientX - CTM.e) / CTM.a,
+            y: (evt.clientY - CTM.f) / CTM.d
+          };
+        }
+
+        var selectedElement, offset, transform;
+
+        function initialiseDragging(evt) {
+            offset = getMousePosition(evt);
+
+            // Make sure the first transform on the element is a translate transform
+            var transforms = selectedElement.transform.baseVal;
+
+            if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
+              // Create an transform that translates by (0, 0)
+              var translate = svg.createSVGTransform();
+              translate.setTranslate(0, 0);
+              selectedElement.transform.baseVal.insertItemBefore(translate, 0);
+            }
+
+            // Get initial translation
+            transform = transforms.getItem(0);
+            offset.x -= transform.matrix.e;
+            offset.y -= transform.matrix.f;
+        }
+
+        function startDrag(evt) {
+          if (evt.target.classList.contains('draggable')) {
+            selectedElement = evt.target;
+            initialiseDragging(evt);
+          } else if (evt.target.parentNode.classList.contains('draggable-group')) {
+            selectedElement = evt.target.parentNode;
+            initialiseDragging(evt);
+          }
+        }
+
+        function drag(evt) {
+          if (selectedElement) {
+            evt.preventDefault();
+            var coord = getMousePosition(evt);
+            transform.setTranslate(coord.x - offset.x, coord.y - offset.y);
+          }
+        }
+
+        function endDrag(evt) {
+          selectedElement = false;
+        }
+      }
+
+  ]]></script>
+
+</svg>
+
