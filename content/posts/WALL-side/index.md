@@ -11,6 +11,13 @@ poster with diagonal WALL side text in four different
 languages
 {% end %}
 
+#### Note
+> A previous version of this article unfairly implied that Firefox has better
+> SVG standards conformance than Inkscape. The situation is more complicated
+> than that and includes the standards being cut down to match stagnant browser
+> implementations, while there are also some SVG 2.0 features missing in
+> Inkscape. Nobody is perfect here.
+
 My partner has a brilliant poster they made of the backing of 3M command strips
 in their apartment, which I wanted to recreate as a vector image to make
 another. I initially tried inkscape, where I ran into issues with the tiled
@@ -66,10 +73,10 @@ automatically, with the `y` offset set to some multiple of the line spacing,
 and with some tweaks, that was that.
 
 Next was the job of getting it to work on Inkscape since I was prototyping
-against Firefox, which, being a web browser, has a very advanced SVG renderer
-compared to non-browser programs. One thing I was doing that was not ideal for
-Inkscape was that I was rendering a bunch of text off-page. I fixed this with a
-clip path the size of the document like so:
+against Firefox which has different standards support than Inkscape. One thing
+I was doing that was not ideal for Inkscape was that I was rendering a bunch of
+text off-page, which was appearing. I fixed this with a clip path the size of
+the document like so:
 
 ```xml
 <clipPath id="viewRect">
@@ -81,16 +88,16 @@ clip path the size of the document like so:
 </g>
 ```
 
-Another thing that Inkscape disliked (to the point of not rendering anything)
-was the use of `href="..."` in my document. Its predecessor, `xlink:href`, was
-[noted on MDN][mdn xlink] as being deprecated, replaced in the SVG 2 standard
-by unprefixed `href`. I just had to switch to the older one and add
-`xmlns:xlink="http://www.w3.org/1999/xlink"` to my `<svg>` element to fix this.
+Another thing that Inkscape was incompatible with (to the point of not
+rendering anything) was the use of `href="..."` in my document. Its
+predecessor, `xlink:href`, was [noted on MDN][mdn xlink] as being deprecated,
+replaced in the SVG 2 standard by unprefixed `href`. I just had to switch to
+`xlink:href` and add `xmlns:xlink="http://www.w3.org/1999/xlink"` to my `<svg>`
+element to fix this.
 
 The last bit of trouble I got from Inkscape was that it does not support the
 CSS `transform` property, so I had to convert to the `transform="..."` property
-directly on tags. Oh well, so much for the shiny features. But it works now and
-is more portable!
+on tags. And it comes out of Inkscape and ImageMagick nicely now! Yay!
 
 Finally, I have a SVG file that is exactly what I want and was not that painful
 to create. That was fun!
