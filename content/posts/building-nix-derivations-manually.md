@@ -83,9 +83,21 @@ if [ -z "${phases:-}" ]; then
 fi
 ```
 
-So if you have already manually run `unpackPhase`, `patchPhase`, and all the
-`prePhases` if any, a build command to make a build to look at would be
-something like the following:
+A manual build of a package might look like this:
+
+First, open a nix-shell with the derivation of the package in question. For
+instance, `nix-shell '<nixpkgs>' -A hello`.
+
+Then do:
+
+```sh
+phases="${prePhases:-} unpackPhase patchPhase" genericBuild
+```
+
+which will dump you into a shell in the sources directory for the package.
+
+Once you've done the stuff you'll run once, you can run the build as many times
+as you'd like:
 
 ```sh
 out=$(pwd)/out phases="${preConfigurePhases:-} configurePhase ${preBuildPhases:-} buildPhase" genericBuild
@@ -96,9 +108,4 @@ nix store, which usually breaks builds since is not available for writing if
 you are not the actual sandboxed nix builder. If there are other outputs such
 as `doc`, these also need to be specified here.
 
-The one part of `genericBuild` that I usually do run manually is `unpackPhase`,
-which notably changes the directory into the source directory of the app. This
-is useful to run manually because when debugging, it is often the case that a
-build needs to be run several times through, and it's useful to let it fail in
-the middle when you can restart it yourself just on the broken piece.
 
