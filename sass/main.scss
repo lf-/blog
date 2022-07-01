@@ -171,6 +171,9 @@ article.homepage-article {
 
 footer {
     @include flex-center;
+    p {
+        margin: 0 1em;
+    }
 }
 
 // stuff on pages
