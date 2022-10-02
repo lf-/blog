@@ -12,7 +12,7 @@ functionality cross-project. Another problem I sometimes have is that I want to
 make a contribution to some library but setting up an IDE for it is a pain in
 the neck.
 
-# YOLO method (putting it all in a workspace with your app and not telling Nix)
+# YOLO method (putting it all in a workspace with your app and not telling Nix) {#yolo-method}
 
 Often it is easiest to partially bypass Nix while doing development on
 dependencies. This means that Nix provides the compiler but the dependency

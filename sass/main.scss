@@ -38,12 +38,16 @@ $lower2: darken($text, 30);
     }
 }
 
-pre {
+@mixin box {
     padding: 1em;
     margin: .5em 0;
     border-radius: .3em;
-    overflow: auto;
     background-color: $lowerbg1;
+}
+
+pre {
+    @include box;
+    overflow: auto;
 
     code {
         font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
@@ -285,6 +289,11 @@ kbd {
     margin-right: 0.2rem;
     padding: 2px;
     box-shadow: 0px 2px 3px $lowerbg2;
+}
+
+/* asides. god help me */
+aside {
+    @include box;
 }
 
 /* headings */
