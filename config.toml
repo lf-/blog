@@ -12,7 +12,9 @@ description = "computers i guess"
 
 [markdown]
 highlight_code = true
-extra_syntaxes = ["syntax"]
+use_tree_painter = true
+highlight_theme = "ayu_mirage_hacked"
+extra_syntaxes_and_themes = ["syntax"]
 
 [extra]
 # Put all your custom variables here

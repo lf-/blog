@@ -26,7 +26,7 @@ fi
 PREVIEW_TEMP=/tmp/zola-preview
 
 rm -rf "$PREVIEW_TEMP"
-zola build --drafts --base-url "$PREVIEW" --output-dir "$PREVIEW_TEMP"
+../zola/target/debug/zola build --drafts --base-url "$PREVIEW" --output-dir "$PREVIEW_TEMP"
 
 # trailing slash: copy contents of directory into destination
 rsync --verbose --human-readable --recursive \
