@@ -1,0 +1,652 @@
+{
+  "title": "Initial actual budget graph",
+  "nodes": {
+    "/nix/store/073qf3vf5sq7yaxspbhbl5njy5p458if-gcc-9.3.0-lib": {
+      "label": "p458if-gcc-9.3.0-lib",
+      "props": {
+        "path": "/nix/store/073qf3vf5sq7yaxspbhbl5njy5p458if-gcc-9.3.0-lib",
+        "narSize": "5.5 MiB",
+        "closureSize": "35.1 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 2.4194162869038793
+    },
+    "/nix/store/27s76aizysg70j74fvxcmw26qb1a75hg-tzdata-2022a": {
+      "label": "1a75hg-tzdata-2022a",
+      "props": {
+        "path": "/nix/store/27s76aizysg70j74fvxcmw26qb1a75hg-tzdata-2022a",
+        "narSize": "2 MiB",
+        "closureSize": "2 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 1.416603791763608
+    },
+    "/nix/store/5m75p4p6iwqc1kxsp27v21cxmf8l8smb-bzip2-1.0.6.0.2": {
+      "label": "8l8smb-bzip2-1.0.6.0.2",
+      "props": {
+        "path": "/nix/store/5m75p4p6iwqc1kxsp27v21cxmf8l8smb-bzip2-1.0.6.0.2",
+        "narSize": "75.9 KiB",
+        "closureSize": "29.7 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/5rn0s6gja3v2kg1n9rdsqvl4fwncx4ph-libidn2-2.3.2": {
+      "label": "ncx4ph-libidn2-2.3.2",
+      "props": {
+        "path": "/nix/store/5rn0s6gja3v2kg1n9rdsqvl4fwncx4ph-libidn2-2.3.2",
+        "narSize": "252.2 KiB",
+        "closureSize": "2 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/9cks58i6jn1hlggxa406121asgn6nyra-readline-6.3p08": {
+      "label": "n6nyra-readline-6.3p08",
+      "props": {
+        "path": "/nix/store/9cks58i6jn1hlggxa406121asgn6nyra-readline-6.3p08",
+        "narSize": "395.5 KiB",
+        "closureSize": "33.5 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/a3zvjvbipm7brkxiq601kys1ql9rk2i0-xz-5.2.5": {
+      "label": "9rk2i0-xz-5.2.5",
+      "props": {
+        "path": "/nix/store/a3zvjvbipm7brkxiq601kys1ql9rk2i0-xz-5.2.5",
+        "narSize": "466.1 KiB",
+        "closureSize": "30.1 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/aiglvl958l2c2cd7dipf22ibxip95fhq-icu4c-71.1-dev": {
+      "label": "p95fhq-icu4c-71.1-dev",
+      "props": {
+        "path": "/nix/store/aiglvl958l2c2cd7dipf22ibxip95fhq-icu4c-71.1-dev",
+        "narSize": "5.3 MiB",
+        "closureSize": "79.3 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 2.385025884503138
+    },
+    "/nix/store/b24qnq024bv5yxr679gswckivg7042gb-gdbm-1.23": {
+      "label": "7042gb-gdbm-1.23",
+      "props": {
+        "path": "/nix/store/b24qnq024bv5yxr679gswckivg7042gb-gdbm-1.23",
+        "narSize": "796.5 KiB",
+        "closureSize": "30.4 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0.46561903092791146
+    },
+    "/nix/store/cc6lbnrx5imqj1cbbpybws50b2002r8p-openssl-1.1.1o": {
+      "label": "002r8p-openssl-1.1.1o",
+      "props": {
+        "path": "/nix/store/cc6lbnrx5imqj1cbbpybws50b2002r8p-openssl-1.1.1o",
+        "narSize": "3.7 MiB",
+        "closureSize": "33.3 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 2.0201786631684238
+    },
+    "/nix/store/ccj83yygy31ir1wscwrapxljdfpjcbjb-acl-2.3.1": {
+      "label": "pjcbjb-acl-2.3.1",
+      "props": {
+        "path": "/nix/store/ccj83yygy31ir1wscwrapxljdfpjcbjb-acl-2.3.1",
+        "narSize": "108.1 KiB",
+        "closureSize": "29.8 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/d4fv57g9cq82zgysim42g5hqp1c4mba5-zlib-1.2.12": {
+      "label": "c4mba5-zlib-1.2.12",
+      "props": {
+        "path": "/nix/store/d4fv57g9cq82zgysim42g5hqp1c4mba5-zlib-1.2.12",
+        "narSize": "119.1 KiB",
+        "closureSize": "29.8 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/hj3i68avd4dq3m4h21fn00a04pb1fm4a-coreutils-9.0": {
+      "label": "b1fm4a-coreutils-9.0",
+      "props": {
+        "path": "/nix/store/hj3i68avd4dq3m4h21fn00a04pb1fm4a-coreutils-9.0",
+        "narSize": "1.6 MiB",
+        "closureSize": "31.4 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 1.1863369528745844
+    },
+    "/nix/store/hj5cjjxxg9dlg4f66ic3x9xqsmscqfmy-attr-2.5.1": {
+      "label": "scqfmy-attr-2.5.1",
+      "props": {
+        "path": "/nix/store/hj5cjjxxg9dlg4f66ic3x9xqsmscqfmy-attr-2.5.1",
+        "narSize": "75.4 KiB",
+        "closureSize": "29.7 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/i778ag8s7jf8bxy9ihv0gsba3h9m8hzl-actual-sync-modules-1.0.1": {
+      "label": "9m8hzl-actual-sync-modules-1.0.1",
+      "props": {
+        "path": "/nix/store/i778ag8s7jf8bxy9ihv0gsba3h9m8hzl-actual-sync-modules-1.0.1",
+        "narSize": "143.1 MiB",
+        "closureSize": "425 MiB",
+        "registered": "2022-10-17 19:29:19 UTC",
+        "deriver": "/nix/store/8q8bv2a11523avq50bp91sw8g5pbirhn-actual-sync-modules-1.0.1.drv"
+      },
+      "weight": 5.680189727044614
+    },
+    "/nix/store/jbq46aqlwcwb51f17gi97az59js3mj2q-perl-5.34.1": {
+      "label": "s3mj2q-perl-5.34.1",
+      "props": {
+        "path": "/nix/store/jbq46aqlwcwb51f17gi97az59js3mj2q-perl-5.34.1",
+        "narSize": "52.7 MiB",
+        "closureSize": "84.2 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 4.680812070382395
+    },
+    "/nix/store/l0mwmzjk0a14a72441alshj8k23i5n2p-libunistring-1.0": {
+      "label": "3i5n2p-libunistring-1.0",
+      "props": {
+        "path": "/nix/store/l0mwmzjk0a14a72441alshj8k23i5n2p-libunistring-1.0",
+        "narSize": "1.7 MiB",
+        "closureSize": "1.7 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 1.265661565627411
+    },
+    "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12": {
+      "label": "yaf7qh-python3-3.9.12",
+      "props": {
+        "path": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+        "narSize": "84.6 MiB",
+        "closureSize": "128.2 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 5.154659877624505
+    },
+    "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115": {
+      "label": "i4v50a-glibc-2.34-115",
+      "props": {
+        "path": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115",
+        "narSize": "27.7 MiB",
+        "closureSize": "29.7 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 4.037506317710718
+    },
+    "/nix/store/nc4krnv23q5c69n43gmdbsffgd2i797m-zlib-1.2.12-dev": {
+      "label": "2i797m-zlib-1.2.12-dev",
+      "props": {
+        "path": "/nix/store/nc4krnv23q5c69n43gmdbsffgd2i797m-zlib-1.2.12-dev",
+        "narSize": "112.8 KiB",
+        "closureSize": "29.9 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/qd3g8rk5hx5zkb70idjh6fa12sh6bipg-mailcap-2.1.53": {
+      "label": "h6bipg-mailcap-2.1.53",
+      "props": {
+        "path": "/nix/store/qd3g8rk5hx5zkb70idjh6fa12sh6bipg-mailcap-2.1.53",
+        "narSize": "109.4 KiB",
+        "closureSize": "109.4 KiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/qh1yf30niykshpc5dfi7m668ch2p7x6c-ncurses-6.3": {
+      "label": "2p7x6c-ncurses-6.3",
+      "props": {
+        "path": "/nix/store/qh1yf30niykshpc5dfi7m668ch2p7x6c-ncurses-6.3",
+        "narSize": "3.5 MiB",
+        "closureSize": "33.1 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 1.9575695913880296
+    },
+    "/nix/store/qhx1x8lwnx5i0r7gc1k6qqn23l4y8y6y-openssl-1.1.1o-bin": {
+      "label": "4y8y6y-openssl-1.1.1o-bin",
+      "props": {
+        "path": "/nix/store/qhx1x8lwnx5i0r7gc1k6qqn23l4y8y6y-openssl-1.1.1o-bin",
+        "narSize": "739.9 KiB",
+        "closureSize": "88.6 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0.3918625953168647
+    },
+    "/nix/store/qq1zblyp6ysx96vd8havhw0wcsihcidf-actual-server": {
+      "label": "ihcidf-actual-server",
+      "props": {
+        "path": "/nix/store/qq1zblyp6ysx96vd8havhw0wcsihcidf-actual-server",
+        "narSize": "143.2 MiB",
+        "closureSize": "568.2 MiB",
+        "registered": "2022-10-17 22:45:15 UTC",
+        "deriver": "/nix/store/47ynggi13xy7lnyqyy66izs0bbj4i1kj-actual-server.drv"
+      },
+      "weight": 5.681352373571962
+    },
+    "/nix/store/qrw4ldkpsgbk1gzwf45qz40l43ld79z4-bash-5.1-p16": {
+      "label": "ld79z4-bash-5.1-p16",
+      "props": {
+        "path": "/nix/store/qrw4ldkpsgbk1gzwf45qz40l43ld79z4-bash-5.1-p16",
+        "narSize": "1.3 MiB",
+        "closureSize": "31 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 1.0129012022977377
+    },
+    "/nix/store/r1jhzslypr1pmjls2mh22i1d3h04a1rk-icu4c-71.1": {
+      "label": "04a1rk-icu4c-71.1",
+      "props": {
+        "path": "/nix/store/r1jhzslypr1pmjls2mh22i1d3h04a1rk-icu4c-71.1",
+        "narSize": "35.7 MiB",
+        "closureSize": "72.2 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 4.292424119492384
+    },
+    "/nix/store/s355yx68hzb0fy55pc417kq8hy744fbc-libuv-1.44.1": {
+      "label": "744fbc-libuv-1.44.1",
+      "props": {
+        "path": "/nix/store/s355yx68hzb0fy55pc417kq8hy744fbc-libuv-1.44.1",
+        "narSize": "331.7 KiB",
+        "closureSize": "30 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/sscxlfcpd2cjwb9jm1v3y54q40j46v6x-expat-2.4.8": {
+      "label": "j46v6x-expat-2.4.8",
+      "props": {
+        "path": "/nix/store/sscxlfcpd2cjwb9jm1v3y54q40j46v6x-expat-2.4.8",
+        "narSize": "247.2 KiB",
+        "closureSize": "29.9 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/vmf9jqsb9zx9nlqlwpvy4gwcs5zq7y1v-sqlite-3.38.3": {
+      "label": "zq7y1v-sqlite-3.38.3",
+      "props": {
+        "path": "/nix/store/vmf9jqsb9zx9nlqlwpvy4gwcs5zq7y1v-sqlite-3.38.3",
+        "narSize": "1.3 MiB",
+        "closureSize": "31.1 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0.9667580602456716
+    },
+    "/nix/store/vvapsd09jq70w3hmpdd5rlrd8iv3fi2f-libffi-3.4.2": {
+      "label": "v3fi2f-libffi-3.4.2",
+      "props": {
+        "path": "/nix/store/vvapsd09jq70w3hmpdd5rlrd8iv3fi2f-libffi-3.4.2",
+        "narSize": "48.2 KiB",
+        "closureSize": "29.7 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 0
+    },
+    "/nix/store/wl64yp8q7m2s9dc3awdj4yfkviw52fpi-openssl-1.1.1o-dev": {
+      "label": "w52fpi-openssl-1.1.1o-dev",
+      "props": {
+        "path": "/nix/store/wl64yp8q7m2s9dc3awdj4yfkviw52fpi-openssl-1.1.1o-dev",
+        "narSize": "1.3 MiB",
+        "closureSize": "89.9 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 1.0021185962889871
+    },
+    "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0": {
+      "label": "4xf821-nodejs-16.15.0",
+      "props": {
+        "path": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+        "narSize": "50.2 MiB",
+        "closureSize": "281.9 MiB",
+        "registered": "2022-06-21 19:41:37 UTC",
+        "deriver": null
+      },
+      "weight": 4.6336771609814065
+    }
+  },
+  "edges": [
+    {
+      "from": "/nix/store/073qf3vf5sq7yaxspbhbl5njy5p458if-gcc-9.3.0-lib",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/5m75p4p6iwqc1kxsp27v21cxmf8l8smb-bzip2-1.0.6.0.2",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/5rn0s6gja3v2kg1n9rdsqvl4fwncx4ph-libidn2-2.3.2",
+      "to": "/nix/store/l0mwmzjk0a14a72441alshj8k23i5n2p-libunistring-1.0"
+    },
+    {
+      "from": "/nix/store/9cks58i6jn1hlggxa406121asgn6nyra-readline-6.3p08",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/9cks58i6jn1hlggxa406121asgn6nyra-readline-6.3p08",
+      "to": "/nix/store/qh1yf30niykshpc5dfi7m668ch2p7x6c-ncurses-6.3"
+    },
+    {
+      "from": "/nix/store/a3zvjvbipm7brkxiq601kys1ql9rk2i0-xz-5.2.5",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/aiglvl958l2c2cd7dipf22ibxip95fhq-icu4c-71.1-dev",
+      "to": "/nix/store/073qf3vf5sq7yaxspbhbl5njy5p458if-gcc-9.3.0-lib"
+    },
+    {
+      "from": "/nix/store/aiglvl958l2c2cd7dipf22ibxip95fhq-icu4c-71.1-dev",
+      "to": "/nix/store/hj3i68avd4dq3m4h21fn00a04pb1fm4a-coreutils-9.0"
+    },
+    {
+      "from": "/nix/store/aiglvl958l2c2cd7dipf22ibxip95fhq-icu4c-71.1-dev",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/aiglvl958l2c2cd7dipf22ibxip95fhq-icu4c-71.1-dev",
+      "to": "/nix/store/qrw4ldkpsgbk1gzwf45qz40l43ld79z4-bash-5.1-p16"
+    },
+    {
+      "from": "/nix/store/aiglvl958l2c2cd7dipf22ibxip95fhq-icu4c-71.1-dev",
+      "to": "/nix/store/r1jhzslypr1pmjls2mh22i1d3h04a1rk-icu4c-71.1"
+    },
+    {
+      "from": "/nix/store/b24qnq024bv5yxr679gswckivg7042gb-gdbm-1.23",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/cc6lbnrx5imqj1cbbpybws50b2002r8p-openssl-1.1.1o",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/ccj83yygy31ir1wscwrapxljdfpjcbjb-acl-2.3.1",
+      "to": "/nix/store/hj5cjjxxg9dlg4f66ic3x9xqsmscqfmy-attr-2.5.1"
+    },
+    {
+      "from": "/nix/store/ccj83yygy31ir1wscwrapxljdfpjcbjb-acl-2.3.1",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/d4fv57g9cq82zgysim42g5hqp1c4mba5-zlib-1.2.12",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/hj3i68avd4dq3m4h21fn00a04pb1fm4a-coreutils-9.0",
+      "to": "/nix/store/ccj83yygy31ir1wscwrapxljdfpjcbjb-acl-2.3.1"
+    },
+    {
+      "from": "/nix/store/hj3i68avd4dq3m4h21fn00a04pb1fm4a-coreutils-9.0",
+      "to": "/nix/store/hj5cjjxxg9dlg4f66ic3x9xqsmscqfmy-attr-2.5.1"
+    },
+    {
+      "from": "/nix/store/hj3i68avd4dq3m4h21fn00a04pb1fm4a-coreutils-9.0",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/hj5cjjxxg9dlg4f66ic3x9xqsmscqfmy-attr-2.5.1",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/i778ag8s7jf8bxy9ihv0gsba3h9m8hzl-actual-sync-modules-1.0.1",
+      "to": "/nix/store/073qf3vf5sq7yaxspbhbl5njy5p458if-gcc-9.3.0-lib"
+    },
+    {
+      "from": "/nix/store/i778ag8s7jf8bxy9ihv0gsba3h9m8hzl-actual-sync-modules-1.0.1",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/i778ag8s7jf8bxy9ihv0gsba3h9m8hzl-actual-sync-modules-1.0.1",
+      "to": "/nix/store/qrw4ldkpsgbk1gzwf45qz40l43ld79z4-bash-5.1-p16"
+    },
+    {
+      "from": "/nix/store/i778ag8s7jf8bxy9ihv0gsba3h9m8hzl-actual-sync-modules-1.0.1",
+      "to": "/nix/store/vmf9jqsb9zx9nlqlwpvy4gwcs5zq7y1v-sqlite-3.38.3"
+    },
+    {
+      "from": "/nix/store/i778ag8s7jf8bxy9ihv0gsba3h9m8hzl-actual-sync-modules-1.0.1",
+      "to": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0"
+    },
+    {
+      "from": "/nix/store/jbq46aqlwcwb51f17gi97az59js3mj2q-perl-5.34.1",
+      "to": "/nix/store/d4fv57g9cq82zgysim42g5hqp1c4mba5-zlib-1.2.12"
+    },
+    {
+      "from": "/nix/store/jbq46aqlwcwb51f17gi97az59js3mj2q-perl-5.34.1",
+      "to": "/nix/store/hj3i68avd4dq3m4h21fn00a04pb1fm4a-coreutils-9.0"
+    },
+    {
+      "from": "/nix/store/jbq46aqlwcwb51f17gi97az59js3mj2q-perl-5.34.1",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/27s76aizysg70j74fvxcmw26qb1a75hg-tzdata-2022a"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/5m75p4p6iwqc1kxsp27v21cxmf8l8smb-bzip2-1.0.6.0.2"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/9cks58i6jn1hlggxa406121asgn6nyra-readline-6.3p08"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/a3zvjvbipm7brkxiq601kys1ql9rk2i0-xz-5.2.5"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/b24qnq024bv5yxr679gswckivg7042gb-gdbm-1.23"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/cc6lbnrx5imqj1cbbpybws50b2002r8p-openssl-1.1.1o"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/d4fv57g9cq82zgysim42g5hqp1c4mba5-zlib-1.2.12"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/qd3g8rk5hx5zkb70idjh6fa12sh6bipg-mailcap-2.1.53"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/qh1yf30niykshpc5dfi7m668ch2p7x6c-ncurses-6.3"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/qrw4ldkpsgbk1gzwf45qz40l43ld79z4-bash-5.1-p16"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/sscxlfcpd2cjwb9jm1v3y54q40j46v6x-expat-2.4.8"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/vmf9jqsb9zx9nlqlwpvy4gwcs5zq7y1v-sqlite-3.38.3"
+    },
+    {
+      "from": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12",
+      "to": "/nix/store/vvapsd09jq70w3hmpdd5rlrd8iv3fi2f-libffi-3.4.2"
+    },
+    {
+      "from": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115",
+      "to": "/nix/store/5rn0s6gja3v2kg1n9rdsqvl4fwncx4ph-libidn2-2.3.2"
+    },
+    {
+      "from": "/nix/store/nc4krnv23q5c69n43gmdbsffgd2i797m-zlib-1.2.12-dev",
+      "to": "/nix/store/d4fv57g9cq82zgysim42g5hqp1c4mba5-zlib-1.2.12"
+    },
+    {
+      "from": "/nix/store/qh1yf30niykshpc5dfi7m668ch2p7x6c-ncurses-6.3",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/qhx1x8lwnx5i0r7gc1k6qqn23l4y8y6y-openssl-1.1.1o-bin",
+      "to": "/nix/store/cc6lbnrx5imqj1cbbpybws50b2002r8p-openssl-1.1.1o"
+    },
+    {
+      "from": "/nix/store/qhx1x8lwnx5i0r7gc1k6qqn23l4y8y6y-openssl-1.1.1o-bin",
+      "to": "/nix/store/jbq46aqlwcwb51f17gi97az59js3mj2q-perl-5.34.1"
+    },
+    {
+      "from": "/nix/store/qhx1x8lwnx5i0r7gc1k6qqn23l4y8y6y-openssl-1.1.1o-bin",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/qq1zblyp6ysx96vd8havhw0wcsihcidf-actual-server",
+      "to": "/nix/store/073qf3vf5sq7yaxspbhbl5njy5p458if-gcc-9.3.0-lib"
+    },
+    {
+      "from": "/nix/store/qq1zblyp6ysx96vd8havhw0wcsihcidf-actual-server",
+      "to": "/nix/store/i778ag8s7jf8bxy9ihv0gsba3h9m8hzl-actual-sync-modules-1.0.1"
+    },
+    {
+      "from": "/nix/store/qq1zblyp6ysx96vd8havhw0wcsihcidf-actual-server",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/qq1zblyp6ysx96vd8havhw0wcsihcidf-actual-server",
+      "to": "/nix/store/qrw4ldkpsgbk1gzwf45qz40l43ld79z4-bash-5.1-p16"
+    },
+    {
+      "from": "/nix/store/qq1zblyp6ysx96vd8havhw0wcsihcidf-actual-server",
+      "to": "/nix/store/vmf9jqsb9zx9nlqlwpvy4gwcs5zq7y1v-sqlite-3.38.3"
+    },
+    {
+      "from": "/nix/store/qq1zblyp6ysx96vd8havhw0wcsihcidf-actual-server",
+      "to": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0"
+    },
+    {
+      "from": "/nix/store/qrw4ldkpsgbk1gzwf45qz40l43ld79z4-bash-5.1-p16",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/r1jhzslypr1pmjls2mh22i1d3h04a1rk-icu4c-71.1",
+      "to": "/nix/store/073qf3vf5sq7yaxspbhbl5njy5p458if-gcc-9.3.0-lib"
+    },
+    {
+      "from": "/nix/store/r1jhzslypr1pmjls2mh22i1d3h04a1rk-icu4c-71.1",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/r1jhzslypr1pmjls2mh22i1d3h04a1rk-icu4c-71.1",
+      "to": "/nix/store/qrw4ldkpsgbk1gzwf45qz40l43ld79z4-bash-5.1-p16"
+    },
+    {
+      "from": "/nix/store/s355yx68hzb0fy55pc417kq8hy744fbc-libuv-1.44.1",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/sscxlfcpd2cjwb9jm1v3y54q40j46v6x-expat-2.4.8",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/vmf9jqsb9zx9nlqlwpvy4gwcs5zq7y1v-sqlite-3.38.3",
+      "to": "/nix/store/d4fv57g9cq82zgysim42g5hqp1c4mba5-zlib-1.2.12"
+    },
+    {
+      "from": "/nix/store/vmf9jqsb9zx9nlqlwpvy4gwcs5zq7y1v-sqlite-3.38.3",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/vvapsd09jq70w3hmpdd5rlrd8iv3fi2f-libffi-3.4.2",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/wl64yp8q7m2s9dc3awdj4yfkviw52fpi-openssl-1.1.1o-dev",
+      "to": "/nix/store/cc6lbnrx5imqj1cbbpybws50b2002r8p-openssl-1.1.1o"
+    },
+    {
+      "from": "/nix/store/wl64yp8q7m2s9dc3awdj4yfkviw52fpi-openssl-1.1.1o-dev",
+      "to": "/nix/store/qhx1x8lwnx5i0r7gc1k6qqn23l4y8y6y-openssl-1.1.1o-bin"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/073qf3vf5sq7yaxspbhbl5njy5p458if-gcc-9.3.0-lib"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/aiglvl958l2c2cd7dipf22ibxip95fhq-icu4c-71.1-dev"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/cc6lbnrx5imqj1cbbpybws50b2002r8p-openssl-1.1.1o"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/d4fv57g9cq82zgysim42g5hqp1c4mba5-zlib-1.2.12"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/l71cy8azqms8m4b97qpszjbywkyaf7qh-python3-3.9.12"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/lyirwifzfwjxsqal7dzcx6dbn1i4v50a-glibc-2.34-115"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/nc4krnv23q5c69n43gmdbsffgd2i797m-zlib-1.2.12-dev"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/qrw4ldkpsgbk1gzwf45qz40l43ld79z4-bash-5.1-p16"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/r1jhzslypr1pmjls2mh22i1d3h04a1rk-icu4c-71.1"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/s355yx68hzb0fy55pc417kq8hy744fbc-libuv-1.44.1"
+    },
+    {
+      "from": "/nix/store/ykvg94hiqihi5hh7jb8bi4vk354xf821-nodejs-16.15.0",
+      "to": "/nix/store/wl64yp8q7m2s9dc3awdj4yfkviw52fpi-openssl-1.1.1o-dev"
+    }
+  ]
+}

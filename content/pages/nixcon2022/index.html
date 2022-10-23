@@ -28,6 +28,9 @@ NixCon 2022<br>
 October 20, 2022<br>
 https://jade.fyi
 </p>
+<p>
+Slides here: <a href="https://jade.fyi/nixcon2022/slides">https://jade.fyi/nixcon2022/slides</a>
+</p>
 </div>
 </section>
 
@@ -35,7 +38,7 @@ https://jade.fyi
 # who am I?
 * Computer Engineering student at UBC in Vancouver, BC, Canada
 * Presently interning in backend dev for Mercury, a company offering banking<fnref>1</fnref> designed for the unique needs of startups
-  * Haskell + TypeScript + Nix stack
+  * Haskell + PostgreSQL + TypeScript + Nix stack
   * Working on internal tools for risk management
 
 <div class="footnotes">
@@ -45,42 +48,49 @@ https://jade.fyi
 </div>
 </textarea></section>
 
+
+<section data-markdown><textarea data-template>
+# disclaimer
+
+Views represented in this talk are my own and do not necessarily represent the views of Mercury.
+</textarea></section>
+
 <section data-markdown><textarea data-template>
 # what's closure size?
 
 * Size of some derivation and everything it depends on
 * Accidental dependencies are the major contributor
 * Other systems don't have this problem: forgetting about runtime dependencies may silently fail (or work if you have them installed!) at runtime
-* "Closure" &rightarrow; like a function referencing values outside it
 </textarea></section>
 
 <section data-markdown><textarea data-template>
 # how do I create a dependency?
-
-* Only what goes in may go out: inputs may become runtime dependencies if they appear in the output
-* Follows from Nix's hermetic design: outputs are a strict subset of inputs
-* It's easy to cause accidental dependencies
 </textarea></section>
 
 <section data-markdown><textarea data-template>
-# ok, but what does "appear" mean?
-
-```
-grep -r '[0-9abcdfghijklmnpqrsvwxyz]{32}' $out
-```
-
-Seriously.
-
-Nix looks for 32 character strings forming the hash part of any of the store paths of the closure of the inputs to the derivation
-
-See Figure 5.12 in the Nix thesis
+<img src="./img/fsm-drv-1.svg" alt="silly drawing of mkDerivation with a build input of a drawing of a spaghetti monster">
 </textarea></section>
 
+<section data-markdown><textarea data-template>
+<img src="./img/fsm-drv-2.svg" alt="continuation of the previous slide, with a buildPhase echoing spaghetti monster into $out">
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+<img src="./img/fsm-runtime-dep.svg" alt="little graph showing myapp-0.0.0 depending on spaghetti monster">
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# issues with excess closure size
+<img src="./img/fsm-docker.svg" alt="little container ship with a container mostly containing spaghetti monster and insignificantly containing myapp">
+</textarea></section>
+
+<!--
 <section data-markdown><textarea data-template>
 # digression: "what went in?"
 
 Nix strings are magic: they keep track of the derivations that they've referenced as "string context", and propagate that information into any derivations they land in.
 </textarea></section>
+-->
 
 <section data-markdown><textarea data-template>
 # what does my stuff depend on?
@@ -96,7 +106,8 @@ Nix strings are magic: they keep track of the derivations that they've reference
 # that's a graph though
 
 Yeah. I can't tell what the relationship is between these.
-No tree or graph mode for nix path-info unlike nix-store --query (the latter is not stellar anyway)
+
+No tree or graph mode for `nix path-info` unlike `nix-store --query`
 </textarea></section>
 
 <section data-markdown><textarea data-template>
@@ -104,9 +115,9 @@ No tree or graph mode for nix path-info unlike nix-store --query (the latter is 
 
 There is a JSON output mode, what if we just used that? and then did some stuff to it
 
-Some purely functional programming in jq later:
+So I wrote a program in jq:
 
-`nix-closure-graph nixpkgs#python3 &gt; python3Closure.svg`
+<pre><code class="text">nix-closure-graph nixpkgs#python3 &gt; python3Closure.svg</code></pre>
 </textarea></section>
 
 <section data-markdown><textarea data-template>
@@ -121,10 +132,10 @@ Some purely functional programming in jq later:
 <section data-markdown><textarea data-template>
 # what about a nixos image
 
-whoops
+maybe not
 
 <div class="img-container">
-<img src="./img/nixosClosure.svg" style="object-fit: cover; object-position: center;" width="100%" height="100%" alt="incomprehensible graphviz graph absolutely covered in lines for a nixos image">
+<img src="./img/nixosClosure.png" style="object-fit: cover; object-position: center;" width="700px" height="400px" alt="incomprehensible graphviz graph absolutely covered in lines for a nixos image">
 </div>
 
 </textarea></section>
@@ -134,26 +145,206 @@ whoops
 
 I built this graph viewer prototype at work, I wonder if I could stick a NixOS closure into it
 
-FIXME!!!
+https://mercurytechnologies.github.io/looking-glass-viewer/
+
+<pre><code class="text"><script type="text/template"> » nix-closure-graph --lg .#nixosConfigurations.micro.config.system.build.toplevel | goo copy
+</script></code></pre>
 
 </textarea></section>
 
 <section data-markdown><textarea data-template>
-# other projects from me
+# it doesn't fall over?
 
-https://docs.jade.fyi - Single page HTML docs for GNU, postgres, and zsh
+The rendering has some room for improvement but it is usable!
 
-https://github.com/LF-/nix-doc - Interactive function documentation for Nix
+<img class="r-stretch" src="img/nixos-closure.png" alt="Looking glass showing an extremely busy, perhaps unusable view on a NixOS closure">
 
-https://github.com/LF-/nix-otel - Trace Nix builds with OpenTelemetry
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# incidentally, why is half of hackage on there?
+
+GHC puts dependency paths into executables for fun sometimes.<fnref>1</fnref>
+
+<pre><code class="text"><script type="text/template"> » nix why-depends --precise /nix/store/abcde-hsutils-0.0.0 /nix/store/defgh-semigroupoids-5.3.7
+
+/nix/store/abcde-hsutils-0.0.0
+└───lib/ghc-9.2.4/x86_64-linux-ghc-9.2.4/libHShsutils-0.0.0-aaaa-ghc9.2.4.so: …6_64-linux-ghc-9.2.4:/nix/store/defgh-semigroupoids-5.3.7/lib/ghc-9.2…
+    → /nix/store/defgh-semigroupoids-5.3.7
+</script></code></pre>
+
+<div class="footnotes">
+<ol>
+    <li>I've <a href="https://github.com/Carnap/Carnap/blob/5e82366fd7d8804566558de189d59f40a704b1a8/server.nix#L86-L98">fixed this before</a></li>
+</ol>
+</div>
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# why would haskell put that path in there?!
+
+Unfortunately a known issue; help wanted.
+
+<img src="img/github-issues.png" alt="screenshot of the github issues page for nixpkgs, showing a bug about large closures">
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# practical closure size problems
+
+I was packaging [actual-budget], a budgeting program, to run it on fly.io. So I
+figured out how to build a docker image for it with Nix.
+
+[actual-budget]: https://actualbudget.com/
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# and then it's way too big
+
+<pre><code class="text"><script type="text/template"> » nix build .#dockerImage.aarch64-linux
+ » ls -lah $(readlink result)
+-r--r--r-- 1 root root 219M Dec 31  1969 /nix/store/6r0nslg23w2sa6a2zril3g0fvd6mnp1q-actual-server.tar.gz
+</script></code></pre>
+
+200MB compressed is not good. It's just some JavaScript, what happened there?
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# let's bring out the big guns
+
+```text
+nix-closure-graph --lg .# | goo copy
+```
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# what went wrong here?
+
+<img class="r-stretch" src="./img/actual-stage0.png" alt="screenshot of the graph viewer showing that actual-server depends on actual-server-modules, a derivation of suspiciously similar size">
+
+<!-- FIXME: embed the graph viewer -->
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# python?
+
+<img class="r-stretch" src="./img/actual-stage0-python.png" alt="screenshot of the graph viewer showing that nodejs depends on python">
+
+<!-- FIXME: embed the graph viewer -->
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# what went wrong here?
+
+* Python
+* Mysteriously includes the app twice
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# python?!
+
+* Node has an obsolescent build system "Generate Your Projects" for
+  C++ extensions that generates makefiles
+  * Originally inherited from Chromium
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# Generaten't My Projects
+
+nodejs-slim to the rescue!
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# why is the app there twice?
+
+<pre><code class="text"><script type="text/template">» nix why-depends -a --precise \
+    /nix/store/qq1zblyp6ysx-actual-server \
+    /nix/store/i778ag8s7jf8-actual-sync-modules-1.0.1
+
+/nix/store/qq1zblyp6ysx96vd8havhw0wcsihcidf-actual-server
+└───libexec/actual-sync/deps/actual-sync/node_modules
+        -> /nix/store/i778ag8s7jf8b-actual-sync-mo>
+    → /nix/store/i778ag8s7jf8-actual-sync-modules-1.0.1
+</script>
+</code></pre>
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# what's in there anyway?
+
+<pre><code class="text"><script type="text/template"> » ls -a result/libexec/actual-sync/deps/actual-sync/node_modules
+.  ..  .bin
+ » ls -a result/libexec/actual-sync/deps/actual-sync/node_modules/.bin
+.  ..  eslint  prettier  tsc  tsserver  uuid
+</script>
+</code></pre>
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# yeah I don't know why the builder did that
+
+<img class="r-stretch" src="img/lets-see-who-this-really-is.png" alt="Scooby Doo 'let's see who this is anyway' meme, unmasking 'closure size' to be 'totally pointless stuff'">
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# actually fixing it
+
+To recap, our goals are:
+1. Getting rid of Python via nodejs-slim
+2. Fixing the app being included twice
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+<video class="r-stretch" src="img/livedemo.mp4" controls>
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# summary
+
+* Accidental dependencies cause closure size bloat
+* Shipping suspiciously sentient spaghetti slurps time and bandwidth
+* Fix closure size issues by deleting references
 </textarea></section>
 
 <section data-markdown><textarea data-template>
 # Mercury is hiring!
 
-Front-end, back-end, management, design, data
+* Frontend
+* Backend<fnref>1</fnref>
+* Full stack
+* Design
+* Data engineering
+* Data science
+* Engineering management
 
-https://mercury.com/jobs
+See open positions at https://mercury.com/jobs
+<div class="footnotes">
+<ol><li>No Haskell experience required or expected; training is provided!</li></ol>
+</div>
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# fin
+
+Tools:
+- nix-closure-graph: https://github.com/lf-/dotfiles/tree/main/programs/nix-closure-graph
+- Graph viewer: https://mercurytechnologies.github.io/looking-glass-viewer/
+
+[@leftpaddotpy on Twitter](https://twitter.com/leftpaddotpy)
+
+<https://jade.fyi>
+
+my name [at] jade [dot] fyi
 </textarea></section>
 
 			</div>
@@ -174,6 +365,7 @@ https://mercury.com/jobs
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
                 transitionSpeed: 'fast',
                 transition: 'none',
+                slideNumber: true,
 			});
 		</script>
 	</body>

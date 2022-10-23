@@ -4,10 +4,11 @@
     --r-heading1-size: 1.5em;
 }
 .footnotes {
-    font-size: 0.8rem;
+    margin-top: 1em;
+    font-size: 0.6em;
 }
 fnref {
-    font-size: 0.9rem;
+    font-size: 0.7em;
     vertical-align: super;
 }
 .footnotes li {
@@ -29,9 +30,15 @@ fnref {
     height: 400px;
 }
 
-.meta {
-    padding: 0.1em 0.5em;
-    background-color: #3c004d;
+.reveal .slide-number {
+    font-size: 20px !important;
+}
+
+@media screen {
+    .meta {
+        padding: 0.1em 0.5em;
+        background-color: #3c004d;
+    }
 }
 
 .reveal pre {
