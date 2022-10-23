@@ -1,0 +1,47 @@
+:root {
+    --r-heading-text-transform: none !important;
+    --r-background-color: #190022 !important;
+    --r-heading1-size: 1.5em;
+}
+.footnotes {
+    font-size: 0.8rem;
+}
+fnref {
+    font-size: 0.9rem;
+    vertical-align: super;
+}
+.footnotes li {
+    list-style: none;
+    padding: 0;
+}
+.footnotes li::marker {
+    content: "[" counter(list-item) "]\a0\a0";
+}
+
+.reveal[data-transition-speed="faster"] .slides section {
+	transition-duration: 100ms;
+}
+
+.img-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    height: 400px;
+}
+
+.meta {
+    padding: 0.1em 0.5em;
+    background-color: #3c004d;
+}
+
+.reveal pre {
+    margin: 0;
+    padding: 0.5em;
+}
+.reveal .code-wrapper code {
+    white-space: pre-wrap !important;
+}
+
+.reveal .slides {
+    text-align: left !important;
+}

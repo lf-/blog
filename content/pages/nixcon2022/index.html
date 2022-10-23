@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/black.css">
+        <link rel="stylesheet" href="styles.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
@@ -16,16 +17,145 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2
-						<aside class="notes">
-						<p>Some notes</p>
-						</aside>
-						<p>Some slide text</p>
-						<aside class="notes">
-						<p>and some more notes</p>
-					</aside>
-				</section>
+<section class="title-slide">
+<h1> Debugging closure sizes graphically </h1>
+<div class="meta">
+<p>
+Jade Lovelace &lt;jadel@mercury.com&gt;
+</p>
+<p>
+NixCon 2022<br>
+October 20, 2022<br>
+https://jade.fyi
+</p>
+</div>
+</section>
+
+<section data-markdown><textarea data-template>
+# who am I?
+* Computer Engineering student at UBC in Vancouver, BC, Canada
+* Presently interning in backend dev for Mercury, a company offering banking<fnref>1</fnref> designed for the unique needs of startups
+  * Haskell + TypeScript + Nix stack
+  * Working on internal tools for risk management
+
+<div class="footnotes">
+<ol>
+<li>Mercury is a financial technology company, not a bank. Banking services provided by Choice Financial Group and Evolve Bank & Trust, Members FDIC.</li>
+</ol>
+</div>
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# what's closure size?
+
+* Size of some derivation and everything it depends on
+* Accidental dependencies are the major contributor
+* Other systems don't have this problem: forgetting about runtime dependencies may silently fail (or work if you have them installed!) at runtime
+* "Closure" &rightarrow; like a function referencing values outside it
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# how do I create a dependency?
+
+* Only what goes in may go out: inputs may become runtime dependencies if they appear in the output
+* Follows from Nix's hermetic design: outputs are a strict subset of inputs
+* It's easy to cause accidental dependencies
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# ok, but what does "appear" mean?
+
+```
+grep -r '[0-9abcdfghijklmnpqrsvwxyz]{32}' $out
+```
+
+Seriously.
+
+Nix looks for 32 character strings forming the hash part of any of the store paths of the closure of the inputs to the derivation
+
+See Figure 5.12 in the Nix thesis
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# digression: "what went in?"
+
+Nix strings are magic: they keep track of the derivations that they've referenced as "string context", and propagate that information into any derivations they land in.
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# what does my stuff depend on?
+
+<pre><code class="text"><script type="text/template">~ » nix path-info -rsSh nixpkgs#hello
+/nix/store/c8aj6kzv5h7c5vympiy7l1p3aw626yqy-libobjc-11.0.0                               199.7K  199.7K
+/nix/store/y5cp9q9h6p80mzbsijs00zxpi7g0lc9d-apple-framework-CoreFoundation-11.0.0        667.1K  866.8K
+/nix/store/xbqj64vdr3z13nlf8cvl1lf5lxa16mha-hello-2.12.1                                 126.9K  993.7K
+</script></code></pre>
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# that's a graph though
+
+Yeah. I can't tell what the relationship is between these.
+No tree or graph mode for nix path-info unlike nix-store --query (the latter is not stellar anyway)
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# what if..? haha, jk, unless?
+
+There is a JSON output mode, what if we just used that? and then did some stuff to it
+
+Some purely functional programming in jq later:
+
+`nix-closure-graph nixpkgs#python3 &gt; python3Closure.svg`
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# cool
+
+<div class="img-container">
+<img src="./img/python3Closure.svg" style="object-fit: cover; object-position: center;" width="100%" height="100%" alt="graphviz graph showing nodes for each of the packages Python depends on">
+</div>
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# what about a nixos image
+
+whoops
+
+<div class="img-container">
+<img src="./img/nixosClosure.svg" style="object-fit: cover; object-position: center;" width="100%" height="100%" alt="incomprehensible graphviz graph absolutely covered in lines for a nixos image">
+</div>
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# well that didn't work
+
+I built this graph viewer prototype at work, I wonder if I could stick a NixOS closure into it
+
+FIXME!!!
+
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# other projects from me
+
+https://docs.jade.fyi - Single page HTML docs for GNU, postgres, and zsh
+
+https://github.com/LF-/nix-doc - Interactive function documentation for Nix
+
+https://github.com/LF-/nix-otel - Trace Nix builds with OpenTelemetry
+</textarea></section>
+
+<section data-markdown><textarea data-template>
+# Mercury is hiring!
+
+Front-end, back-end, management, design, data
+
+https://mercury.com/jobs
+</textarea></section>
+
 			</div>
 		</div>
 
@@ -41,7 +171,9 @@
 				hash: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+                transitionSpeed: 'fast',
+                transition: 'none',
 			});
 		</script>
 	</body>
