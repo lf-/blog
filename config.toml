@@ -10,6 +10,8 @@ generate_feed = true
 title = "jade's www site"
 description = "computers i guess"
 
+ignored_content = ["*/README.md"]
+
 [markdown]
 highlight_code = true
 use_tree_painter = true
