@@ -15,8 +15,8 @@ Here are links to the live version:
 * [Livestream video][livestream] (a better recording with slides is coming soon)
 * [Slides]
 * Tools:
-    * nix-closure-graph: https://github.com/lf-/dotfiles/tree/main/programs/nix-closure-graph
-    * Graph viewer: https://mercurytechnologies.github.io/looking-glass-viewer/
+    * nix-closure-graph: <https://github.com/lf-/dotfiles/tree/main/programs/nix-closure-graph>
+    * Graph viewer: <https://mercurytechnologies.github.io/looking-glass-viewer/>
 
 [nix-closure-graph]: https://github.com/lf-/dotfiles/tree/main/programs/nix-closure-graph
 [looking-glass]: https://mercurytechnologies.github.io/looking-glass-viewer/
