@@ -1,9 +1,9 @@
 +++
-date = "2022-10-23"
+date = "2022-10-30"
 draft = false
 path = "/blog/nixcon2022-retrospective"
 tags = ["nix", "haskell", "nixcon"]
-title = "NixCon 2022!!"
+title = "NixCon 2022 retrospective"
 +++
 
 Well, that sure was a thing. It was more than a thing: it was a really good
@@ -14,32 +14,16 @@ speaking at an in-person conference. I understand better why people want these.
 It's really nice to be around The People For The Thing and meet new people
 (whether they are wearing cat ears or otherwise).
 
-I met a whole *bunch* of people and made some new friends.
+I met a whole *bunch* of people and made some very good friends.
 
-I am not sure my feelings about the main venue, as it was really rather stuffy
-in there, and I mostly avoided it to reduce my exposure to COVID. However the
-rest of the college it was held at was pretty wonderful (modulo the lack of
-WiFi for people without eduroam access, although that was worked around).
-
-## Speaking
+## Speaking - nix-closure-graph
 
 I delivered a talk "Debugging Closure Size Graphically". This was a fun
 experience; it's a lot easier to deliver jokes in front of an audience. I'm
 excited to see what people do with the tools I built, and I'm glad they are
 open source now.
 
-In this talk, I show how I found issues with the closure size of Haskell and
-Node.JS programs, then how I fixed the Node.JS issues.
-
-Links:
-* [Livestream video][livestream] (a better recording with slides is coming soon)
-* [Slides]
-* Tools:
-    * nix-closure-graph: https://github.com/lf-/dotfiles/tree/main/programs/nix-closure-graph
-    * Graph viewer: https://mercurytechnologies.github.io/looking-glass-viewer/
-
-[livestream]: https://youtu.be/l70haNBm1wc?t=4h34m10s
-[Slides]: https://jade.fyi/nixcon2022/slides
+You can get more about it on the [talk page](/nixcon2022).
 
 ## The hacking room
 
@@ -56,6 +40,11 @@ chain.
 
 [Jonas Chevalier]: https://twitter.com/zimbatm
 [Harry Garrood]: https://twitter.com/hdgarrood
+
+You can get an example project showing what we developed [from Harry's
+GitHub][incr-nix-example].
+
+[incr-nix-example]: https://github.com/hdgarrood/haskell-incremental-nix-example
 
 In practice, this looks like a setting on the Haskell builder to enable
 a separate output for incremental information (which is the interface and
@@ -162,3 +151,7 @@ being able to walk everywhere.
 
 Certainly this trip has renewed my motivation for looking into possibly moving
 to Europe in the next few years.
+
+-----
+
+Thanks to Harry Garrood for reviewing a draft of this post.
