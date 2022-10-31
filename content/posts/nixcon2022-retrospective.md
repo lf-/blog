@@ -95,7 +95,7 @@ given some effort!), while not pessimizing compile times at all.
 [harry-blog]: https://harry.garrood.me/blog/easy-incremental-haskell-ci-builds-with-ghc-9.4/
 [ghc-nix]: https://github.com/matthewbauer/ghc-nix
 [derivations-building-derivations]: https://github.com/NixOS/rfcs/blob/master/rfcs/0092-plan-dynamism.md
-[mp-fail]: ./cabal-test-dev-trick
+[mp-fail]: https://jade.fyi/blog/cabal-test-dev-trick
 
 ### [nix-otel] grows up
 
