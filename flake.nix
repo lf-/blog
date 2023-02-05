@@ -4,15 +4,15 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    zola = {
-      url = "github:lf-/zola/tree-painter";
-      flake = false;
-    };
+    # zola = {
+    #   url = "github:lf-/zola/tree-painter";
+    #   flake = false;
+    # };
   };
 
   nixConfig.allow-import-from-derivation = true; # cabal2nix uses IFD
 
-  outputs = { self, nixpkgs, flake-utils, zola }:
+  outputs = { self, nixpkgs, flake-utils }:
     let
       ghcVer = "ghc924";
       makeHaskellOverlay = overlay: final: prev: {
@@ -70,12 +70,12 @@
     flake-utils.lib.eachDefaultSystem out // {
       # this stuff is *not* per-system
       overlays = {
-        zola = final: prev: {
-          zola = prev.zola.overrideAttrs (old: {
-            src = zola;
-            cargoSha256 = prev.lib.fakeHash;
-          });
-        };
+        # zola = final: prev: {
+        #   zola = prev.zola.overrideAttrs (old: {
+        #     src = zola;
+        #     cargoSha256 = prev.lib.fakeHash;
+        #   });
+        # };
         default = makeHaskellOverlay (prev: hfinal: hprev:
           let hlib = prev.haskell.lib; in
           {
