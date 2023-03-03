@@ -1,6 +1,6 @@
 +++
 date = "2023-03-02"
-draft = true
+draft = false
 path = "/blog/computing-should-enable-humans"
 tags = []
 title = "Computing should enable humans: how to choose tools"
@@ -10,11 +10,12 @@ title = "Computing should enable humans: how to choose tools"
 >
 > he then breathed a sigh of relief and submitted his two weeks' notice. wtf??
 >
-> <https://twitter.com/swaglord__420/status/1377051721655066629>
+> [Tweet by @swaglord__420 on Mar 30, 2021](https://twitter.com/swaglord__420/status/1377051721655066629)
 
 In celebration of the fixing of the [notorious 4 year old VSCode
-bug][vscode-bug] which practically everyone I know has seethed about, I think
-it's important to write about choosing tools that support and enable humans by
+bug][vscode-bug] which practically everyone I know has seethed about where
+diagnostics show below *pages* of function documentation, I think it's
+important to write about choosing tools that support and enable humans by
 aligning with our values.
 
 [vscode-bug]: https://github.com/microsoft/vscode/issues/73120
