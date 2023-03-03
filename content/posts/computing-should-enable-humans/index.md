@@ -84,10 +84,11 @@ breaks is the release schedule of the software. Assuming that someone (whether
 you or not) *does* fix the issue, how long are you going to wait to get the
 patch? Is this months? Weeks?
 
-A major red flag for software remaining unfixed is how homogeneous its
-development workflow is: is it one giant repository where everything goes into
-a black hole unless you work there? Which organization owns the majority of the
-functionality you rely on? Are teams autonomous?
+Having a large amount of functionality maintained by one group can be
+troublesome. Is it one giant repository where everything goes into a black hole
+unless you work there? Which organization owns the majority of the
+functionality you rely on? Are teams autonomous? How much power does a single
+entity hold?
 
 Thinking back on why I switched back to Neovim exclusively as an editor, one
 major reason is the amount of the functionality that is in plugins instead of
@@ -117,21 +118,22 @@ they do.
 
 Consider the case study of Microsoft Visual Studio Code, which is free. How are
 they extracting money? God knows, but they sure are eating market share and
-gaining themselves a tremendous position of power in the market by doing so.
-From the very beginning, it was released as a closed source distribution of an
-open source tool, and various *very important* pieces depend on closed source
-code, so that Microsoft retains full control. For example, the remote
-extension, an increasing number of language servers, the *extension store*, all
-are closed source components under EULA.
+gaining themselves a tremendous position of power in the market by doing so,
+which could be easily leveraged to do anticompetitive behaviour, advantaging
+their other products. From the very beginning, it was released as a closed
+source distribution of an open source tool, and various *very important* pieces
+depend on closed source code, so that Microsoft retains full control. For
+example, the remote extension, an increasing number of language servers, the
+*extension store*, all are closed source components under EULA.
 
-As another example, Microsoft Bing tells you to not install Chrome when you
-google "Chrome" in the Bing search box. Then, Microsoft Edge [*injects
-pop-ups*][edge-popups] into Google's webpage for downloading Chrome. Then they
-do it again when you try to change default browser in the settings app. This is
-so obviously anticompetitive that it *should* have every country suing them for
-billions for the exact same reason they [got sued for billions for doing *less*
-to IE][us-v-microsoft], but apparently we do not live in a world where laws
-apply to corporations anymore.
+As another example, Microsoft Bing tells you to not install Chrome when you use
+Bing to google "Chrome". Then, Microsoft Edge [*injects pop-ups*][edge-popups]
+into Google's webpage for downloading Chrome. Then they do it again when you
+try to change default browser in the settings app. This is so obviously
+anticompetitive that it *should* have every country suing them for billions for
+the exact same reason they [got sued for billions for doing *less* to
+IE][us-v-microsoft], but apparently we do not live in a world where laws apply
+to corporations anymore.
 
 [us-v-microsoft]: https://en.wikipedia.org/wiki/United_States_v._Microsoft_Corp.
 [edge-popups]: https://www.extremetech.com/internet/329450-microsoft-edge-gets-new-anti-chrome-pop-ups
@@ -187,8 +189,9 @@ community. For example:
 * Does the project have a Benevolent Dictator for Life?
   * How do they behave?
   * Do the rules apply to thee but not to me?
-  * If you disagree with them, what happens? Does the *project* hold special
-    power, such as access to special APIs restricted to their GitHub org?
+  * If you disagree with them, what happens?
+  * Does the *project* hold special power, such as access to special APIs
+    restricted to packages under their GitHub org?
 * Does the community accept bigots or convicted rapists in open arms?
 * Does the project have a code of conduct? Is it enforced?
 * Are you going to be called a fucking idiot for using the wrong words to
@@ -205,7 +208,7 @@ is that going to be? A *big* reason that VSCode is so troublesome to use as
 someone who wants working software is that it is aggressively not forkable: you
 have to get stuff merged for it to get into the closed source distribution,
 they are bad about merging things, and it moves pretty fast while being this
-massive thing.
+massive blob of things that aren't extensible.
 
 In spite of being a card-carrying anti-FSF person, I very much care about
 so-called "software freedom": I care that I can fix my own software. For
@@ -233,8 +236,14 @@ implemented upstream.
 We spend a huge amount of our lives using software, and there are a *lot* of
 factors that can make the difference between being under the thumb of software
 and software being a force of good in our lives. I have been thinking about a
-lot of these things subconsciously for years, and it's become clear that these
-are actually *values* that I care about, not just software things.
+lot of these things subconsciously for years and picking projects based on the
+right vibes, and it's become clear that these are actually *values* that I care
+about, not just software things.
+
+Resiliency is important, and it is especially so in things that we need to use
+to do our jobs and live our lives.
 
 I hope that you too can get to a place where the Computer generally works and
 is a positive influence on your life.
+
+🏴
