@@ -92,9 +92,11 @@ functionality you rely on? Are teams autonomous?
 Thinking back on why I switched back to Neovim exclusively as an editor, one
 major reason is the amount of the functionality that is in plugins instead of
 in the core. Autocompletion is in a plugin. *Highlighting queries* are in a
-plugin. Much of the UI is in a plugin. None of these plugins are owned by the
-same team, and there are alternatives for each piece, so that if it sucks, I
-*can* hit da bricks.
+plugin and can be *overridden in your config file*. Much of the UI is in a
+plugin. I can hack up basically any plugin in my config by doing various things
+to override it without having to fork it. None of these plugins are owned by
+the same team, and there are alternatives for each piece, so that if it sucks,
+I *can* hit da bricks.
 
 {% image(name="just-walk-out.jpg", colocated=true) %}
 Skeleton meme: "just walk out, you can leave!!!"
