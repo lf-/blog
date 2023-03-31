@@ -289,7 +289,7 @@ This kind of trick is also used by maintainer scripts to extract metadata from
 overlays that nixpkgs Haskell uses for compiler-specific overrides.
 
 However, nixpkgs has something nicer for overriding versions of Hackage
-libraries, which the published version of the overlay imitates instead:
+libraries, which the published version of `some-cabal-hashes` imitates instead:
 `haskell.lib.packageSourceOverrides`. It constructs an overlay that overrides
 package versions with a nice clean input of what's required.
 
@@ -319,4 +319,4 @@ At extraction time, the extra directory name can be removed with
 the desired directory.
 
 The source code for `some-cabal-hashes` is available here:
-https://github.com/lf-/nix-lib/blob/main/lib/some-cabal-hashes.nix
+<https://github.com/lf-/nix-lib/blob/main/lib/some-cabal-hashes.nix>
