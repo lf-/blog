@@ -1,0 +1,30 @@
+{%- import "macros/colocated_asset.html" as colocated_asset -%}
+
+{# Load an asciinema file and insert it into the page #}
+{%- macro asciinema(path, colocated=false, preload=false) -%}
+{%- set name = path | replace(from='.', to='-') | replace(from='/', to='-') -%}
+{%- if not page.extra.use_asciinema -%}
+    {{ throw(message='Please set extra.use_asciinema in page front-matter') }}
+{%- endif -%}
+
+{%- if colocated == true -%}
+    {%- set path = colocated_asset::colocated_asset(path=path, get_url=true) | trim -%}
+{%- endif -%}
+
+<div id="asciinema-{{ name }}"></div>
+<script>
+(() => {
+    const script = document.getElementById('asciinema-player')
+    const el = document.getElementById('asciinema-{{ name }}')
+    const go = () => {
+        AsciinemaPlayer.create('{{ path | safe }}', el, {preload: {{ preload }} })
+    }
+    // the script could have already loaded
+    if (window.AsciinemaPlayer != null) {
+        go()
+    } else {
+        script.addEventListener('load', go)
+    }
+})()
+</script>
+{%- endmacro asciinema -%}

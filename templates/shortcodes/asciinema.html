@@ -1,0 +1,7 @@
+{%- import "macros/asciinema.html" as asciinema -%}
+
+{{ asciinema::asciinema(
+    path=path,
+    colocated=colocated | default(value=false),
+    preload=preload | default(value=false)
+) }}

@@ -1,9 +1,12 @@
 +++
-date = "2023-03-30"
-draft = true
+date = "2023-04-02"
+draft = false
 path = "/blog/nix-evaluation-blocking"
 tags = ["haskell", "nix"]
 title = "Stopping evaluation from blocking in Nix"
+
+[extra]
+use_asciinema = true
 +++
 
 Nix has a feature called "import from derivation", which is sometimes called
@@ -92,6 +95,31 @@ nixpkgs:
   * `builtins.fetchTarball`
   * `builtins.fetchurl`
   * etc
+
+Here is what it looks like for a build to block on import-from-derivation on
+the new-style `nix build` command. The sign that it's doing an IFD is that it's
+building one thing at a time, it may or may not be punctuated by an occasional
+empty line (while running evaluation), and the last number in "1/2/3 built"
+keeps going up.
+
+{{ asciinema(path="build-oops.cast", colocated=true, preload=true) }}
+
+This is a much less clear sign than the old `nix-build` CLI,
+which would print "building '/nix/store/...'" for several lines before the
+typical "this derivation will be built" obtained when evaluation is done:
+
+```
+building '/nix/store/c11sidylvwss1xn2b159imk2li6flphq-delay.drv'...
+building '/nix/store/2g0rglrimm2p4j4gj7j3n4mlgqfghqic-delay.drv'...
+building '/nix/store/ywppgzc698pb979rwmavnmn9wf3hzvcb-delay.drv'...
+this derivation will be built:
+  /nix/store/n47ad95nmq16442vyl2d8w2knpp3ngws-blah.drv
+```
+
+Here's the Nix code I used to create these demos. It's using IFD because of the
+`builtins.readFile` on a derivation.
+
+{{ codefile(path="a.nix", colocated=true, code_lang='nix') }}
 
 #### Builtin fetchers
 

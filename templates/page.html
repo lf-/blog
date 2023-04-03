@@ -13,6 +13,11 @@
 <meta property="og:description" content="{{ config.description }}" />
 {% endif %}
 
+{% if page.extra.use_asciinema %}
+<script id="asciinema-player" defer type="text/javascript" src="{{ get_url(path='js/asciinema-player.min.js', cachebust=true) | safe }}"></script>
+<link type="text/css" rel="stylesheet" href="{{ get_url(path='css/asciinema-player.css', cachebust=true) | safe }}">
+{% endif %}
+
 {% endblock pagemeta %}
 
 {% block content %}
@@ -32,7 +37,7 @@
 
 {{ page.content | safe }}
 
-{% if config.extra.debug and config.mode == "Serve" %}
+{% if config.extra.debug %}
     <pre><code>{{ __tera_context | escape | safe }}</code></pre>
 {% endif %}
 
