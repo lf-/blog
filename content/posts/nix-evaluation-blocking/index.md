@@ -52,9 +52,12 @@ only take in things that are known statically; in Bazel it is thus common to
 check in generated build instructions. This property in category theory is
 illustrated in the type signatures of the operations of Monad and Applicative:
 
-* `apply :: Applicative f => f (a -> b) -> a -> f b`<br/>
-  which means that something *outside* the `f` box can be put into a
-  computation `a -> b` inside the box.
+* `apply :: Applicative f => f (a -> b) -> f a -> f b`<br/>
+  which means that a value inside a box can be passed into a pure
+  computation `a -> b` inside a box. This is less powerful than `bind`, since
+  unlike `bind`, the function you provide cannot use the "a" it got to create
+  new operations involving boxes: this means that the build graph of an
+  Applicative build system is static.
 * `bind :: Monad m => m a -> (a -> m b) -> m b`<br/>
   which means that if you have a value of type `a` in a `m` box, you can *get
   the `a` out of the box* and create a further computation in a box depending
