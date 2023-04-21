@@ -61,6 +61,7 @@
                 cabal-install
               ] ++ (with pkgs; [
                 sqlite
+                pre-commit
               ]);
               # Change the prompt to show that you are in a devShell
               # shellHook = "export PS1='\\e[1;34mdev > \\e[0m'";

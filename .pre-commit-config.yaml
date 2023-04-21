@@ -1,0 +1,12 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+    - repo: local
+      hooks:
+          - id: no-spicy-exif
+            name: Ban spicy exif data
+            description: Ensures that there is no sensitive exif data committed
+            language: system
+            entry: exiftool -all= --icc_profile:all -overwrite_original
+            exclude_types: ["svg"]
+            types: ["image"]

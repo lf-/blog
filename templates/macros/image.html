@@ -1,21 +1,28 @@
 {%- import "macros/colocated_asset.html" as colocated_asset -%}
 
-{%- macro image(name, alt, colocated, height) -%}
+{%- macro image(name, alt, colocated, height, process) -%}
 {%- set name_sanitized = name | replace(from=".", to="-") | replace(from="/", to="-") -%}
 {%- set image_id = "image" ~ name_sanitized -%}
 
 {%- if colocated == true -%}
 {%- set image_path = colocated_asset::colocated_asset(path=name) -%}
-{%- set image_url = name -%}
+{%- set image_url = colocated_asset::colocated_asset(path=name, get_url=true) -%}
 {%- else -%}
 {%- set image_path = "/static/images/" ~ name -%}
 {%- set image_url = get_url(path=image_path) -%}
 {%- endif -%}
 
-{%- set image = resize_image(path=image_path, width=800, height=height, op="fit") -%}
+{%- if process -%}
+    {%- set image = resize_image(path=image_path, width=800, height=height, op="fit") -%}
+    {# because tera doesn't have object literals we need to deconstruct the object here so the other case is compatible #}
+    {%- set processed_image_url = image.url -%}
+{%- else -%}
+    {%- set image = colocated_asset::colocated_asset(path=image_path, get_url=true) | trim -%}
+    {%- set processed_image_url = image_url -%}
+{%- endif -%}
 <div class="image">
     <a href="{{ image_url }}">
-    <img src="{{ image.url }}"
+    <img src="{{ processed_image_url }}"
         alt="{{ alt }}"
         title="{{ alt }}"
     {% if label %}

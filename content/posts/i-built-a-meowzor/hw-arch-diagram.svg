@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Vectornator (http://vectornator.io/) -->
+
+<svg
+   height="699.95825"
+   stroke-miterlimit="10"
+   style="clip-rule:evenodd;fill-rule:nonzero;stroke-linecap:round;stroke-linejoin:round"
+   version="1.1"
+   viewBox="0 0 523.88452 699.95825"
+   width="523.88452"
+   xml:space="preserve"
+   id="svg125"
+   sodipodi:docname="hw-arch-diagram.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:vectornator="http://vectornator.io"><sodipodi:namedview
+   id="namedview127"
+   pagecolor="#505050"
+   bordercolor="#ffffff"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="1"
+   inkscape:deskcolor="#505050"
+   showgrid="false"
+   inkscape:zoom="1.2967172"
+   inkscape:cx="248.31938"
+   inkscape:cy="353.97079"
+   inkscape:window-width="3840"
+   inkscape:window-height="2081"
+   inkscape:window-x="2560"
+   inkscape:window-y="0"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg125" />
+<defs
+   id="defs2" />
+<g
+   id="Layer-1"
+   vectornator:layerName="Layer 1"
+   transform="translate(-58.05774,-41.984034)">
+<path
+   d="M 60,100 H 580 V 620 H 60 Z"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path4" />
+<g
+   opacity="1"
+   id="g10">
+<path
+   d="M 123.959,46.8464 V 140"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path6" />
+<path
+   d="M 107.917,71.7105 123.959,43.9261 140,71.7105"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path8" />
+</g>
+<g
+   opacity="1"
+   id="g16">
+<path
+   d="M 423.959,653.154 V 560"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path12" />
+<path
+   d="M 440,628.29 423.959,656.074 407.917,628.29"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path14" />
+</g>
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(146.273,71.4)"
+   vectornator:width="93.7266"
+   x="0"
+   y="0"
+   id="text20"> <tspan
+   x="0"
+   y="16"
+   id="tspan18">protobuf/http</tspan></text>
+<path
+   d="M 80,120 H 480 V 220 H 80 Z"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-dasharray="10, 10"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="2"
+   id="path22" />
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(340,180)"
+   vectornator:width="120"
+   x="0"
+   y="0"
+   id="text26"> <tspan
+   x="0"
+   y="16"
+   id="tspan24">HPS Linux</tspan></text>
+<path
+   d="M 80,300 H 480 V 600 H 80 Z"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-dasharray="10, 10"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="2"
+   id="path28" />
+<path
+   d="M 100,460 H 380 V 560 H 100 Z"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path30" />
+<path
+   d="m 400,460 h 60 v 100 h -60 z"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path32" />
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(215.828,500.3)"
+   vectornator:width="48.3438"
+   x="0"
+   y="0"
+   id="text36"> <tspan
+   x="0"
+   y="16"
+   id="tspan34">Nios II</tspan></text>
+<path
+   d="M 80,253.57 H 480 V 260 H 80 Z"
+   fill="#ffffff"
+   fill-rule="nonzero"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path38" />
+<path
+   d="m 100,140 h 200 v 60 H 100 Z"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path40" />
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(109.807,155.7)"
+   vectornator:width="180.387"
+   x="0"
+   y="0"
+   id="text44"> <tspan
+   x="0"
+   y="16"
+   id="tspan42">meowzor-control</tspan></text>
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(484.863,245.12)"
+   vectornator:width="95.1367"
+   x="0"
+   y="0"
+   id="text50"> <tspan
+   x="0"
+   y="16"
+   id="tspan46">hps2fpga </tspan> <tspan
+   x="0"
+   y="36"
+   id="tspan48">bridge</tspan></text>
+<path
+   d="m 140,200 v 60"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path52" />
+<g
+   opacity="1"
+   id="g60">
+<path
+   d="m 100,340 h 120 v 60 H 100 Z"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path54" />
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(130.934,360.3)"
+   vectornator:width="58.1328"
+   x="0"
+   y="0"
+   id="text58"> <tspan
+   x="0"
+   y="16"
+   id="tspan56">mailbox</tspan></text>
+</g>
+<g
+   opacity="1"
+   id="g70">
+<path
+   d="m 260,340 h 120 v 60 H 260 Z"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path62" />
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(289.609,351.1)"
+   vectornator:width="60.7812"
+   x="0"
+   y="0"
+   id="text68"> <tspan
+   x="0"
+   y="16"
+   id="tspan64">shared</tspan> <tspan
+   x="0"
+   y="36"
+   id="tspan66">memory</tspan></text>
+</g>
+<path
+   d="m 180,260 v 80"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path72" />
+<path
+   d="m 320,260 v 80"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path74" />
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(414.719,500.3)"
+   vectornator:width="30.5625"
+   x="0"
+   y="0"
+   id="text78"> <tspan
+   x="0"
+   y="16"
+   id="tspan76">PIO</tspan></text>
+<path
+   d="m 380,500 h 20"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path80" />
+<path
+   d="m 180,400 v 60"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path82" />
+<path
+   d="m 320,400 v 60"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path84" />
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(188.078,310)"
+   vectornator:width="51.9219"
+   x="0"
+   y="0"
+   id="text88"> <tspan
+   x="0"
+   y="16"
+   id="tspan86">sender</tspan></text>
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(188.078,420)"
+   vectornator:width="59.9062"
+   x="0"
+   y="0"
+   id="text92"> <tspan
+   x="0"
+   y="16"
+   id="tspan90">receiver</tspan></text>
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(413.438,320)"
+   vectornator:width="46.5625"
+   x="0"
+   y="0"
+   id="text98"> <tspan
+   x="0"
+   y="16"
+   id="tspan94">FPGA </tspan> <tspan
+   x="0"
+   y="36"
+   id="tspan96">fabric</tspan></text>
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(490.742,600)"
+   vectornator:width="81.2578"
+   x="0"
+   y="0"
+   id="text102"> <tspan
+   x="0"
+   y="16"
+   id="tspan100">FPGA SoC</tspan></text>
+<path
+   d="m 380,660 h 100 v 80 H 380 Z"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path104" />
+<path
+   d="m 500,660 h 80 v 80 h -80 z"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path106" />
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(511.816,681.1)"
+   vectornator:width="56.3672"
+   x="0"
+   y="0"
+   id="text112"> <tspan
+   x="0"
+   y="16"
+   id="tspan108">stepper</tspan> <tspan
+   x="0"
+   y="36"
+   id="tspan110">motors</tspan></text>
+<text
+   fill="#ffffff"
+   font-family="Helvetica"
+   font-size="16px"
+   opacity="1"
+   stroke="none"
+   text-anchor="start"
+   transform="translate(393.375,671.9)"
+   vectornator:width="73.25"
+   x="0"
+   y="0"
+   id="text120"> <tspan
+   x="0"
+   y="16"
+   id="tspan114">TMC2209</tspan> <tspan
+   x="0"
+   y="36"
+   id="tspan116">stepper</tspan> <tspan
+   x="0"
+   y="56"
+   id="tspan118">drivers</tspan></text>
+<path
+   d="m 480,700 h 20"
+   fill="none"
+   opacity="1"
+   stroke="#ffffff"
+   stroke-linecap="butt"
+   stroke-linejoin="round"
+   stroke-width="3.88452"
+   id="path122" />
+</g>
+</svg>
