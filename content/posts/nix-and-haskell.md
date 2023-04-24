@@ -47,7 +47,7 @@ I recommend keeping the nixpkgs source code open while working on Nix stuff,
 and using `nix-doc` and a `nix repl` to help find things. I've written [another
 post][nix finding post] on this workflow.
 
-[nix finding post]: ./finding-functions-in-nixpkgs.md
+[nix finding post]: https://jade.fyi/blog/finding-functions-in-nixpkgs/
 
 # Implementation
 
