@@ -7,6 +7,6 @@ repos:
             name: Ban spicy exif data
             description: Ensures that there is no sensitive exif data committed
             language: system
-            entry: exiftool -all= --icc_profile:all -overwrite_original
+            entry: exiftool -all= --icc_profile:all -tagsfromfile @ -orientation -overwrite_original
             exclude_types: ["svg"]
             types: ["image"]
