@@ -1,5 +1,5 @@
 +++
-date = "2023-04-20"
+date = "2023-05-02"
 draft = false
 path = "/blog/building-the-meowzor"
 tags = ["fpga", "robotics", "nix", "rust"]
