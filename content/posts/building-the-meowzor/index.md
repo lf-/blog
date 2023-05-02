@@ -1,8 +1,8 @@
 +++
 date = "2023-04-20"
-draft = true
+draft = false
 path = "/blog/building-the-meowzor"
-tags = []
+tags = ["fpga", "robotics", "nix", "rust"]
 title = "Building the Meowzor robot"
 +++
 
@@ -40,7 +40,10 @@ to FPGA dev, electronics and mechanical engineering. It also meant that I had
 to make decisions to avoid as much hard complexity as possible in order to ship
 a big pile of stuff on time.
 
-This is the architecture diagram of the hardware components I worked on:
+This post reviews all the technical decisions made in the robotics part of the
+Meowzor project.
+
+This is the architecture diagram of the components I worked on:
 
 {% image(name="hw-arch-diagram.svg", colocated=true, process=false) %}
 Architecture diagram of the hardware. First commands come in via protobuf HTTP
@@ -125,7 +128,8 @@ capacitor on the motor power line.
 
 We used the GPIO pins of the DE1-SoC board, which are only documented properly
 in the schematic. They are 3.3v standard so work seamlessly with the stepper
-drivers. This is the pinout of that header, extracted from the schematic:
+drivers. This is the pinout of that header, extracted from the schematic and
+annotated:
 
 {% image(name="stepper-header-wiring.svg", colocated=true, process=false) %}
 Piece cut out of the DE1-SoC schematic showing the power pins and the pins
@@ -181,7 +185,10 @@ mailbox, a timer, and a programmable IO block.
 
 In the end basically all of the hardware is just the reference design from the
 DE1-SoC materials and various integration in Platform Designer, which is a win
-because I mostly didn't have to debug it.
+because I mostly didn't have to debug it. This is somewhat of a buried tip, but
+it's an important one: there doesn't seem to be an easy way to get all of the
+memory configuration and other board specific details correct inside of
+Platform Designer short of just copying the Terasic-provided reference design.
 
 The final code on the FPGA fabric is a Nios II processor with a timer, a
 mailbox to the hard processor, shared memory with the hard processor, and
@@ -190,11 +197,11 @@ a GPIO controller connected to some FPGA I/O pins.
 ## Firmware
 
 A mailbox in hardware is an inter-processor communication primitive: it takes a
-memory address and a command from the sending processor and interrupts the receiving processor when
-something new is received. The receiving processor can then take the address
-out of the mailbox, copy the memory out, then empty it for the next item.
-Optionally the sending processor may be interrupted to inform it of it being
-empty.
+memory address and a command from the sending processor and interrupts the
+receiving processor when something new is received. The receiving processor can
+then take the address out of the mailbox, copy the memory out, then empty it
+for the next item. Optionally the sending processor may be interrupted to
+inform it of it being empty.
 
 In the case of the Intel IP, the mailbox has a capacity of one item, and the
 interrupt to the receiving processor doesn't work, at least in my version of
@@ -220,12 +227,12 @@ typedef struct {
 } Cmd;
 ```
 
-The delays are sent interleaved, with the motor ID in the top bit of them. As
-soon as the mailbox receives a `Cmd`, the main thread copies it into a
-(ring-buffer-based) queue in private memory and empties the mailbox. A timer
-ISR checks the queue and looks at the top item. If the item is done, it
-dequeues it. If not, it gets the next step in it, sets the direction, emits a
-step pulse, then sets the timer to the time of the next step.
+The delays are sent interleaved between the two motors, with the motor ID in
+the top bit of them. As soon as the mailbox receives a `Cmd`, the main function
+copies it into a (ring-buffer-based) queue in private memory and empties the
+mailbox. A timer ISR checks the queue and looks at the top item. If the item is
+done, it dequeues it. If not, it gets the next step in it, sets the direction,
+emits a step pulse, then sets the timer to the time of the next step.
 
 It is also possible to do something like Klipper does with its communication
 protocol where it sends step times and some amount that's added to the time
@@ -236,8 +243,9 @@ system and the microcontroller compared to Klipper given they both have direct
 access to shared memory and the microcontroller is fast.
 
 The main reason that the design looks at all like this, with the motion
-planning all running on the Linux system, is because the Nios II does not run
-Rust and the development workflow for more deeply embedded systems is no fun.
+planning all running on the Linux system, is half because the Nios II does not
+run Rust and even if it did, the development workflow for microcontroller
+systems are deeply unfun.
 
 ## Software
 
@@ -425,7 +433,9 @@ performing": seems well behaved.
 
 ### NixOS port
 
-The port is [available here](https://github.com/lf-/de1-soc-nixos).
+The port is [available here][de1-soc-nixos].
+
+[de1-soc-nixos]: https://github.com/lf-/de1-soc-nixos
 
 Well, this is sure burying a lede. I ported NixOS to the board and it was a
 *really really good idea* and saved me a load of time. Things that I gained by
@@ -528,13 +538,18 @@ in linuxKernel.manualConfig {
 ```
 
 It complained at build time about some missing options required by systemd, so
-I added those manually to the Kconfig in my checkout and copied it back.
+I added those manually to the Kconfig in my checkout (see the README of
+[de1-soc-nixos] for exact details) and copied it back.
 
 Next, U-Boot. This was not a fun time but not because of Nix. I built U-Boot
 per the instructions on the GSRD guide, but using `socfpga_de1_soc_defconfig`
 instead of the one for the different board. I replaced the U-Boot in the same
 vendor image, and it would start, flash the transmit LED briefly, and not emit
-anything over the serial port. Concerning.
+anything over the serial port. Concerning, since the SPL is supposed to emit
+some log lines over serial.
+
+I was about to figure out how to use OpenOCD before I was too baffled by
+OpenOCD and simply googled the problem out of frustration.
 
 After googling it a lot I wound up finding a forum thread about getting U-Boot
 to work on the DE1-SoC, in which someone posted [a device tree patch][forum] to
@@ -550,10 +565,10 @@ NixOS for this project: if an SD card fails, I can just make a new image in 30
 seconds; the system image is totally disposable.
 
 NixOS already has a [SD card image builder][sdimage-upstream] sort of
-supporting U-Boot, but it does such support by leaving a gap to put U-Boot in
-at the start of the disk after the fact. That wasn't quite satisfying enough
-for me because setting partition types and dd'ing things is effort and also I
-want to flash the image directly out of Nix.
+supporting U-Boot, but it does such support by leaving a gap to let the user
+put U-Boot in at the start of the disk after the fact. That wasn't quite
+satisfying enough for me because setting partition types and dd'ing things is
+effort and also I want to flash the image directly out of Nix build output.
 
 I hacked this image builder up to [generate the correct partition
 table directly][sdimage-hacked] and also copy the U-Boot SPL image into place.
@@ -570,13 +585,16 @@ I was suspicious of power issues or some horrible crime being done to the
 hardware, so I removed the pieces surrounding the problematic time at boot such
 as resizing the root partition. This changed nothing and eventually I noticed
 it seemed to be based on *time* that the system was up. I got out a stop watch
-and it was a round number. Immediately I put two and two together and realized
-that Linux must not be correctly configured to pet the watchdog.
+and it was a round number. After thinking about it for a minute or two I put
+two and two together and realized that Linux must not be correctly configured
+to pet the watchdog, whereas U-Boot might have been?
 
 A quick comparison of the device trees used by the GSRD with the quite old ones
 used by the upstream DE1-SoC port in U-Boot yielded some slightly different
-watchdog configurations, so I just had a go and made them the same, added the
-patch to my U-Boot Nix build, and rebuilt the image:
+watchdog configurations, namely, having the `watchdog0` node marked as `status
+= "disabled"` (which means that it is ignored as if it is not present at all!).
+This seemed suspicious. I removed that override in a patch, added the patch to
+my U-Boot Nix build, and rebuilt the image:
 
 ```patch
 ---
@@ -607,6 +625,80 @@ login prompt on an armv7l-linux. Some lines above show "socfpga-dwmac" related
 ethernet messages.
 {% end %}
 
+#### How is the watchdog broken anyway?
+
+During the project I just yolo'd fixing the watchdog because I had better
+things to do than root-cause it. I investigated the watchdog issue out of
+curiosity while writing this post.
+
+A brief primer on `status` in device trees: if the status property is not
+present, [that means `"okay"`](dts-ok). If it's present with any value except
+`"okay"`, the device will be ignored as if it's not present. This exists to
+derive device trees for specific systems from a general device tree for a whole
+class of systems: to remove something, it can just be marked disabled.
+
+Thus, if a watchdog is marked `status = "disabled"`, it does not *disable* (render
+inert) the watchdog, it disables *knowing about* the watchdog. Hmm.
+
+[dts-ok]: http://billauer.co.il/blog/2017/02/linux-dts-dtsi-status-ok/
+
+When the system boots, the boot ROM will enable watchdog 0 with a timeout of a
+couple of seconds ([Cyclone V HPS TRM][hps-trm], page A-26). If the
+SPL/preloader doesn't take over the watchdog in time, the system will try the
+next preloader image (of the four identical copies). Thus, U-Boot needs to be
+doing something to take control of the watchdog or else it would not work.
+
+Let's figure out what that is exactly.
+
+Here are the relevant options' states:
+- `CONFIG_WDT unset`: Don't use the device tree for watchdogs
+- `CONFIG_SPL_WDT unset`: Don't use the device tree for watchdogs in SPL
+- `CONFIG_SPL_WATCHDOG=y`: Enable watchdog support while building SPL
+- `CONFIG_HW_WATCHDOG=y`: Enable simplified watchdog support (seems to imply
+  `!CONFIG_WDT` since petting a device tree based watchdog uses the "software
+  watchdog" path for `WATCHDOG_RESET()`, which is either "hardware" or
+  "software")
+- `CONFIG_DESIGNWARE_WATCHDOG=y`: Build the Synopsys DesignWare watchdog
+  driver.
+- `CONFIG_WATCHDOG_TIMEOUT_MSECS=10000`: Hardcoded timeout for the watchdog
+  timer for use with `HW_WATCHDOG`.
+
+If `CONFIG_WDT`, corresponding to enabling watchdog drivers in the device tree,
+is unset, the Synopsys DesignWare watchdog driver (as used by the socfpga
+system) [will be built as a trivial version][trivial-dw-wdt] that doesn't have
+a driver model so doesn't look at the device tree. That explains why the device
+tree has no influence on U-Boot: the code to care about watchdogs in the device
+tree is not built.
+
+[trivial-dw-wdt]: https://github.com/altera-opensource/u-boot-socfpga/blob/b31077feca2276f0860706d1843f548baae68aee/drivers/watchdog/designware_wdt.c#L63-L82
+
+This would line up with things exploding when we arrive in Linux: the device
+tree is not describing the real state of the system. However, what is U-Boot doing
+to that watchdog peripheral, given that it seems to be on?
+
+According to the [README.watchdog], someone should be calling
+`hw_watchdog_init` if U-Boot is to initialize the watchdog to an enabled state.
+The implementation of this for the DesignWare watchdog is to take the watchdog
+at the hardcoded address `CONFIG_DW_WDT_BASE` and set the timeout to
+`CONFIG_WATCHDOG_TIMEOUT_MSECS` We find a call to initialize the watchdog
+[here][board-startup] on the socfpga platform when `CONFIG_HW_WATCHDOG` is set,
+so that explains why the watchdog was initialized. If it were not set, the
+watchdog would be hard-reset and rendered inert.
+
+If Linux thinks the watchdog hardware is unused due to the `state = "disabled"`
+in the device tree it's using, it won't pet the watchdog, which explains why
+the watchdog was resetting the system after 10 seconds (the configured
+timeout!). Because there's no device tree for this board in the Linux tree,
+only in U-Boot, I didn't bother setting Linux to load a separate device tree,
+so Linux is just receiving the verbatim device tree that U-Boot used.
+
+Thus, setting `watchdog0` to "okay" in the U-Boot device tree causes Linux to
+stop being rebooted by the watchdog, since it knows to pet it, rather than not
+knowing it's there at all.
+
+[board-startup]: https://github.com/altera-opensource/u-boot-socfpga/blob/688a0d1ba6e7f2796e3d418b2525906069a4d127/arch/arm/mach-socfpga/misc.c#L160-L168
+[README.watchdog]: https://github.com/altera-opensource/u-boot-socfpga/blob/11232139e399e70641410356ae6b278113d90f16/doc/README.watchdog#L3-L10
+
 ## Conclusion
 
 That was a lot of work but I'm really proud of what we built. I unfortunately
@@ -616,7 +708,23 @@ very useful in the future if/when I have to do more projects with this board
 and makes it a greatly more useful device for other repurposing.
 
 The `stepgen` crate is pretty great, and I would use that again. It's quite
-easy to do stepper control from Rust, which is brilliant.
+easy to do stepper control from Rust, which is brilliant. Steppers were
+mostly as easy as expected, but certainly required a fair amount of software to
+correctly drive.
 
-My main regret is as always the scheduling, but this happens a lot, and is
-never helped by external deadlines.
+Given the time constraints, unknowns and already having one, the Intel FPGA
+development board was probably the right platform to build this thing on.
+Nevertheless the Intel tools were a constant impediment. I think that on future
+projects I will continue to do my best to chop as much as possible out of the
+FPGA parts simply due to how awful the development cycle is for anything
+including the hard processor. Definitely worth doing a lot of validation if
+practical before the debugging process involves building bitstreams, because 6
+minute iterations are unacceptable.
+
+It's a shame that Intel tools are so frustrating, because the hard processor is
+an *amazingly* useful feature: you can make everything that isn't a real-time
+problem into a Linux problem, and the ease of setting up fast shared memory
+with a fast microcontroller simplifies a lot of things.
+
+My main regret is as always the project scheduling, but this happens a lot, and
+is never helped by external deadlines.
