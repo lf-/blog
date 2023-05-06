@@ -47,9 +47,9 @@
     <ul>
         <li>
             <div id="newer-post" class="nav-label">Newer post</div>
-        {% if page.later %}
-            <a href="{{ page.later.permalink | safe }}"
-                aria-labelledby="newer-post">← {{ page.later.title }}</a>
+        {% if page.lower %}
+            <a href="{{ page.lower.permalink | safe }}"
+                aria-labelledby="newer-post">← {{ page.lower.title }}</a>
         {% else %}
             <span class="disabled-link">←</span>
         {% endif %}
@@ -57,9 +57,9 @@
 
         #}<li class="older">
             <div id="older-post" class="nav-label">Older post</div>
-        {% if page.earlier %}
-            <a href="{{ page.earlier.permalink | safe }}"
-                aria-labelledby="older-post">{{ page.earlier.title }} →</a>
+        {% if page.higher %}
+            <a href="{{ page.higher.permalink | safe }}"
+                aria-labelledby="older-post">{{ page.higher.title }} →</a>
         {% else %}
             <span class="disabled-link">→</span>
         {% endif %}
