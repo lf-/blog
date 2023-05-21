@@ -22,7 +22,7 @@ by adding `setupCompilerEnvironmentPhase` and overriding many phases.
 
 The way `nix-build` typically builds packages with the generic builder is
 documented in the [`stdenv` chapter][stdenv-docs] of the nixpkgs documentation.
-More or less, it runs [various "phases"][phases] in order in order to build the
+More or less, it runs [various "phases"][phases] in order to build the
 package. This is roughly analogous to the `build()`, `check()`, etc functions
 in an Arch Linux or Alpine Linux `PKGBUILD` file.
 
