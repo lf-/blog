@@ -1,16 +1,22 @@
 +++
 date = "2022-12-26"
 draft = true
-path = "/blog/tracing-ideas"
-tags = ["haskell", "opentelemetry"]
-title = "Make tracing easy easily! Solving more problems with tracing"
+path = "/blog/tracing-dx-ideas"
+tags = ["haskell", "opentelemetry", "developer-experience"]
+title = "Make tracing easy easily! Developer experience ideas"
 +++
 
-I interned at Mercury for several months and built out some ideas for making
-OpenTelemetry tracing the first choice to investigate something by making it
-the easiest and most useful option available. This blog post catalogues the
-ideas that I implemented, how much work they were, and whether I think they're
-worth it.
+I interned at Mercury for several months and built out a lot of developer
+experience improvements. Many of these were driven by having a good sense of
+whether something will be feasible in an afternoon and knowing that I can get
+away with spending an afternoon programming something nobody asked for yet.
+
+# OpenTelemetry/Tracing
+
+Many of the highest impact ideas I had were related to OpenTelemetry tracing:
+my goal was to make tracing the first choice to investigate any kind of problem
+from development to production. This blog post catalogues the ideas that I
+implemented, how much work they were, and whether I think they're worth it.
 
 ## Put a link to traces in a header
 
@@ -34,6 +40,10 @@ It doesn't really give any capability that isn't available by copying the trace
 ID out of the second component of the `traceparent` header you're already
 sending if you're using the [w3c trace propagator], however, doing that is very
 arduous and manual.
+
+If you have trace ID generation code, you can also start emitting trace IDs in
+other places, such as logs, exception reporting systems, and anywhere else you
+might want to follow requests through.
 
 #### How to do it
 
@@ -62,8 +72,10 @@ What this package does is:
 #### How easy was it?
 
 Implementing the hspec stuff originally took about half a week since it involved reading
-substantial amounts of hspec internals. I assume probably similar times for
-initially adding instrumentation to any other test framework/language.
+substantial amounts of hspec internals and poking around in a debugger. I
+assume probably similar times for initially adding instrumentation to any other
+test framework/language, with some adjustment for how well documented they are
+(deduct some points from hspec for confusing documentation).
 
 However, once the integration to your test framework of choice exists, it takes
 a few minutes to add it to a new codebase.
@@ -106,4 +118,43 @@ significantly easier to debug scheduled task misbehaviour and performance.
 
 Initialize tracing in your scheduled task runner, then create a context/root
 span for the task execution. Bonus points if you propagate the trace ID context
-from whatever invoked the scheduled task so it can be referenced.
+from whatever invoked the scheduled task so you can correlate it with the
+initiating request in your tracing system.
+
+# Database
+
+While I was working at Mercury we were using Postgres, but these ideas are
+fairly generic.
+
+## Speedy test startup
+
+I debugged an issue after introducing instrumentation to the test-suite, in
+which migrations would run for 15 seconds or so on every test startup. This is
+because the migration system was running hundreds of migrations on startup. I
+solved this by restoring a snapshot of a pre-migrated database with
+`pg_restore`, saving about 10 seconds and not changing anything semantically
+(by comparison, a persistent test database has more risk of divergence).
+
+The fastest way that I know of for creating a new Postgres database in a
+desired state is to use the template feature of `createdb` with the `-T`
+option, or `CREATE DATABASE yourname TEMPLATE yourtemplate`. This is a
+filesystem-level copy which makes it extremely fast (less than a second on a
+highly complex schema; compare to approximately 5 seconds to load the SQL for
+that in).
+
+This can be used to create a database for each concurrent test. Those test
+databases can in turn be wiped after each test case with some kind of function
+that uses `TRUNCATE` (again, very low level; doesn't look at the data) to wipe
+the tables in preparation for the next case.
+
+This leads to:
+
+## Make testing migrations easy: ban down migrations
+
+I wrote a script for testing database migrations. The idea that I had was born
+out of frustration in dealing with wiped development databases while working on
+migrations (which, to be clear, were easy to create, but still take 30 seconds
+or something): what if you just snapshot the development database then
+repeatedly run a migration?
+
+
