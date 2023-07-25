@@ -36,7 +36,9 @@ I picked up the hammer and [built one][repo]. Here's a shell attached to Chrome
 Dev Tools, showing `curl` requests live:
 
 <div class="image">
-<video controls alt="video of clipper showing curl requests in chrome devtools to the side" src="./chrome-devtools-live.webm">
+<video controls alt="video of clipper showing curl requests in chrome devtools to the side">
+<source src="./chrome-devtools-live.webm">
+<source src="./chrome-devtools-live.mp4">
 </video>
 </div>
 
