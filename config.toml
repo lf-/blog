@@ -20,6 +20,6 @@ extra_syntaxes_and_themes = ["syntax"]
 
 [extra]
 # Put all your custom variables here
-copyright = "(c) 2022 jade // all rights reserved"
+copyright = "(c) 2023 jade // all rights reserved"
 dtformat = "%B %d, %Y"
 debug = false
