@@ -1,4 +1,4 @@
 public/
 .deploy_config
 static/processed_images
-node_modules
+/node_modules
