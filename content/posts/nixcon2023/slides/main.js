@@ -11,4 +11,7 @@ Reveal.initialize({
     transitionSpeed: "fast",
     transition: "none",
     slideNumber: true,
+
+    margin: 0.04,
+    disableLayout: true,
 });

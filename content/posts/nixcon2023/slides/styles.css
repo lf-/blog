@@ -1,3 +1,14 @@
+.slides {
+  display: flex;
+  /*! flex: max-content; */
+  align-items: center;
+  justify-content: center;
+}
+
+.slides section:not(.video) {
+  max-width: var(--slide-width);
+}
+
 :root {
     --r-heading-text-transform: none !important;
     --r-background-color: #190022 !important;
