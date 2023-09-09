@@ -301,6 +301,8 @@ s.nix"; line = 1193; }
 
 * pass `--debugger` to nix
 * use `builtins.break (value)` somewhere in the evaluation path
+* NOTE: `(v: builtins.break v) value` may get more locals
+  (see [nix#8827](https://github.com/NixOS/nix/issues/8827))
 * then use `unsafeGetAttrPos` and others to figure out the source of a value
 </textarea>
 </section>
