@@ -9,6 +9,14 @@
   max-width: var(--slide-width);
 }
 
+.slides section.video {
+  max-width: 100vw;
+}
+
+.r-stretch {
+    max-width: 100% !important;
+}
+
 :root {
     --r-heading-text-transform: none !important;
     --r-background-color: #190022 !important;
