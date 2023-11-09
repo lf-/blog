@@ -213,7 +213,7 @@ This whole affair did not achieve much, but it was very interesting, and I have
 more of an idea how firmware works on x86.
 
 For further information:
-- [ACPI Spec][https://uefi.org/sites/default/files/resources/ACPI_Spec_6_5_Aug29.pdf]
+- [ACPI Spec](https://uefi.org/sites/default/files/resources/ACPI_Spec_6_5_Aug29.pdf)
 
 There may also exist schematics of the machine online, but I cannot confirm
 this.
