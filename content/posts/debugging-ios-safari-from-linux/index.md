@@ -71,32 +71,12 @@ Chrome diverged and Mozilla abandoned [valence].
 [valence]: https://github.com/mozilla/valence
 
 I have used [ios-safari-remote-debug-kit], but it has some issues. Download it,
-then in `src`, run `sh generate.sh` to download a WebKit inspector and patch
-it, then *in theory* you would be able to just run the start script.
+then in `src`, run `./generate.sh` to download a WebKit inspector and patch
+it.
 
 [ios-safari-remote-debug-kit]: https://github.com/HimbeersaftLP/ios-safari-remote-debug-kit
 
-The `start.sh` script as of 77620eb0e has the wrong executable name for
-`ios-webkit-debug-proxy`, so this patch is required:
-
-```patch
-diff --git a/src/start.sh b/src/start.sh
-index e471b39..95a0bdd 100644
---- a/src/start.sh
-+++ b/src/start.sh
-@@ -15,7 +15,7 @@ if [ "$1" != "-noServer" ] && [ ! -d "WebKit" ]; then
-   exit
- fi
-
--DEBUG_PROXY_EXE="ios-webkit-debug-proxy"
-+DEBUG_PROXY_EXE="ios_webkit_debug_proxy"
-
- if [ "$1" != "-noServer" ]; then
-   echo "Running ios-webkit-debug-proxy..."
-```
-
-Then, run `sh start.sh a` (an arbitrary argument is required due to a bug in
-the script).
+Then, run `./start.sh`.
 
 In Chromium, go to `http://localhost:9222/`, and find the index of the page to
 debug. Then, in another tab, go to
@@ -108,13 +88,29 @@ If everything works properly, this is the expected result:
 screenshot of safari devtools running in chromium on about:blank
 {% end %}
 
+## Screencast to devtools?
+
+[inspect.dev] supports screencasting of the page over USB. I haven't looked
+into how they're achieving this, but it is interesting. The WebKit inspector
+itself supports screencasting and remote control, but that feature hasn't yet
+been made to work with the open source tools.
+
+There's also another project [quicktime_video_hack] which can get the entire
+screen of attached iOS devices over USB, but this is not what the debugger
+normally uses; however it is likely still quite useful.
+
+[quicktime_video_hack]: https://github.com/danielpaulus/quicktime_video_hack
+
 # Conclusion
 
-All this software feels quite poorly maintained, and could definitely have some
-serious UX polish to work better. It does work, and at least it's probably
-going to keep working into the future. The commercial offering is possibly
-worthwhile for heavier usage. One thing that's curious about that is that they
-have done screencasting over USB, which definitely is possible e.g. with Zoom
-on a Mac, but I don't think there are any open source implementations. This
-would be useful research.
+All this software has a few rough edges, and could definitely have some UX
+polish to work better. It does work, and at least it's probably going to keep
+working into the future. The commercial offering is possibly worthwhile for
+heavier usage.
 
+## Thanks
+
+Thanks to [Himbeer] (@himbeer@mk.himbeer.me) for writing
+ios-safari-remote-debug-kit and giving feedback on this post.
+
+[Himbeer]: https://mk.himbeer.me/@himbeer
