@@ -153,7 +153,7 @@ main {
     }
 
     .detail {
-        margin-top: 0.3rem;
+        margin-top: 0em;
     }
 
     display: block;
@@ -241,26 +241,6 @@ hr {
     }
 }
 
-// h1 at the top of blog post pages
-:not(header) > h1 {
-    margin: {
-        top: 2.5rem;
-    }
-}
-
-h1 {
-    margin: {
-        bottom: -0.3rem;
-    }
-}
-
-h2, h3 {
-    margin: {
-        top: 1.5rem;
-        bottom: -0.5rem;
-    }
-}
-
 h2 {
     font-size: 1.7em;
 }
@@ -271,10 +251,19 @@ h3 {
 
 h4 {
     font-size: 1.1em;
-    margin: {
-        top: 2rem;
-        bottom: -0.5rem;
-    }
+}
+
+.flow > * + * {
+    margin-top: var(--flow-space,1em);
+}
+
+* + :is(h1, h2, h3, h4, h5, h6) {
+    margin-top: 2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0;
+    line-height: 1;
 }
 
 :not(nav) > ul > li {
@@ -291,14 +280,14 @@ kbd {
     box-shadow: 0px 2px 3px $lowerbg2;
 }
 
+.table-container {
+    @include box;
+    background-color: $lowerbg2;
+    overflow: auto;
+}
+
 /* asides. god help me */
 aside {
     @include box;
-}
-
-/* headings */
-
-h1 {
-    line-height: 1.10;
 }
 

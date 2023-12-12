@@ -21,7 +21,7 @@
 {% endblock pagemeta %}
 
 {% block content %}
-<div class="post" typeof="BlogPosting">
+<article class="post" typeof="BlogPosting">
 <header class="page-header">
 <h1 property="headline">{{ page.title | markdown(inline=true) | safe }}</h1>
 
@@ -68,5 +68,5 @@
 </nav>
 {% endif %}
 
-</div>
+</article>
 {% endblock content %}
