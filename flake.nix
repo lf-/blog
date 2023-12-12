@@ -57,11 +57,11 @@
               buildInputs = with haskellPackages; [
                 haskell-language-server
                 fourmolu
-                ghcid
                 cabal-install
               ] ++ (with pkgs; [
                 sqlite
                 pre-commit
+                exiftool
               ]);
               # Change the prompt to show that you are in a devShell
               # shellHook = "export PS1='\\e[1;34mdev > \\e[0m'";
