@@ -1,6 +1,6 @@
 +++
-date = "2023-11-25"
-draft = true
+date = "2024-01-02"
+draft = false
 path = "/blog/flakes-arent-real"
 tags = ["nix"]
 title = "Flakes aren't real and cannot hurt you: a guide to using Nix flakes the non-flake way"
@@ -208,12 +208,13 @@ until it reaches a [fixed point]. An overlay takes two arguments, `final` and
 `prev` (sometimes also called `self` and `super`), and returns an attribute set
 that is shallowly replaced on top of nixpkgs with `//`.
 
-It is useful as a means for distributing sets of software outside of nixpkgs,
-and still is useful in that role in a flakes world, since overlays are simple
-functions that can be evaluated against any version of nixpkgs, allowing for
-cross compilation to work properly. One may notice that the `overlays` flake
-output is not architecture specific, which follows from their definition as
-functions that take package sets and return modifications to make.
+Overlays are useful as a means for distributing sets of software outside of
+nixpkgs, and still are useful in that role in a flakes world, since overlays
+are simple functions that can be evaluated against any version of nixpkgs, and
+if written with `callPackage`, cross compilation works. One may notice that the
+`overlays` flake output is not architecture specific, which follows from their
+definition as functions that take package sets and return modifications to
+make; this is why they work properly here.
 
 Evaluation to a fixed point means that it is evaluated as many times as necessary
 until it stops referring to the `final` argument (or overflows the stack). This
@@ -284,11 +285,12 @@ Because of this design fault in flakes, namely, the lack of support for
 parameters, the most compatible way of writing packaging in a flake project
 is to write the package definitions into an overlay first, then expose the
 packages from the overlay. Consumers that need cross compilation can use the
-overlay, and consumers that don't care can use it through `packages`.
+overlay with their own copy of nixpkgs, and consumers that don't care can use
+it through `packages`.
 
 Keeping in mind ["1000 instances of nixpkgs"][1000-nixpkgs], a reasonable way
-of writing a flake that *doesn't modify anything in nixpkgs*, just adds stuff
-is:
+of writing a flake that *doesn't modify anything in nixpkgs* and just adds
+stuff is:
 
 ```nix
 {
@@ -473,6 +475,9 @@ nixosConfigurations.something = nixpkgs.lib.nixosSystem {
 
 #### Example
 
+This could be equivalently done with the overlay invocation trick above on
+pkgs.
+
 For example, this defines a very practical NixOS module that meows at the user
 on the console on boot:
 
@@ -529,7 +534,7 @@ let cfg = config.services.meow; in {
 
 {% codesample(desc="How I tested the above") %}
 
-I put this into `flake.nix`:
+I put this into `flake.nix` above:
 
 ```nix
 nixosConfigurations.test = nixpkgs.lib.nixosSystem {
@@ -658,7 +663,181 @@ do and we would recommend it.
 
 [restrict-eval]: https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-restrict-eval
 
-# "Flakes are good for installing software locally"
+# Why are there five ways of getting software?
 
-# What is all this crap for anyway?
+It's possible to get lost in the sheer number of ways of doing things and lose
+what any of it is for. I think this is actually worsened by flakes, *because*
+they make examples self-contained, making them more easy to just pick up and
+run without contemplation. Often a lot of blogs provide examples in flake form,
+potentially as NixOS modules or other forms which have a lot of fanciness that
+might be surplus to requirements for the desired application.
 
+If one is new to Nix it gets very easy to think "Nix Nix Nix I shall reduce the
+world to nothingness, Nix" and convert everything to be tangled with Nix, and
+it helps to understand the available mechanisms and why one might need one
+particular one.
+
+The various ways of installing things have different relationships to
+mutability and "effects". By effects, I mean, mutations to the computing
+system, which other systems might use post-install scripts for. Nix derivations
+don't support post-install scripts because "installing" doesn't mean anything.
+By persistent, I mean that they have some lasting effect on the system besides
+putting stuff in the Nix store.
+
+This section perhaps deserves its own post, but I will briefly summarize:
+
+## `flake.nix` (`default.nix`, `shell.nix`) in project directories
+
+These are *developer* packaging of projects. To this end, they provide dev
+shells to work on a project, and are versioned *with* the project. Additionally
+they may provide packaging to install a tool separately from nixpkgs.
+
+There are a couple of things that make these notable compared to the packaging
+one might see in nixpkgs:
+* In nixpkgs, more build time is likely tolerated, and there is little desire
+  to do incremental compilation. Import from derivation is also banned from
+  nixpkgs. For these reasons, packaging outside of nixpkgs likely uses
+  different frameworks such as [`crane`][crane],
+  [`callCabal2nix`][callCabal2nix] and other similar tools that reduce the
+  burden of maintaining Nix packaging or speed up rebuilds.
+* It's versioned with the software and so more crimes are generally tolerated:
+  one might pin libraries or other such things, and update nixpkgs infrequently.
+* They include the tools to *work on* a project, which may be a superset of the
+  tools required to build it, for example in the case of checked-in generated
+  code or other such things.
+* They may include things like checks, post-commit hooks and other project
+  infrastructure.
+
+[crane]: https://github.com/ipetkov/crane
+[callCabal2nix]: https://github.com/NixOS/nixpkgs/blob/bd645e8668ec6612439a9ee7e71f7eac4099d4f6/pkgs/development/haskell-modules/make-package-set.nix#L225
+
+Shells are just made of environment variables and (without building one at
+least) don't create a single `bin` folder of all the things in the shell, for
+instance. Also, since they are made of environment variables, they don't have
+much ability to perform effects such as managing services or on-disk state.
+
+Use this for tools specific to one project, such as compilers and libraries for
+that project. Depending on taste and circumstances, these may or may not be
+used for language servers.
+
+- [x] Declarative
+- [ ] Persistent
+- [ ] Effects
+
+## Ephemeral shells (`nix shell`, `nix-shell -p`)
+
+The ephemeral shell is one of the superpowers of Nix since it can appear
+software from the ether without worrying about getting rid of it later. This
+essentially has exactly the same power as project-specific `flake.nix` files:
+you can bring packages into scope or do anything else that can be done there.
+
+I would consider a project shell file to be simply a case of saving a
+`nix-shell -p` invocation, and the motivation to do so is about the same, just
+with more Software Engineering Maintainability Juice with pinning and such.
+
+Use this for grabbing tools temporarily for whatever purpose that might have.
+
+- [ ] Declarative
+- [ ] Persistent
+- [ ] Effects
+
+<aside>
+
+Note that for Bad Reasons, `nix-shell -p` is not equivalent to `nix
+shell`: the latter does not provide a compiler or `stdenv` as would be
+necessary to build software. The technical reason here is that `nix shell`
+constructs the shell within C++ code in Nix, whereas `nix-shell -p` is more or
+less `nix develop` on a questionable string templated expression involving
+`pkgs.mkShell`.
+
+</aside>
+
+## `nix profile`, `nix-env`
+
+`nix profile` and `nix-env` build a directory with `bin`, `share`, and
+such, symlinking to the actual packages providing the files. Under the hood,
+these are mostly `pkgs.buildEnv`, which is a script that builds such a
+structure out of symlinks. They then symlink it somewhere in PATH.
+
+Personally, I don't think that `nix profile` and `nix-env` should ever be used
+except when convinced to operate in a declarative manner, because they are the
+exception in the Nix ecosystem as far as being both imperative and persistent,
+and doing it declaratively avoids various brokenness by fully specifying
+intent (they have some ugly edge cases in upgrades which are solved by simply
+writing the Nix code specifying where the packages come from into a file).
+
+Use these for nothing. Or not, I'm not a cop.
+
+- [ ] Declarative
+- [x] Persistent
+- [ ] Effects
+
+## [flakey-profile], `nix-env --install --remove-all --file`
+
+The old Nix profile CLI actually supports declarative package installation,
+although I wouldn't suggest it because [flakey-profile] is just plainly more
+pleasant UX wise and is absolutely trivial in implementation. These do the same
+thing as `nix profile` and `nix-env` in terms of building a directory with
+`bin`, `share`, and such, and putting it somewhere in PATH.
+
+Use these for lightweight declarative package management, perhaps on non-NixOS
+systems (there's nothing stopping you using it on NixOS but NixOS itself is
+right there).
+
+[flakey-profile]: https://github.com/lf-/flakey-profile
+
+- [x] Declarative
+- [x] Persistent
+- [ ] Effects
+
+## `home-manager`
+
+Those who use `home-manager` generally use it to replace dotfile managers, as
+well as configuring services and installing user-specific packages. I don't use
+it because an approach based on symlinks into a git repo avoids adding an
+unnecessary Nix build and much complexity to the config file iteration cycle.
+
+`home-manager` has essentially the power of NixOS in terms of being able to
+have effects such as services, activation scripts, etc, while being scoped to
+one user.
+
+Use this for installing packages on one user, potentially not on a NixOS
+system, in a declarative manner, as well as configuring user-scoped services.
+Note that this overlaps with profiles as described above; it's just a heavier
+weight mechanism built with the same tools.
+
+- [x] Declarative
+- [x] Persistent
+- [x] Effects
+
+## NixOS/`nix-darwin`
+
+NixOS and `nix-darwin` are system-wide configuration management systems built
+on top of Nix profiles, combined with activation scripts. They allow installing
+and configuring services, and managing config files in a declarative manner.
+In terms of both implementation and usage, these do similar things to
+`home-manager`, but scoped system-wide.
+
+Use this for installing packages system-wide and configuring services.
+
+- [x] Declarative
+- [x] Persistent
+- [x] Effects
+
+# Conclusion
+
+I hope to have successfully covered why flakes aren't everything, and perhaps
+even why they aren't real. Although nixpkgs isn't always a shining example of
+fabulous Nix project architecture, it is a large project, and there is a
+lot to be learned from how they organize things, which arguably was more than
+was internalized while flakes were designed.
+
+Even assuming that flakes are good at macro-level composition, they often are
+accompanied by poor use of micro-level composition, which still is best done
+by using the old primitives.
+
+With better architecture, we can work around the limitations of flakes to
+create pleasant-to-work-with and extensible Nix code. We can clarify the
+meaning of all the "just write a flake" blog posts to see the Nix tools within
+and avoid spurious, unnecessary, dependencies on flakes that make code harder
+to understand.
