@@ -81,7 +81,7 @@ large *and* in the small reusably and efficiently, the other composition
 primitives provided by Nix and nixpkgs remain the best choices to assemble
 software. A flake can then be relegated to merely an entry point and a way of
 acquiring dependencies that are required for evaluation (build-time
-dependencies should use `pkgs.fetchurl`, `fetchFromGitHub`, etc.
+dependencies should use `pkgs.fetchurl`, `fetchFromGitHub`, etc).
 
 For example, to expose multiple configurations of a program, one might write it
 the traditional way, using a lambda accepting some configuration parameters,
