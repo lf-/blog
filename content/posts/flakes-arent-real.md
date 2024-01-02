@@ -688,9 +688,11 @@ This section perhaps deserves its own post, but I will briefly summarize:
 
 ## `flake.nix` (`default.nix`, `shell.nix`) in project directories
 
-These are *developer* packaging of projects. To this end, they provide dev
-shells to work on a project, and are versioned *with* the project. Additionally
-they may provide packaging to install a tool separately from nixpkgs.
+These are *developer* packaging of projects: pinned tool versions, not caring
+as much about unifying dependencies with the system, etc. To this end, they
+provide dev shells to work on a project, and are versioned *with* the project.
+Additionally they may provide packaging to install a tool separately from
+nixpkgs.
 
 There are a couple of things that make these notable compared to the packaging
 one might see in nixpkgs:
@@ -718,7 +720,9 @@ much ability to perform effects such as managing services or on-disk state.
 
 Use this for tools specific to one project, such as compilers and libraries for
 that project. Depending on taste and circumstances, these may or may not be
-used for language servers.
+used for language servers. Generally these are not used for providing tools
+like `git` or `nix` that are expected to be on the system, unless they are
+required to actually compile the software.
 
 - [x] Declarative
 - [ ] Persistent
