@@ -137,10 +137,10 @@ A `package.nix` file looks something like so:
   # can be overridden with `yourPackage.override { enableSomething = true; }`
   enableSomething ? false
 }:
-finalAttrs: # optional finalAttrs to refer to the set below; preferred over using `rec` attr sets
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
+  # optional finalAttrs to refer to the set below; preferred over using `rec` attr sets
   # ...
-}
+})
 ```
 
 Package definitions should be written with `callPackage` if possible, rather
