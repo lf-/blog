@@ -23,6 +23,12 @@ exist.
   equivalence of results in favour of only binary equivalence, and we want to
   reduce the wasted computation. However, for production use cases, computation
   is cheaper than the possibility of incremental bugs.
+
+  This can be equivalently phrased in terms of lacking "build identity": is
+  there any way that the system knows what the "previous version" of the "same
+  build" is? A postmodern build system doesn't have build identity, because it
+  causes problems for multitenancy among other things: who decides what the
+  previous build is?
 * Maximize reuse of computation across builds. Changing one source file should
   rebuild as little as absolutely necessary.
 * Distributed builds: We live in a world where software can be compiled much
@@ -68,7 +74,14 @@ Nix is a build system based on the idea of a "derivation". A derivation is
 simply a specification of an execution of `execve`. Its output is then stored
 in the Nix store (`/nix/store/*`) based on a name determined by hashing inputs
 or outputs. Memoization is achieved by skipping builds for which the output
-path already exists. The path is either:
+path already exists.
+
+This mechanism lacks build identity, and is multitenant: you can dump a whole
+bunch of different Nix projects of various versions on the same build machine
+and they will not interfere with each other because of the lack of build
+identity; the only thing to go off of is the hash.
+
+The store path is either:
 
 - Named based on the hash of the contents of the derivation: input-addressed
 
@@ -254,7 +267,8 @@ the compilers*. In many compilers that are not C/C++/Java, the build units are
 much larger (for example the Rust compilation unit is an entire crate!), so the
 compilers themselves become build systems with incremental build support, and
 since we are a trustworthy-incremental build system, we cannot reuse previous
-build products and cannot use the compilers' incrementalism.
+build products and cannot use the compilers' incrementalism as they pretty much
+all expect build identity.
 
 That is, the compilers force us into too coarse an incrementalism granularity,
 which we cannot do anything about.
