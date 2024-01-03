@@ -620,20 +620,23 @@ in that role.
 One flaw is that all the dependencies need to be listed in one file, and there
 is no way of scoping them into groups.
 
-A poorly documented limitation of both flake inputs and the built in fetchers
-in general, which is the reason they are banned in nixpkgs (in addition to
+For fetching things that are needed to build but not needed to evaluate, flake
+inputs suffer from a poorly documented limitation of builtin fetchers, which is
+the reason they are banned in nixpkgs (in addition to
 [`restrict-eval`][restrict-eval] making them not work), is that they block
 further evaluation while fetching. The alternative to this is to use a
 fixed-output derivation that performs the fetching at build time, such as is
 done with `pkgs.fetchFromGitHub`, `pkgs.fetchurl` and so on.
 
 The blocking is not necessarily the biggest problem if the dependencies are Nix
-code required to evaluate the build, but it can be troublesome when the
-dependencies are not required to evaluate, since it [slows down and serializes
-evaluation][ifd], downloading just one thing at a time. If the dependencies are
-required for evaluation, there is little way to make this better, but for
-instance, for builds requiring many inputs such as a pile of tree-sitter
-grammars, Haskell package sources, or such, it adds up badly.
+code required to evaluate the build, since you cannot avoid blocking with
+those, but it can be troublesome when the dependencies are not required to
+evaluate, since it [slows down and serializes evaluation][ifd], downloading
+just one thing at a time. If the dependencies are required for evaluation,
+there is not much way to make this better, but for instance, for builds
+requiring many build-time inputs such as a pile of tree-sitter grammars,
+Haskell package sources, or such, switching to fixed-output derivation fetchers
+will save a lot of time.
 
 [ifd]: https://jade.fyi/blog/nix-evaluation-blocking/
 
@@ -650,12 +653,15 @@ hash, though.
 There are several tools that can maintain a lock file with Nix hashes, such as
 [Niv], [npins], and [gridlock]. The first two sadly ship Nix files that use
 built-in fetchers and thus have the evaluation performance issues, and the
-latter doesn't ship any Nix code.
+latter doesn't ship any Nix code. This is not a knock on these projects: their
+primary purpose is in pinning Nix code, for which builtin fetchers are the
+right choice, but it does mean that the code they ship shouldn't be used for
+build dependencies.
 
-Thus, the solution is to ignore any provided Nix code for whichever one you choose
-to use and write some code to read the tool's JSON file and pull the package
-URL and hashes out, and call `pkgs.fetchurl` with them. This is quite easy to
-do and we would recommend it.
+Thus, the solution for build-time dependencies is to ignore any provided Nix
+code for whichever one you choose to use and write some code to read the tool's
+JSON file and pull the package URL and hashes out, and call `pkgs.fetchurl`
+with them. This is quite easy to do and we would recommend it.
 
 [Niv]: https://github.com/nmattia/niv
 [npins]: https://github.com/andir/npins
