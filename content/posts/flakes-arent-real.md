@@ -167,11 +167,12 @@ even if the same package name appears in both. Magic ✨
 That is, in the following intentionally-flawed-for-other-reasons `flake.nix`:
 
 ```nix
-{...}: {
+{
+  # ....
   outputs = { nixpkgs, ... }:
-  let pkgs = nixpkgs.legacyPackages.x86_64-linux;
-  in {
-    packages.x86_64-linux.x = pkgs.callPackage ./package.nix { };
+    let pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in {
+      packages.x86_64-linux.x = pkgs.callPackage ./package.nix { };
   };
 }
 ```
