@@ -464,11 +464,11 @@ nixosConfigurations.something = nixpkgs.lib.nixosSystem {
   specialArgs = {
     myPkgs = nixpkgs;
   };
-  modules = {
-    { pkgs, lib, myPkgs }: {
+  modules = [
+    ({ pkgs, lib, myPkgs }: {
       # do something with myPkgs
-    }
-  };
+    })
+  ];
 }
 ```
 
