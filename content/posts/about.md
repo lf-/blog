@@ -9,20 +9,23 @@ isPage = true
 +++
 Hi!
 
-I'm an undergraduate student in Computer Engineering at the University of
-British Columbia.
+I'm an final-year undergraduate student in Computer Engineering at the
+University of British Columbia.
 
-I have done mechanical design for ThunderBots, a RoboCup Small Size League team
-building soccer-playing robots. Prior to this, I was on a 4 person team
-participating in Skills Canada Robotics, and in my last year of high school, we
-had the opportunity to [go to Nationals in
-Halifax](/blog/i-competed-in-skills-canada-robotics), where we achieved first
-place for Saskatchewan.
+In my spare time, when I am not dreaming of all computers landing on the sun, I
+work on [NixOS](https://nixos.org) in various places in the project, and a
+whole slew of projects you can find on my GitHub profile. I'm most interested
+in compilers, operating systems, and build systems. I am a full stack
+developer: I can competently write both SystemVerilog and websites, and most
+things in between: programming languages are a dime a dozen and I speak a lot
+of them, from Rust to Haskell, C/C++, Python, to Fake Haskell That Compiles to
+Bash (Nix). I often cosplay (perhaps too successfully) as a build engineer.
 
-Other than robotics, I am most interested in Rust and embedded systems,
-especially the security thereof.
+When I *am* dreaming of computers experiencing solar destruction, I like
+sewing, going on long walks, and cooking.
 
-To contact me, email `jade` at this domain (jade dot fyi).
+To contact me, email `jade` at this domain (jade dot fyi) or ping me [on
+fedi](https://hachyderm.io/@leftpaddotpy).
 
 Jade  
 she/they
