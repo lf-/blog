@@ -454,6 +454,12 @@ actually invoking `nixpkgs.lib.nixosSystem`. The latter is the much more
 sinister part, and the reason I would strongly recommend inline modules with
 closures instead of `specialArgs`: they break flake composition.
 
+That being said, *either* using `specialArgs` *or* an inline module inside
+`flake.nix`, rather than an option above, is the only way to inject module
+imports. That is, if one uses some option like `imports = [ config.someOption
+]`, it will cause an infinite recursion error. We would suggest putting the
+imports inside an inline module inside `flake.nix` for this case.
+
 To use `specialArgs`, an attribute set is passed into `nixpkgs.lib.nixosSystem`,
 which then land in the arguments of NixOS modules:
 
