@@ -289,11 +289,11 @@ the NixOS option
 
 The primary reason that Nix doesn't allow trivially overriding packages with a
 different version is that it is a generalized build system building software
-that has non-uniform expectations of how to be built. One can in indeed see
+that has non-uniform expectations of how to be built. One can indeed see
 that the "replace one version with some other in some file" idea is *almost*
-reality in languages using `mkDerivation` directly, though one might have to
+reality in languages that use `mkDerivation` directly, though one might have to
 tweak other build properties sometimes. Architectural problems in nixpkgs
-prevent this working for several ecosystems.
+prevent this working for several ecosystems, though.
 
 Another sort of issue is that nixpkgs tries to provide a mostly [globally
 coherent] set of software versions, where, like most Linux distributions, there
