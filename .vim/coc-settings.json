@@ -1,0 +1,11 @@
+{
+    "languageserver": {
+        "haskell": {
+            "command": "direnv-hls",
+            // "args": ["exec", ".", "/home/jade/dev/haskell-language-server/dist-newstyle/build/x86_64-linux/ghc-9.4.2/haskell-language-server-1.8.0.0/x/haskell-language-server/build/haskell-language-server/haskell-language-server", "--lsp"],
+            "args": ["--lsp"],
+            "filetypes": ["haskell"],
+            "trace.server": "verbose"
+        }
+    }
+}
