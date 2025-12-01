@@ -689,6 +689,9 @@ wasteful of the resources of the earth as well as our time on it, in multiple
 respects, and we *can* do better. We have the ideas, we even have the
 technology. It just has to get shipped.
 
+Probably the most practical solution to getting a fast multi-language incremental build system in this day and age is one of the Bazels, using dependencies from Nix to not have to Become a Distro.
+Persistent workers, though unsatisfying from the perspective of not being 100% hermetic, are an effective way to get a substantial amount of the benefit of a hermetic build system with incremental compilation by compensating for much of the computational overhead in making targets smaller.
+
 Many of the ideas in this post came from edef, [who you should
 sponsor][edef-sponsor] if you want to support her giving people these ideas or
 developing them herself.

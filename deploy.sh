@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ ! -e .deploy_config ]]; then
 	cat >&2 <<-EOF
