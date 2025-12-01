@@ -1,10 +1,31 @@
 +++
-date = "2023-12-11"
+date = "2025-11-29"
 draft = false
 path = "/blog/the-postmodern-build-system"
 tags = ["nix"]
-title = "The postmodern build system"
+title = "The postmodern build system (updated 2025)"
 +++
+
+<aside>
+
+# 2025 Update
+
+This post has aged remarkably well from its original release on 2023-12-11.
+That being said, I have found myself working on build systems full-time in the year and a half since then and have gotten more familiar with the industrial state of affairs.
+
+I have recently been working on a large scale deployment of Facebook's Buck2 at my job (not at Facebook).
+The opinions in this post do not necessarily represent those of my employer; I do not wish to speak for them.
+
+Some of the things mentioned vaguely in this post have an actual name and have been implemented.
+Mentions of these have been annotated with the name of the thing.
+
+If you want to see the old version of the post, [see it on archive.org][archive].
+
+[archive]: https://web.archive.org/web/20250707130624/https://jade.fyi/blog/the-postmodern-build-system/
+
+</aside>
+
+# Rest of the post
 
 This is a post about an idea. I don't think it exists, and I am unsure if I
 will be the one to build it. However, something like it should be made to
@@ -93,6 +114,8 @@ The store path is either:
   verified against a hardcoded value.
 - Named based on the output hash of the derivation, which is not fixed:
   content-addressed.
+
+  Note that `ca-derivations` have had a rocky deployment timeline and have been removed from Lix.
 
   See [`ca-derivations`][ca-drv].
 
@@ -218,21 +241,24 @@ practice, for the most part.
 
 There are a few ideas to improve this situation, which are all isomorphic at
 some level:
-* [Recursive Nix][recursive-nix]: Nix builds have access to the daemon socket
-  and can execute other Nix evaluations and Nix builds.
-* [Import from derivation][import-from-derivation]: Nix evaluation can demand a
-  build before continuing further evaluation. Unfortunately, the Nix evaluator
-  [cannot resume remaining other evaluation while waiting for a
-  build][ifd-bad], so in practice, IFD tends to seriously blow up evaluation
-  times by repeated blocking and loss of parallelism.
-* [Dynamic derivations][dyndrv]: The build plans of derivations can be
-  derivations themselves, which are then actually built to continue the build.
-  This crucially allows the Nix evaluator to not block evaluation for monadic
-  dependencies even though the final build plan isn't fully resolved.
+* [Recursive Nix][recursive-nix]: Nix builds have access to a daemon socket and can execute other Nix evaluations and Nix builds.
 
-  However, this is ultimately a workaround for a flaw in the Nix evaluator and
-  alternative implementations like [tvix] or alternative surface languages like
-  [Zilch] are unaffected by this limitation.
+  This has been removed from Lix due to implementation issues.
+* [Import from derivation][import-from-derivation]: Nix evaluation can demand a build before continuing further evaluation.
+
+  Unfortunately, the Nix evaluator [cannot resume remaining other evaluation while waiting for a build][ifd-bad], so in practice, IFD tends to seriously blow up evaluation times by repeated blocking and loss of parallelism.
+* [Dynamic derivations][dyndrv]: The build plans of derivations can be derivations themselves, which are then actually built to continue the build.
+
+  This crucially allows the Nix evaluator to not block evaluation for monadic dependencies even though the complete build plan isn't fully resolved, by putting placeholders in place of the dynamic parts of the build graph.
+  This allows serializing the build graph into a file which can then be executed later, and avoids needing an evaluator to be alive while executing the build.
+
+  However, this is to some degree a workaround for the flaw in the Nix evaluator where IFD is serialized and alternative implementations like [tvix] or alternative surface languages like [Zilch] are unaffected by this limitation.
+
+  The monadic dependencies in this case are essentially replaced with *placeholders*, which allows the build to not have *any* evaluator driving the execution of the build, unlike IFD-shaped approaches.
+  That is, dynamic derivations allow having a more complete build graph that can be serialized into a file and run the build later, including on a different machine.
+
+  This has been removed from Lix due to implementation issues.
+
 
 [restrict-eval]: https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-restrict-eval
 [recursive-nix]: https://github.com/NixOS/nix/issues/13
@@ -261,38 +287,28 @@ incremental builds and cross-machine parallelism using the Nix daemon.
 
 ### Limits of `execve` memoization
 
-Even if we fixed the Nix surface to use monadic builds to make inner build
-systems pure and efficient, at some level, *our problem build systems become
-the compilers*. In many compilers that are not C/C++/Java, the build units are
-much larger (for example the Rust compilation unit is an entire crate!), so the
-compilers themselves become build systems with incremental build support, and
-since we are a trustworthy-incremental build system, we cannot reuse previous
-build products and cannot use the compilers' incrementalism as they pretty much
-all expect build identity.
+Even if we fixed the Nix surface to use monadic builds to make inner build systems pure and efficient, at some level, *our problem build systems become the compilers*.
+In many compilers that are not C/C++/Java, the build units are much larger (for example the Rust compilation unit is an entire crate!), so the compilers themselves become build systems with incremental build support, and since we are a trustworthy-incremental build system, we cannot reuse previous build products and cannot use the compilers' incrementalism as they pretty much all expect build identity.
 
-That is, the compilers force us into too coarse an incrementalism granularity,
-which we cannot do anything about.
+That is, the compilers force us into too coarse an incrementalism granularity, which we cannot do anything about as our build systems can't see into them.
 
-For example, in Haskell, there are two ways of running a build: running `ghc
---make` to build an entire project as one process, or running `ghc -c` (like
-`gcc -c` in C) to generate `.o` files. The latter eats `O(modules)` startup
-overhead in total, which is problematic.
+For example, in Haskell, there are two ways of running a build: running `ghc --make` to build an entire project as one process, or running `ghc -c` (like `gcc -c` in C) to generate `.o` files.
+- The former eats `O(modules)` (or maybe superlinear) overhead in terms of the size of each GHC package.
+  This overhead is a lot smaller than the compiler startup overhead and can mostly be ignored.
 
-The (Glorious Glasgow) Haskell compiler can reuse previous build products and
-provide incremental compilation that considers semantic equivalence, but that
-can't be used for production builds in a trustworthy-incremental world since
-you would have to declare explicit dependencies on the previous build products
-and accept the possibility of incremental compilation bugs. Thus, `ghc --make`
-is at odds with trustworthy-incremental build systems: since you cannot provide
-a previous build product, you need to rebuild the entire project every time.
+  In cases like with Nix without any incrementalism with old versions of the code, `ghc --make` mode has much better throughput but needs to build the entire project and thus has very bad latency.
+- The latter eats `O(modules)` GHC startup overhead in total, which is problematic as that overhead is about as much as building a couple entire small modules.
+
+  `ghc -c` has okay latency, but the build system needs to evaluate a large build graph way faster than Nix would ever do it in order to actually invoke the compiler.
+
+The (Glorious Glasgow) Haskell compiler can reuse previous build products and provide incremental compilation that considers semantic equivalence, but that can't be used for production builds in a trustworthy-incremental world since you would have to declare explicit dependencies on the previous build products and accept the possibility of incremental compilation bugs.
+Thus, `ghc --make` incremental mode is at odds with trustworthy-incremental build systems: since you cannot provide a previous build product, you need to rebuild the entire project every time.
 
 <aside>
 
-In fact, `ghc --make` is exactly what `nixpkgs` Haskell uses! This would be
-much more of a problem if it were actually feasible to do monadic builds in
-Nix. In order to cut compile times, Gabriella Gonzales, Harry Garrood, I, and
-others worked on figuring out how to pass in the previous incremental build
-products.
+In fact, `ghc --make` is exactly what `nixpkgs` Haskell uses!
+The issues with `ghc -c` probably would be more of a problem if using monadic builds in Nix were more realistic; as it is, the only realistic option is batch-mode with `ghc --make`.
+In order to cut compile times, in 2022 and 2023, Gabriella Gonzales, Harry Garrood, I, and others worked on attempting to figure out how to pass in the previous incremental build products to `ghc --make` in Nix.
 
 * [Final version][gabriella-post], fetching the first Git revision of the day
   and using a clean build of it as a source of incremental build products. This
@@ -310,6 +326,11 @@ products.
   derivations][dyndrv] as a possible alternative to full recursive Nix but they
   were not code-complete at the time.
 
+In spite of the valiant efforts of several clever engineers, this approach was ultimately canned in 2024 as it did not have acceptable correctness and reliability properties for the limited gains in performance.
+A few more 30%+ performance improvements were pulled out of the compiler and build graph, but ultimately this was not sustainable, and they selected a different course.
+
+See the 2025 update under the Bazel section for more on what is being built to permanently resolve the build scalability issues.
+
 [incr-proto]: https://github.com/hdgarrood/haskell-incremental-nix-example
 [gabriella-post]: https://www.haskellforall.com/2022/12/nixpkgs-support-for-incremental-haskell.html
 [ghc-nix]: https://github.com/matthewbauer/ghc-nix
@@ -319,6 +340,128 @@ products.
 This tension between incrementalism and execution overhead is something that
 needs to be addressed in a postmodern build system by integrating into inner
 build systems.
+
+### Another solution to `execve` memoization: Persistent Worker
+
+It turns out that in the original version of this post, I didn't consider a secret third option, having been too focused on not trusting the compilers at all.
+There *is* a middle ground implemented [by Bazel][bazel-pw] and [by Buck2][buck2-pw]: the Persistent Worker.
+
+[bazel-pw]: https://bazel.build/remote/persistent
+[buck2-pw]: https://buck2.build/docs/prelude/rules/core/worker_tool/
+
+Persistent workers amortize the startup costs of the compilers so smaller incremental actions can be used, yielding good latency properties, without degrading hermeticity/reliability nearly as much as delegating incremental builds to the compiler.
+The way that persistent workers are designed is as batch compilation mode without the ability to read previous build products for a given target, *but* potentially reusing some very carefully chosen caches.
+That is, they are RPC servers that do the equivalent of `gcc -c` as an RPC rather than an `execve`.
+
+A server design allows hermetic build system designs without build identity to be able to have small and correct actions that run fast by eliminating the reason to need larger actions:
+- The actions can be small and incremental due to eliminating startup overhead (an RPC, *not* an `execve`)
+  - Latency to finish a unit of work is much better than larger actions
+  - Throughput is reduced relatively little compared to running larger actions
+  - With a careful caching design, the concept of "pre-compiled headers" or similar can be an implementation detail of the compiler server where common dependencies' deserialization may be reused across multiple actions
+- No previous action version needs to be picked as the actions *themselves* aren't incremental, so the need for build identity vanishes
+- The compiler is not passed the previous version of the file, so it can't reuse it and is unlikely to have incremental bugs
+
+Some examples of persistent workers include:
+- [Java][java-pw]
+- [Kotlin][kotlin-pw]
+- [GHC Haskell][ghc-pw]
+
+[java-pw]: https://blog.bazel.build/2015/12/10/java-workers.html
+[kotlin-pw]: https://github.com/bazelbuild/rules_kotlin
+[ghc-pw]: https://github.com/MercuryTechnologies/ghc-persistent-worker
+
+Some related talks of interest:
+- [libuild] for Clang/LLVM: not for Bazels, but discusses how a more clever non-batch-mode compiler could go *much* faster at C++
+- [Stop Building Dead Programs]: an indictment of the practice of building batch systems in the modern era
+
+[libuild]: https://www.youtube.com/watch?v=b_T-eCToX1I
+[Stop Building Dead Programs]: https://www.youtube.com/watch?v=8Ab3ArE8W3s
+
+
+## Buck2 and Bazel
+
+I would be remiss in the year 2025 to not mention the elephants in the room, the bazels: Rust Bazel (Facebook's [Buck2]), Go Bazel (a UK bank service provider's [Please]), and Java Bazel (Google's [Bazel]).
+Aside from the evident missing piece of the puzzle, Haskell Bazel (this is a joke), all three of these have very similar surface languages used by developers and all have relatively similar execution models.
+
+Their evaluation/build models tend to look something like:
+1. Produce an unconfigured target graph out of `BUILD` files which specify dependencies between targets.
+2. Resolve the platform to be built on/for: choose a platform to build for and resolve `select()` statements that implement late-bound changes (e.g. depending on `libuuid` on Linux and nothing (libc) on macOS).
+3. Run rule bodies which amount to a visitor pattern or writer monad to produce an *action graph* of commands to execute to run the build.
+
+This has serious benefits to understandability and queryability: targets *do* have identity insofar as they have a name so they can be tracked over time.
+This target graph is a coarse-grained graph that is very fast to compute and which doesn't lose much information out of the build files.
+Thus there's rich support for `buck query` which can answer questions like reverse dependencies of a given target within milliseconds on medium-sized proprietary codebases.
+Though *targets* have identity, the build system *doesn't* give any preference to any particular *version* of the codebase and thus has a similar caching model as Nix.
+
+Nix, by comparison, only has an action graph: `nix derivation show` will show you a bunch of Bash, but if you want to find out what Nix file that Bash came from, you're largely out of luck.
+There are design changes in discussion about what could be done about that in Lix, but they're far from implemented in production today.
+
+Bazel and Buck2 (and likely others) implement the "Beta Build System" graph design mentioned in the [Tup paper][tup-paper], rather than the "Alpha Build System" like Make.
+This means that they rely on a file watcher to determine which files have changed and thus can ignore the vast majority of the code in the repo which is both cold and unrelated to what the user is doing, since they can traverse the graph to invalidate reverse dependencies of what the user changed, without having to look at other parts of it.
+This gives very fast interactive performance, especially for the case where the build files weren't touched so the entire analysis phase can be skipped and the actions executed directly.
+
+Another interesting concept in the Tup paper is the three rules: 1. Scalability, 2. Correctness and 3. Usability.
+- The first means build systems must not grow linearly in evaluation time as projects grow (Nix fails this without being driven by an external system at evaluation time, violating *Usability*).
+- The second means that you can check out a new version from Git and it will have a correct result (Nix gets this right, every non-hermetic build system in existence fails this with respect to system packages).
+- The third means that no matter which mutations happen to the source tree, there is one build command that will do the right thing; that is, the build is not modal/stateful from the perspective of the user (Nix gets this right \[by itself, at least; dev shells are a problem\], *every single-language build system* fails this in a multi-language project).
+
+A post-modern build system *should* satisfy all three.
+
+[tup-paper]: https://gittup.org/tup/build_system_rules_and_algorithms.pdf
+
+All of these build systems [and some more][more-rbe] implement the same [Remote Build Execution][RBE] protocol as Bazel.
+This means that the exact same vendors can be used for executing builds on any of these systems, and, if they implemented [Build Event Protocol][BES], they could also use the same log analytics systems as Bazel.
+
+Bazel is an Applicative build system with a static build graph and pretty strong restrictions on how builds can be structured.
+Buck2 is ... *more complicated*, but effectively is close to being a monadic Bazel-like build system (!).
+
+What Buck2 has, namely, [dynamic dependencies][buck2-dyndeps] is somewhere in between Nix's Dynamic Derivations and Import-from-Derivation.
+Buck2 always has an evaluator driving the build (including if it's remote execution), in the form of the Buck2 daemon, in a similar manner as Nix's IFD.
+However, it has the largely static *target* graph like is produced by Dynamic Derivations, where the nodes that use dynamic dependencies are statically known at construction time, and my understanding is that it forms placeholders that are then evaluated at some later point in the build graph.
+
+[buck2-dyndeps]: https://buck2.build/docs/rule_authors/dynamic_dependencies/
+[BES]: https://bazel.build/remote/bep#build-event-service
+[more-rbe]: https://github.com/bazelbuild/remote-apis?tab=readme-ov-file#clients
+[RBE]: https://github.com/bazelbuild/remote-apis
+[Buck2]: https://buck2.build/
+[Please]: https://please.build/
+[Bazel]: https://bazel.build/
+
+### Integrating the Bazels with other systems
+
+As a distro packager, build systems like Bazel and Nix are an enormous nightmare to deal with because they don't compose well with "giving them dependencies from elsewhere".
+They all have very controlling personalities and want to control the entry point of the build as well as where dependencies come from.
+For a distro, that's non-negotiable: the entry point to package a given piece of software *has* to be the distro's build system lest packagers find themselves losing their minds with non-uniform ways to build packages (violating the *Usability* rule!).
+Integrating these hermetic build systems together is like writing a toxic yuri with characters that don't see eye to eye and all want to be the protagonist: you have to develop their enemies to lovers arc to have them want to kiss.
+
+Buck2 is at least pragmatic and thus more amenable to yuri, assuming it is driving the build itself: it's possible to have non-hermetic rules, and even ones which [don't delete the previous build before re-running it][incr-acts], provided that one accepts the risk from doing so.
+It doesn't, however, necessarily fix using Buck2 with anything else as the top-level build.
+
+[incr-acts]: https://buck2.build/docs/rule_authors/incremental_actions/
+
+Good integrations of Buck2 and Nix *are* possible with Buck2 driving the build: the Nix store protocol supports importing content-addressed paths with dependencies, despite this not being exposed anywhere but in the internals.
+Thus, it's possible to import artifacts from such build systems into Nix and then use them in Nix builds and do things like producing NixOS or Docker images out of them.
+That discussion is for another time.
+
+### A 2025 update on large scale Haskell builds
+
+In the aside above, I mention the various ultimately failed attempts to bolt incremental Haskell builds onto the side of Nix.
+The longer explanation of *why* Nix isn't workable is that it's *not* a good project build system and the codebase in question grew to the extent that incremental builds *across machines* within the project became a necessity.
+
+The attempts at making the build faster in Nix were generally about making CI faster, but wouldn't do anything about the build performance locally.
+Ultimately, the decision made was to switch approaches entirely and adopt Buck2.
+Here are a selection of talks related to the Mercury work on using Buck2 on a very large Haskell codebase:
+
+- ["Haskell Builds at Scale: Comparing Bazel and Buck2"][buck2-overview] by Andreas Herrmann: overview of the whole project from the build system perspective; why Bazel was infeasible; the use of monadic builds in Buck2 to eliminate false dependencies between the target dependency graph and the module dependency graph
+- ["Towards Dream Haskell Build Experience"][buck2-ian-dream] by Ian Kim: more Haskell/GHC focused view on the Buck2 build
+- ["Integrating Nix and Buck2 for fun and profit"][buck2-nix] by Claudio Bley: the dependencies side of the Buck2 Nix integration
+- ["Building Haskell with Buck2"][buck2-overview-2] by Andreas Herrmann: similar as the BazelCon talk by Andreas, slightly different content, focused on the Haskell side
+
+[buck2-overview]: https://www.youtube.com/watch?v=eA-3Gfr4epU
+[buck2-overview-2]: https://www.youtube.com/watch?v=bbFnrTAIK9Q
+[buck2-nix]: https://www.youtube.com/watch?v=pDkFk7iggIE
+[buck2-ian-dream]: https://www.youtube.com/watch?v=WrdXUYFnRv4
+
 
 ## [The Birth and Death of JavaScript][tbdojs]
 
